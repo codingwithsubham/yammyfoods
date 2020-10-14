@@ -1,0 +1,107 @@
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCart, addToCart, removeFromCart } from '../../actions/cart';
+import DummyCart from './DummyCart';
+
+const Cart = ({
+  cart: { cart_items, loading },
+  getCart,
+  addToCart,
+  removeFromCart
+}) => {
+  useEffect(() => {
+    getCart('001');
+  }, [getCart]);
+
+  let data = cart_items;
+  const unique = [...new Set(data.map(item => item.id))];
+
+  const addItems = product => {
+    const item = {
+      user: '001',
+      id: product.id,
+      name: product.name,
+      img: product.img,
+      price: product.price
+    };
+    addToCart(item);
+  };
+
+  const removeItems = product => {
+    let removeItem = {
+      user: '001',
+      id: product.id
+    };
+    removeFromCart(removeItem);
+  };
+
+  return loading ? (
+    <Fragment>
+      <DummyCart />
+      <DummyCart />
+    </Fragment>
+  ) : cart_items.length <= 0 ? (
+    <div className='cart-empty'>
+      <i className='material-icons'>remove_shopping_cart</i>
+      <h1> Your Bag is Empty</h1>
+    </div>
+  ) : (
+    unique && (
+      <Fragment>
+        <h1>What's in your Bag ?</h1>
+        {unique.map((uniqueItem, idx) => (
+          <div className='cart-row' key={idx}>
+            <img
+              alt=''
+              src={cart_items.filter(x => x.id === uniqueItem)[0].img}
+              className='cart-item img'
+            />
+            <div className='cart-item name'>
+              {cart_items.filter(x => x.id === uniqueItem)[0].name}
+              <br />
+              Rs. {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
+            </div>
+            <div className='qty-group'>
+              <button
+                className='btn'
+                onClick={() =>
+                  removeItems(cart_items.filter(x => x.id === uniqueItem)[0])
+                }
+              >
+                -
+              </button>
+              <span>{cart_items.filter(x => x.id === uniqueItem).length}</span>
+              <button
+                className='btn'
+                onClick={() =>
+                  addItems(cart_items.filter(x => x.id === uniqueItem)[0])
+                }
+              >
+                +
+              </button>
+            </div>
+          </div>
+        ))}
+        <button className='btn cart-final'>Proceed</button>
+      </Fragment>
+    )
+  );
+};
+
+Cart.propTypes = {
+  getCart: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+  cart: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  cart: state.cart
+});
+
+export default connect(mapStateToProps, {
+  getCart,
+  addToCart,
+  removeFromCart
+})(Cart);
