@@ -10,14 +10,6 @@ export default function(state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_LOADING_TRUE:
-      return {
-        ...state,
-        loading: true,
-        category: null,
-        categories: []
-      };
-
     case GET_FOOD_HUBS:
       return {
         ...state,
