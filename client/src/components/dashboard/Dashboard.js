@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import LatestProductSlider from './LatestProductSlider';
 import CategorySlider from './CategorySlider';
 import LatestProducts from '../all_products/LatestProducts';
+import HubsSlider from '../dashboard/HubsSlider';
 
 const Dashboard = () => {
   return (
@@ -15,6 +16,10 @@ const Dashboard = () => {
         New Arrivals <span>View All</span>
       </div>
       <LatestProducts />
+      <div className='header'>
+        Hubs Near You <span>View All</span>
+        <HubsSlider />
+      </div>
     </Fragment>
   );
 };

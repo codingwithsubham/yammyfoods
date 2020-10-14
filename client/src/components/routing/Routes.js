@@ -12,15 +12,17 @@ import ScrollToTop from '../../ScrollToTop';
 const Routes = () => {
   return (
     <section className='container'>
-      <Alert />
-      <ScrollToTop />
-      <Switch>
-        <Route exact path='/' component={Dashboard} />
-        <Route exact path='/food-hubs' component={FoodHubs} />
-        <Route exact path='/cart' component={Cart} />
-        <Route exact path='/product/:id' component={ProductDetails} />
-        <Route component={NotFound} />
-      </Switch>
+      <div className='main-content'>
+        <Alert />
+        <ScrollToTop />
+        <Switch>
+          <Route exact path='/' component={Dashboard} />
+          <Route exact path='/food-hubs' component={FoodHubs} />
+          <Route exact path='/cart' component={Cart} />
+          <Route exact path='/product/:id' component={ProductDetails} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     </section>
   );
 };

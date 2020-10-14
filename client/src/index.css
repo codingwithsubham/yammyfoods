@@ -18,7 +18,18 @@ code {
     opacity: 0;
   }
   to {
-    bottom: 70px;
+    bottom: 100px;
+    opacity: 1;
+  }
+}
+
+@keyframes slide {
+  from {
+    left: -100px;
+    opacity: 0;
+  }
+  to {
+    left: 0px;
     opacity: 1;
   }
 }

@@ -9,7 +9,7 @@ const SingleProductDummy = () => {
         <div className='product-bio'>
           <div className='product-name dummy'></div>
           <div className='product-from dummy'></div>
-          <div className='product-from rest-card dummy'></div>
+          <div className='rest-card dummy'></div>
         </div>
       </div>
     </Fragment>

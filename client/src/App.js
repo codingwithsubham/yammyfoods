@@ -8,15 +8,13 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Routes from './components/routing/Routes';
 import { Provider } from 'react-redux';
 import store from './store';
-//import { loadUser } from './actions/auth';
-//import Login from './components/auth/Login';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
 import './index.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Navbar from './components/layout/Navbar';
+import Sidebar from './components/layout/Sidebar';
 import BottomBar from './components/layout/BottomBar';
-import Sidebar from 'react-sidebar';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -40,39 +38,21 @@ const App = () => {
   //   store.dispatch(loadUser());
   // }, []);
   const [width] = useWindowSize();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const onSetSidebarOpen = e => {
-    setSidebarOpen(e);
-  };
 
   return (
     <Provider store={store}>
       <Router>
         <Fragment>
           {width <= 768 ? (
-            <Switch>
-              <Sidebar
-                sidebar={<b>Sidebar content</b>}
-                open={sidebarOpen}
-                onSetOpen={onSetSidebarOpen}
-                styles={{
-                  sidebar: { background: 'white', zIndex: 99999, width: '70%' }
-                }}
-              >
-                <Navbar />
-                <i
-                  className='material-icons menu-button'
-                  onClick={() => onSetSidebarOpen(true)}
-                >
-                  menu
-                </i>
-                <div className='main-content'>
-                  {/* <Route exact path='/' component={Dashboard} /> */}
-                  <Route component={Routes} />
-                </div>
-                <BottomBar />
-              </Sidebar>
-            </Switch>
+            <Fragment>
+              <Navbar />
+              <Sidebar />
+              <Switch>
+                {/* <Route exact path='/' component={Dashboard} /> */}
+                <Route component={Routes} />
+              </Switch>
+              <BottomBar />
+            </Fragment>
           ) : (
             <div>Device Unsupported</div>
           )}

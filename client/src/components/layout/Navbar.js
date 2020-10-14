@@ -3,17 +3,35 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCart } from '../../actions/cart';
 import { Link } from 'react-router-dom';
+import { openSidebar } from '../../actions/sidebar';
 
-const Navbar = ({ cart: { cart_items }, getCart }) => {
+const Navbar = ({
+  cart: { cart_items },
+  getCart,
+  openSidebar,
+  sidebar: { open }
+}) => {
   useEffect(() => {
     getCart('001');
   }, [getCart]);
+
+  const sidebarStyle = document.getElementById('sidebar');
+  if (sidebarStyle) {
+    if (open) {
+      sidebarStyle.style.display = 'block';
+    } else {
+      sidebarStyle.style.display = 'none';
+    }
+  }
 
   return (
     cart_items && (
       <Fragment>
         <nav>
           <div className='nav-upper'>
+            <div className='nav-icon' onClick={openSidebar}>
+              <i className='material-icons'>menu</i>
+            </div>
             <div className='logo'>
               <img alt='' src={require('../../static/logo.png')} />
             </div>
@@ -38,12 +56,16 @@ const Navbar = ({ cart: { cart_items }, getCart }) => {
 };
 
 Navbar.propTypes = {
-  getCart: PropTypes.func.isRequired
+  getCart: PropTypes.func.isRequired,
+  openSidebar: PropTypes.func.isRequired,
+  sidebar: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart,
+  sidebar: state.sidebar
 });
 
 export default connect(mapStateToProps, {
+  openSidebar,
   getCart
 })(Navbar);

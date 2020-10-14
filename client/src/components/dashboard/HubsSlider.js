@@ -3,25 +3,26 @@ import PropTypes from 'prop-types';
 import { getFoodHubs } from '../../actions/category';
 import { connect } from 'react-redux';
 
-const FoodHubs = ({ getFoodHubs, category: { categories } }) => {
+const HubsSlider = ({ getFoodHubs, category: { categories } }) => {
   useEffect(() => {
     getFoodHubs();
   }, [getFoodHubs]);
   console.log(categories);
 
   return (
-    <Fragment>
-      <h1>food hub</h1>
-      <div className='all-hubs'>
-        {categories.map(item => (
-          <img key={item.id} alt='' src={item.image && item.image.src} />
-        ))}
-      </div>
-    </Fragment>
+    categories && (
+      <Fragment>
+        <div className='hubs-container'>
+          {categories.map(item => (
+            <img key={item.id} alt='' src={item.image && item.image.src} />
+          ))}
+        </div>
+      </Fragment>
+    )
   );
 };
 
-FoodHubs.propTypes = {
+HubsSlider.propTypes = {
   getFoodHubs: PropTypes.func.isRequired
 };
 
@@ -31,4 +32,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   getFoodHubs
-})(FoodHubs);
+})(HubsSlider);

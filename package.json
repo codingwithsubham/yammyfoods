@@ -22,7 +22,6 @@
     "express-validator": "^6.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.14",
-    "react-sidebar": "^3.0.2",
     "request": "^2.88.0",
     "wpapi": "^1.2.1"
   },
