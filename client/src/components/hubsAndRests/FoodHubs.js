@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { getFoodHubs } from '../../actions/category';
 import { connect } from 'react-redux';
@@ -6,9 +6,18 @@ import { Link } from 'react-router-dom';
 import DummyHub from './DummyHub';
 
 const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
+  let foodHubs = [
+    ...(categories && categories.filter(x => x.parent == 0 && x.id !== 15))
+  ];
+  const getHubs = () => {
+    foodHubs =
+      categories && categories.filter(x => x.parent == 0 && x.id !== 15);
+  };
+
   useEffect(() => {
+    getHubs();
     getFoodHubs();
-  }, [getFoodHubs]);
+  }, [getHubs, getFoodHubs]);
 
   return loading ? (
     <Fragment>
@@ -16,15 +25,17 @@ const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
       <DummyHub />
     </Fragment>
   ) : (
-    <Fragment>
-      <div className='all-hubs'>
-        {categories.map(item => (
-          <Link key={item.id} to={`/food-hub/${item.id}`}>
-            <img alt='' src={item.image && item.image.src} />
-          </Link>
-        ))}
-      </div>
-    </Fragment>
+    foodHubs && (
+      <Fragment>
+        <div className='all-hubs'>
+          {foodHubs.map(item => (
+            <Link key={item.id} to={`/food-hub/${item.id}`}>
+              <img alt='' src={item.image && item.image.src} />
+            </Link>
+          ))}
+        </div>
+      </Fragment>
+    )
   );
 };
 

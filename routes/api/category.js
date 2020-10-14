@@ -17,9 +17,7 @@ router.get('/foodshubs', async (req, res) => {
     WooCommerce.get('products/categories?per_page=100')
       .then(response => {
         categories = response.data;
-        res.json(
-          categories && categories.filter(x => x.parent == 0 && x.id !== 15)
-        );
+        res.json(categories);
       })
       .catch(error => {
         console.log(error.response.data);

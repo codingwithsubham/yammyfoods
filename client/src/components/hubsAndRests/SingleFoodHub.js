@@ -1,19 +1,28 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getFoodHubsById } from '../../actions/category';
+import { getFoodHubs } from '../../actions/category';
 import { connect } from 'react-redux';
 import DummyHub from './DummyHub';
 
 const SingleFoodHub = ({
-  getFoodHubsById,
+  getFoodHubs,
   category: { categories, loading },
   match
 }) => {
+  let restros = [
+    ...categories.filter(x => x.parent == match.params.id && x.id !== 15)
+  ];
+  const getRestros = () => {
+    restros = categories.filter(
+      x => x.parent == match.params.id && x.id !== 15
+    );
+  };
   useEffect(() => {
-    getFoodHubsById(match.params.id);
-  }, [getFoodHubsById, match.params.id]);
+    getFoodHubs();
+    getRestros();
+  }, [getRestros, getFoodHubs]);
 
-  let data = categories;
+  let data = restros;
   const unique = [...new Set(data.map(item => item.description))];
 
   return loading ? (
@@ -24,13 +33,13 @@ const SingleFoodHub = ({
       <DummyHub />
     </Fragment>
   ) : (
-    unique && categories && (
+    unique && restros && (
       <Fragment>
         <div className='all-hubs'>
           {unique.map((tag, idx) => (
             <Fragment key={idx}>
               <div className='header'>{tag}</div>
-              {categories
+              {restros
                 .filter(x => x.description == tag)
                 .map(item => (
                   <img
@@ -48,7 +57,7 @@ const SingleFoodHub = ({
 };
 
 SingleFoodHub.propTypes = {
-  getFoodHubsById: PropTypes.func.isRequired
+  getFoodHubs: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -56,5 +65,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getFoodHubsById
+  getFoodHubs
 })(SingleFoodHub);
