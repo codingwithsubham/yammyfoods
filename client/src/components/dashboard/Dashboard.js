@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import LatestProductSlider from './LatestProductSlider';
 import CategorySlider from './CategorySlider';
 import LatestProducts from '../all_products/LatestProducts';
@@ -6,7 +6,7 @@ import HubsSlider from '../dashboard/HubsSlider';
 
 const Dashboard = () => {
   return (
-    <Fragment>
+    <div className='dashboard'>
       <LatestProductSlider />
       <div className='header'>
         Find By Category <span>View All</span>
@@ -20,7 +20,7 @@ const Dashboard = () => {
         Hubs Near You <span>View All</span>
         <HubsSlider />
       </div>
-    </Fragment>
+    </div>
   );
 };
 
