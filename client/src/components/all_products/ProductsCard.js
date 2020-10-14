@@ -76,7 +76,7 @@ const ProductsCard = ({
             </div>
           ) : (
             <button className='qty-group btn' onClick={() => addItems()}>
-              Add To Bag +
+              Add To Bag
             </button>
           )}
         </div>

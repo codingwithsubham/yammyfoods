@@ -2,19 +2,28 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { getFoodHubs } from '../../actions/category';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import DummyHub from '../hubsAndRests/DummyHub';
 
-const HubsSlider = ({ getFoodHubs, category: { categories } }) => {
+const HubsSlider = ({ getFoodHubs, category: { categories, loading } }) => {
   useEffect(() => {
     getFoodHubs();
   }, [getFoodHubs]);
-  console.log(categories);
 
-  return (
+  return loading ? (
+    <div className='hubs-container'>
+      <DummyHub />
+      <DummyHub />
+      <DummyHub />
+    </div>
+  ) : (
     categories && (
       <Fragment>
         <div className='hubs-container'>
           {categories.map(item => (
-            <img key={item.id} alt='' src={item.image && item.image.src} />
+            <Link key={item.id} to={`/food-hub/${item.id}`}>
+              <img alt='' src={item.image && item.image.src} />
+            </Link>
           ))}
         </div>
       </Fragment>

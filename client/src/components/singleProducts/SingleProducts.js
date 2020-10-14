@@ -16,7 +16,6 @@ const SingleProducts = ({
 }) => {
   useEffect(() => {
     getProductById(match.params.id);
-    window.scrollTo(0, 0);
   }, [getProductById, match.params.id]);
 
   const addItems = () => {
@@ -86,7 +85,7 @@ const SingleProducts = ({
           ) : (
             <div className='qty-group'>
               <button className='btn' onClick={() => addItems()}>
-                Add to Bag +
+                Add to Bag
               </button>
             </div>
           )}

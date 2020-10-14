@@ -17,7 +17,9 @@ router.get('/foodshubs', async (req, res) => {
     WooCommerce.get('products/categories?per_page=100')
       .then(response => {
         categories = response.data;
-        res.json(categories && categories.filter(x => x.parent == 0));
+        res.json(
+          categories && categories.filter(x => x.parent == 0 && x.id !== 15)
+        );
       })
       .catch(error => {
         console.log(error.response.data);
@@ -25,14 +27,17 @@ router.get('/foodshubs', async (req, res) => {
   }
 });
 
-// @route   get products by ID
-router.get('/:id', async (req, res) => {
-  let product;
-  if (!product) {
-    WooCommerce.get(`products/${req.params.id}`)
+// @route   get child Categories by ID
+router.get('/foodshubs/:id', async (req, res) => {
+  let categories;
+  if (!categories) {
+    WooCommerce.get(`products/categories?per_page=100`)
       .then(response => {
-        product = response.data;
-        res.json(product);
+        categories = response.data;
+        res.json(
+          categories &&
+            categories.filter(x => x.parent == req.params.id && x.id !== 15)
+        );
       })
       .catch(error => {
         console.log(error.response.data);

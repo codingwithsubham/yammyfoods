@@ -14,7 +14,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        category: null
+        category: null,
+        categories: []
       };
 
     case GET_FOOD_HUBS:
