@@ -24,11 +24,26 @@ const Navbar = ({
     }
   }
 
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 80 ||
+      document.documentElement.scrollTop > 80
+    ) {
+      document.getElementById('nav-upper').style.display = 'none';
+      document.getElementById('nav-search').style.paddingTop = '12px';
+    } else {
+      document.getElementById('nav-upper').style.display = 'flex';
+      document.getElementById('nav-search').style.paddingTop = '0px';
+    }
+  }
+  window.onscroll = function() {
+    scrollFunction();
+  };
   return (
     cart_items && (
       <Fragment>
         <nav>
-          <div className='nav-upper'>
+          <div id='nav-upper' className='nav-upper'>
             <div className='nav-icon' onClick={openSidebar}>
               <i className='material-icons'>menu</i>
             </div>
@@ -39,7 +54,7 @@ const Navbar = ({
               Ghatal <i className='material-icons'>keyboard_arrow_down</i>
             </div>
           </div>
-          <div className='nav-search'>
+          <div id='nav-search' className='nav-search'>
             <div className='input-wrapper-search'>
               <i className='material-icons'>search</i>
               <input type='text' placeholder='Find Foods ...' />
