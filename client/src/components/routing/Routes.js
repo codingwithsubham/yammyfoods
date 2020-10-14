@@ -7,11 +7,13 @@ import FoodHubs from '../hubsAndRests/FoodHubs';
 import NotFound from '../layout/NotFound';
 import Alert from '../layout/Alert';
 import Cart from '../cartAndChekout/Cart';
+import ScrollToTop from '../../ScrollToTop';
 
 const Routes = () => {
   return (
     <section className='container'>
       <Alert />
+      <ScrollToTop />
       <Switch>
         <Route exact path='/' component={Dashboard} />
         <Route exact path='/food-hubs' component={FoodHubs} />

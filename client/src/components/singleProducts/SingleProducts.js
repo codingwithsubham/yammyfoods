@@ -16,6 +16,7 @@ const SingleProducts = ({
 }) => {
   useEffect(() => {
     getProductById(match.params.id);
+    window.scrollTo(0, 0);
   }, [getProductById, match.params.id]);
 
   const addItems = () => {

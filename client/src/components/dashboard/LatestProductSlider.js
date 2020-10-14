@@ -12,6 +12,8 @@ const LatestProductSlider = ({
     getLatestproducts();
   }, [getLatestproducts]);
 
+  let slider = [1, 2, 3, 4, 5];
+
   return (
     products &&
     (loading ? (
@@ -19,24 +21,12 @@ const LatestProductSlider = ({
     ) : (
       <Fragment>
         <Carousel autoPlay>
-          {products.map((product, idx) => (
-            <div key={idx}>
-              <img
-                alt=''
-                src={
-                  product.images && product.images[0] && product.images[0].src
-                }
-              />
-              <div className='product-bio legend'>
-                <div className='product-name'>{product && product.name}</div>
-                <div className='product-price'>
-                  Rs. {product && product.price}/-
-                </div>
-                <div className='product-from'>
-                  {product && product.categories && product.categories[0].name}
-                </div>
-              </div>
-            </div>
+          {slider.map((item, idx) => (
+            <img
+              key={idx}
+              alt=''
+              src={`https://order.yammyfoods.in/wp-content/uploads/2020/10/bb${item}.jpg`}
+            />
           ))}
         </Carousel>
       </Fragment>
