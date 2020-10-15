@@ -36,11 +36,9 @@ code {
 
 @keyframes animatemain {
   from {
-    bottom: -300px;
     opacity: 0;
   }
   to {
-    bottom: 0px;
     opacity: 1;
   }
 }

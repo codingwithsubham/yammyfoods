@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_FOOD_HUBS, SET_LOADING_TRUE } from './types';
+import { GET_FOOD_HUBS } from './types';
 const { API_CONFIG } = require('../common/constants');
 
 // Get Food Hubs

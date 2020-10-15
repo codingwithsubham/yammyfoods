@@ -13,13 +13,13 @@ const Dashboard = () => {
       </div>
       <CategorySlider />
       <div className='header'>
-        New Arrivals <span>View All</span>
-      </div>
-      <LatestProducts />
-      <div className='header'>
         Hubs Near You <span>View All</span>
         <HubsSlider />
       </div>
+      <div className='header'>
+        New Arrivals <span>View All</span>
+      </div>
+      <LatestProducts />
     </div>
   );
 };

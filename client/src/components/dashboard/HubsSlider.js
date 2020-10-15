@@ -22,8 +22,6 @@ const HubsSlider = ({ getFoodHubs, category: { categories, loading } }) => {
   return loading ? (
     <div className='hubs-container'>
       <DummyHub />
-      <DummyHub />
-      <DummyHub />
     </div>
   ) : (
     categories && (

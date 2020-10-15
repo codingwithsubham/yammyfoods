@@ -27,7 +27,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: #ffcc00ff;
+    background: #ffffff;
     z-index: 100;
   }
   .menu-button {
@@ -645,10 +645,75 @@
   }
 
   .all-hubs .header {
-    background: #673ab7;
+    background: #ec2617;
     padding: 10px;
     text-align: center;
     border-radius: 4px;
     color: #fff;
+  }
+
+  .hover-menu-content {
+    max-width: 60%;
+    position: fixed;
+    bottom: 140px;
+    left: 20%;
+    z-index: 99999;
+    min-width: 60%;
+    display: none;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    transition: display 0.5s;
+    border-radius: 4px;
+    height: 40%;
+    overflow-y: scroll;
+  }
+
+  .hoverbtn {
+    background: #2196f3;
+    position: fixed;
+    bottom: 80px;
+    left: 25%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 0px #0000006b;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    width: 50%;
+  }
+
+  .sort-rests {
+    padding: 30px 0px;
+  }
+
+  .hover-menu {
+    position: relative;
+    display: inline-block;
+  }
+
+  .hover-menu-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .hover-menu-content p:hover {
+    background-color: #ddd;
+  }
+
+  .hover-menu:hover .dropbtn {
+    background-color: #3e8e41;
+  }
+
+  .overlay {
+    height: 100vh;
+    width: 100%;
+    background: #13121278;
+    z-index: 99;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    display: none;
   }
 }

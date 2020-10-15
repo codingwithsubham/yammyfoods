@@ -24,21 +24,20 @@ const Navbar = ({
     }
   }
 
-  function scrollFunction() {
-    if (
-      document.body.scrollTop > 80 ||
-      document.documentElement.scrollTop > 80
-    ) {
-      document.getElementById('nav-upper').style.display = 'none';
-      document.getElementById('nav-search').style.paddingTop = '12px';
-    } else {
+  let prevScrollpos = window.pageYOffset;
+
+  window.onscroll = function() {
+    let currentScrollPos = window.pageYOffset;
+    if (prevScrollpos > currentScrollPos) {
       document.getElementById('nav-upper').style.display = 'flex';
       document.getElementById('nav-search').style.paddingTop = '0px';
+    } else {
+      document.getElementById('nav-upper').style.display = 'none';
+      document.getElementById('nav-search').style.paddingTop = '12px';
     }
-  }
-  window.onscroll = function() {
-    scrollFunction();
+    prevScrollpos = currentScrollPos;
   };
+
   return (
     cart_items && (
       <Fragment>
