@@ -13,12 +13,6 @@
     position: relative;
   }
 
-  .dashboard {
-    position: relative;
-    animation: animatemain;
-    animation-duration: 0.6s;
-  }
-
   nav {
     width: 100%;
     box-shadow: 0px 0px 5px 0px #ddd;
@@ -598,8 +592,6 @@
 
   .all-hubs {
     position: relative;
-    animation: animatemain;
-    animation-duration: 0.3s;
   }
 
   .all-hubs img {
