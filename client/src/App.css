@@ -645,11 +645,11 @@
   }
 
   .all-hubs .header {
-    background: #ec2617;
+    background: #ffcc00a8;
     padding: 10px;
     text-align: center;
     border-radius: 4px;
-    color: #fff;
+    color: #000;
   }
 
   .hover-menu-content {
@@ -669,7 +669,7 @@
   }
 
   .hoverbtn {
-    background: #2196f3;
+    background: #f44336;
     position: fixed;
     bottom: 80px;
     left: 25%;
