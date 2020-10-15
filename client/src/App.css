@@ -11,14 +11,12 @@
   .main-content {
     padding: 110px 5px 70px;
     position: relative;
-    animation: animatemain;
-    animation-duration: 0.4s;
   }
 
   .dashboard {
     position: relative;
     animation: animatemain;
-    animation-duration: 0.3s;
+    animation-duration: 0.6s;
   }
 
   nav {
@@ -664,7 +662,7 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     transition: display 0.5s;
     border-radius: 4px;
-    height: 40%;
+    max-height: 40%;
     overflow-y: scroll;
   }
 
@@ -715,5 +713,100 @@
     bottom: 0;
     left: 0;
     display: none;
+  }
+
+  .restro-header {
+    height: 200px;
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 80px;
+  }
+
+  .restro-desc {
+    position: absolute;
+    padding: 11px 10px;
+    width: 65%;
+    background: #fff;
+    top: 250px;
+    left: 22px;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px 0px #2f2f2f;
+  }
+
+  .rest-name {
+    font-size: 16px;
+    font-weight: 700;
+    margin: 5px 0px;
+  }
+
+  .rest-cat {
+    background: #3f51b5;
+    width: max-content;
+    padding: 2px 10px;
+    border-radius: 4px;
+    color: #fff;
+    margin: 0px 0px 2px;
+  }
+
+  .prdcts-rest {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin: 10px 0px;
+    border-bottom: 1px solid #ddd;
+    padding: 0px 0px 10px;
+  }
+
+  .prdcts-rest img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .product-rest-price {
+    float: right;
+    background: rebeccapurple;
+    color: #fff;
+    padding: 2px 10px;
+    border-radius: 4px;
+    height: 25px;
+  }
+
+  .product-container p {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .icon-rest-menu {
+    font-size: 15px;
+    position: relative;
+    top: 1px;
+    right: 10px;
+  }
+
+  .proce-buttons {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+  }
+
+  .proce-buttons {
+    display: flex;
+    column-gap: 20px;
+    align-items: center;
+    width: 96%;
+    justify-content: space-between;
+  }
+
+  .proce-buttons .qty-group.btn {
+    float: right;
+    position: relative;
+  }
+
+  .product-rest-info {
+    width: -webkit-fill-available;
   }
 }

@@ -19,6 +19,7 @@ const SingleFoodHub = ({
       x => x.parent == match.params.id && x.id !== 15
     );
   };
+
   useEffect(() => {
     getFoodHubs();
     getRestros();
@@ -72,12 +73,13 @@ const SingleFoodHub = ({
               {restros
                 .filter(x => x.description == tag)
                 .map(item => (
-                  <img
-                    className='content'
-                    key={item.id}
-                    alt=''
-                    src={item.image && item.image.src}
-                  />
+                  <Link key={item.id} to={`/restro/${item.id}`}>
+                    <img
+                      className='content'
+                      alt=''
+                      src={item.image && item.image.src}
+                    />
+                  </Link>
                 ))}
             </Fragment>
           ))}
