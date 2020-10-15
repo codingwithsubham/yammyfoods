@@ -30,7 +30,16 @@ const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
         <div className='all-hubs'>
           {foodHubs.map(item => (
             <Link key={item.id} to={`/food-hub/${item.id}`}>
-              <img alt='' src={item.image && item.image.src} />
+              <img
+                alt=''
+                src={
+                  item.image &&
+                  item.image.src.replace(
+                    'order.yammyfoods.in',
+                    'order.b-cdn.net'
+                  )
+                }
+              />
             </Link>
           ))}
         </div>

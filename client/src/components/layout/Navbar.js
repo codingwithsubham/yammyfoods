@@ -47,7 +47,9 @@ const Navbar = ({
               <i className='material-icons'>menu</i>
             </div>
             <div className='logo'>
-              <img alt='' src={require('../../static/logo.png')} />
+              <Link to='/'>
+                <img alt='' src={require('../../static/logo.png')} />
+              </Link>
             </div>
             <div className='location'>
               Ghatal <i className='material-icons'>keyboard_arrow_down</i>

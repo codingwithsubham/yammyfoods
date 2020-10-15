@@ -77,7 +77,13 @@ const SingleFoodHub = ({
                     <img
                       className='content'
                       alt=''
-                      src={item.image && item.image.src}
+                      src={
+                        item.image &&
+                        item.image.src.replace(
+                          'order.yammyfoods.in',
+                          'order.b-cdn.net'
+                        )
+                      }
                     />
                   </Link>
                 ))}

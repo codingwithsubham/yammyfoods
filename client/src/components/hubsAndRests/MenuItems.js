@@ -43,7 +43,14 @@ const MenuItems = ({
         <div className='prdcts-rest'>
           <img
             alt=''
-            src={product.images && product.images[0] && product.images[0].src}
+            src={
+              product.images &&
+              product.images[0] &&
+              product.images[0].src.replace(
+                'order.yammyfoods.in',
+                'order.b-cdn.net'
+              )
+            }
           />
           <div className='product-rest-info'>
             <div className='product-rest-bio'>
