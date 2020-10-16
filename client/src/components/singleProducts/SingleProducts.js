@@ -52,14 +52,7 @@ const SingleProducts = ({
         <img
           className='product-img'
           alt=''
-          src={
-            product.images &&
-            product.images[0] &&
-            product.images[0].src.replace(
-              'order.yammyfoods.in',
-              'order.b-cdn.net'
-            )
-          }
+          src={product.images && product.images[0] && product.images[0].src}
         />
         <div className='product-price'>Rs. {product && product.price}/-</div>
         <div className='product-bio'>
