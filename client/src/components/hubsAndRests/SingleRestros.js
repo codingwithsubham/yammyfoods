@@ -74,7 +74,8 @@ const SingleRestros = ({
         <div
           className='restro-header'
           style={{
-            backgroundImage: `url('${products[0].images &&
+            backgroundImage: `url('${products &&
+              products[0].images &&
               products[0].images[0] &&
               products[0].images[0].src}')`
           }}
