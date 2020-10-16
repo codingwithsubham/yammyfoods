@@ -7,9 +7,15 @@ const Alert = ({ alerts }) =>
   alerts.length > 0 &&
   alerts.map(alert => (
     <div key={alert.id} className='alert-container'>
-      <div className='box-alert'>
-        <i className='fa fa-bell' /> {alert.msg}
-      </div>
+      {alert.alertType === 'success' ? (
+        <div className='box-alert' style={{ backgroundColor: 'green' }}>
+          <i className='fa fa-bell' /> {alert.msg}
+        </div>
+      ) : (
+        <div className='box-alert' style={{ backgroundColor: 'red' }}>
+          <i className='fa fa-bell' /> {alert.msg}
+        </div>
+      )}
     </div>
   ));
 

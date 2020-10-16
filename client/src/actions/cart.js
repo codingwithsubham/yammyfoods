@@ -25,7 +25,7 @@ export const removeFromCart = removeItem => async dispatch => {
       type: REMOVE_CART_ITEMS,
       payload: res.data
     });
-    dispatch(setAlert('Item Removed', 'success'));
+    dispatch(setAlert('Item Removed', 'danger'));
   } catch (err) {
     console.log(err);
   }

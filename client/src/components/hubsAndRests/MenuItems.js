@@ -52,6 +52,11 @@ const MenuItems = ({
               )
             }
           />
+          {product.stock_status === 'instock' ? (
+            <Fragment />
+          ) : (
+            <span className='out-of-stock'>Out Of Stock</span>
+          )}
           <div className='product-rest-info'>
             <div className='product-rest-bio'>
               <Link to={`/product/${product.id}`}>
@@ -74,7 +79,11 @@ const MenuItems = ({
               <div className='product-rest-price'>
                 Rs. {product && product.price}/-
               </div>
-              {qty > 0 ? (
+              {product.stock_status !== 'instock' ? (
+                <button className='qty-group btn' style={{ opacity: 0.4 }}>
+                  Add
+                </button>
+              ) : qty > 0 ? (
                 <div className='qty-group'>
                   <button className='btn' onClick={() => removeItems()}>
                     -

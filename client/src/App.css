@@ -10,7 +10,12 @@
 
   .main-content {
     padding: 110px 5px 70px;
+  }
+
+  .dashboard {
     position: relative;
+    animation-name: animatemain;
+    animation-duration: 0.4s;
   }
 
   nav {
@@ -56,6 +61,7 @@
   .logo img {
     width: 60%;
     margin-bottom: -10px;
+    background: #fff;
   }
 
   .nav-search {
@@ -118,6 +124,7 @@
     left: 0;
     width: 100%;
     box-shadow: 0px 0px 10px 0px #ddd;
+    z-index: 99999;
   }
 
   .bottom-bar ul {
@@ -429,7 +436,7 @@
     text-align: center;
     animation-name: animate;
     animation-duration: 0.5s;
-    bottom: 100px;
+    top: 10px;
   }
 
   img.product-img {
@@ -546,13 +553,14 @@
   }
 
   .cart-empty {
-    width: 100%;
-    top: 40%;
+    width: 97%;
     position: absolute;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    height: 70vh;
+    overflow: hidden;
   }
 
   .cart-empty h1 {
@@ -592,6 +600,8 @@
 
   .all-hubs {
     position: relative;
+    animation-name: animatemain;
+    animation-duration: 0.4s;
   }
 
   .all-hubs img {
@@ -647,7 +657,7 @@
   .hover-menu-content {
     max-width: 60%;
     position: fixed;
-    bottom: 140px;
+    bottom: 125px;
     left: 20%;
     z-index: 99999;
     min-width: 60%;
@@ -658,20 +668,26 @@
     border-radius: 4px;
     max-height: 40%;
     overflow-y: scroll;
+    animation-name: animationMenu;
+    animation-duration: 0.5s;
   }
 
   .hoverbtn {
-    background: #f44336;
+    background: #ffc107;
     position: fixed;
     bottom: 80px;
     left: 25%;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px 0px #0000006b;
-    color: white;
-    padding: 16px;
+    border-radius: 25px;
+    box-shadow: 0px 0px 15px 0px #000000f0;
+    color: black;
+    padding: 8px;
     font-size: 16px;
-    border: none;
+    border: 2px solid #fff;
     width: 50%;
+    font-weight: 500;
+    animation-name: animationMenuBtn;
+    animation-duration: 1s;
+    z-index: 999;
   }
 
   .sort-rests {
@@ -758,6 +774,7 @@
     height: 100px;
     object-fit: cover;
     margin-right: 10px;
+    background: #ddd;
   }
 
   .product-rest-price {
@@ -806,7 +823,11 @@
 
   .profile-area {
     margin: 10px 5px;
-    background: #ffeb3b;
+    background-image: linear-gradient(0deg, rgb(255 255 255 / 81%), #673ab791),
+      url('./static/bg.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -878,5 +899,25 @@
     text-align: center;
     font-size: 12px;
     font-weight: 500;
+  }
+
+  .single-restro-wrapper {
+    animation-name: animatemain;
+    animation-duration: 0.8s;
+  }
+
+  span.out-of-stock {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #00000096;
+    border-radius: 4px;
+    color: #ff0404;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99;
+    font-weight: 600;
+    font-size: 14px;
   }
 }

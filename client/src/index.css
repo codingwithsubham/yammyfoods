@@ -14,11 +14,11 @@ code {
 
 @keyframes animate {
   from {
-    bottom: -100px;
+    top: -100px;
     opacity: 0;
   }
   to {
-    bottom: 100px;
+    top: 10px;
     opacity: 1;
   }
 }
@@ -39,6 +39,35 @@ code {
     opacity: 0;
   }
   to {
+    opacity: 1;
+  }
+}
+
+img {
+  width: inherit;
+  border-radius: 5px;
+  background: #ddd;
+  min-width: 100px;
+}
+
+@keyframes animationMenu {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 125px;
+    opacity: 1;
+  }
+}
+
+@keyframes animationMenuBtn {
+  from {
+    bottom: -100px;
+    opacity: 0;
+  }
+  to {
+    bottom: 80px;
     opacity: 1;
   }
 }

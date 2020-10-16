@@ -27,11 +27,13 @@ const SingleRestros = ({
 
   const overallRating = () => {
     let rating = 0;
+    let devider = 0;
     products &&
       products.forEach(element => {
         rating = rating + parseFloat(element.average_rating);
+        devider++;
       });
-    return rating;
+    return rating / devider;
   };
 
   const scrollToId = name => {
@@ -68,64 +70,66 @@ const SingleRestros = ({
     </Fragment>
   ) : products && category ? (
     <Fragment>
-      <div
-        className='restro-header'
-        style={{
-          backgroundImage: `url('${products[0].images &&
-            products[0].images[0] &&
-            products[0].images[0].src}')`
-        }}
-      >
-        <div className='restro-desc'>
-          <div className='rest-cat'>{category.description}</div>
-          <div className='rest-name'>{category.name}</div>
-          <div className='rest-rat'>
-            <StarRatings
-              rating={overallRating()}
-              starRatedColor='#FFC107'
-              numberOfStars={5}
-              name='rating'
-              starDimension='20px'
-              starSpacing='2px'
-            />{' '}
-            {overallRating()} - Overall
+      <div className='single-restro-wrapper'>
+        <div
+          className='restro-header'
+          style={{
+            backgroundImage: `url('${products[0].images &&
+              products[0].images[0] &&
+              products[0].images[0].src}')`
+          }}
+        >
+          <div className='restro-desc'>
+            <div className='rest-cat'>{category.description}</div>
+            <div className='rest-name'>{category.name}</div>
+            <div className='rest-rat'>
+              <StarRatings
+                rating={overallRating()}
+                starRatedColor='#FFC107'
+                numberOfStars={5}
+                name='rating'
+                starDimension='20px'
+                starSpacing='2px'
+              />{' '}
+              {overallRating().toFixed(2)} - Overall
+            </div>
           </div>
         </div>
-      </div>
-      <div className='all-hubs'>
-        {unique.map((tag, idx) => (
-          <Fragment key={idx}>
-            <div id={tag} className='header'>
-              {tag}
-            </div>
-            {products
-              .filter(item => item.tags && item.tags[0].name == tag)
-              .map(item => (
-                <MenuItem key={item.id} product={item} />
-              ))}
-          </Fragment>
-        ))}
-      </div>
-      <div className='sort-rests'>
-        <div className='hover-menu'>
-          <button
-            className='hoverbtn'
-            onClick={() => showHide('hover-content')}
-          >
-            <i className='material-icons icon-rest-menu'>restaurant_menu</i>{' '}
-            Menu
-          </button>
-          <div
-            id='overlay'
-            onClick={() => showHide('hover-content')}
-            className='overlay'
-          ></div>
-          <div id='hover-content' className='hover-menu-content'>
-            {unique.map((tag, idx) => (
-              <p key={`${tag}${idx}`} onClick={() => scrollToId(tag)}>
+        <div className='all-hubs'>
+          {unique.map((tag, idx) => (
+            <Fragment key={idx}>
+              <div id={tag} className='header'>
                 {tag}
-              </p>
-            ))}
+              </div>
+              {products
+                .filter(item => item.tags && item.tags[0].name == tag)
+                .map(item => (
+                  <MenuItem key={item.id} product={item} />
+                ))}
+            </Fragment>
+          ))}
+        </div>
+        <div className='sort-rests'>
+          <div className='hover-menu'>
+            <button
+              className='hoverbtn'
+              onClick={() => showHide('hover-content')}
+            >
+              <i className='material-icons icon-rest-menu'>restaurant_menu</i>{' '}
+              Menu
+            </button>
+            <div
+              id='overlay'
+              onClick={() => showHide('hover-content')}
+              className='overlay'
+            ></div>
+            <div id='hover-content' className='hover-menu-content'>
+              {unique.map((tag, idx) => (
+                <p key={`${tag}${idx}`} onClick={() => scrollToId(tag)}>
+                  {tag}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>
