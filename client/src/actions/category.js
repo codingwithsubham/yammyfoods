@@ -17,8 +17,6 @@ export const getFoodHubs = () => async dispatch => {
       type: GET_FOOD_HUBS,
       payload: res.data
     });
-    let hubs = res.data;
-    hubs && hubs.map(x => getRestrosByFoodhub(x.id));
   } catch (err) {
     console.log(err);
   }
@@ -31,6 +29,7 @@ export const getRestrosByFoodhub = id => async dispatch => {
       `/api/category/foodshub/restros/${id}`,
       API_CONFIG
     );
+
     dispatch({
       type: GET_RESTROS,
       payload: {
