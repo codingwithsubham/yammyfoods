@@ -15,8 +15,13 @@ const SingleFoodHub = ({
     getRestrosByFoodhub(match.params.id);
   }, [getRestrosByFoodhub, match.params.id]);
 
-  let data = restros && restros;
-  const unique = [...new Set(data && data.map(item => item.description))];
+  let data = restros && restros.filter(x => x.foodHub == match.params.id);
+
+  let restroByHubs = data && data[0] && data[0].restros;
+
+  const unique = [
+    ...new Set(restroByHubs && restroByHubs.map(item => item.description))
+  ];
 
   const scrollToId = name => {
     scroller.scrollTo(name, {
@@ -44,7 +49,7 @@ const SingleFoodHub = ({
     }
   };
 
-  return loading || !restros ? (
+  return loading || !restroByHubs ? (
     <Fragment>
       <DummyHub />
       <DummyHub />
@@ -52,7 +57,7 @@ const SingleFoodHub = ({
       <DummyHub />
     </Fragment>
   ) : (
-    unique && restros && (
+    unique && restroByHubs && (
       <Fragment>
         <div className='all-hubs'>
           {unique.map((tag, idx) => (
@@ -60,7 +65,7 @@ const SingleFoodHub = ({
               <div id={tag} className='header'>
                 {tag}
               </div>
-              {restros
+              {restroByHubs
                 .filter(x => x.description == tag)
                 .map(item => (
                   <Link key={item.id} to={`/restro/${item.id}`}>

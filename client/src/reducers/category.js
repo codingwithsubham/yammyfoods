@@ -27,7 +27,10 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        restros: payload
+        restros: [
+          ...state.restros.filter(restro => restro.foodHub !== payload.foodHub),
+          payload
+        ]
       };
 
     case GET_RESTRO:
@@ -40,8 +43,7 @@ export default function(state = initialState, action) {
     case SET_LOADING_TRUE_CATEGORY:
       return {
         ...state,
-        loading: true,
-        restros: null
+        loading: true
       };
 
     default:

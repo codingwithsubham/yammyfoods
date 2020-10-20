@@ -34,7 +34,10 @@ export const getRestrosByFoodhub = id => async dispatch => {
     );
     dispatch({
       type: GET_RESTROS,
-      payload: res.data
+      payload: {
+        foodHub: id,
+        restros: res.data
+      }
     });
   } catch (err) {
     console.log(err);
