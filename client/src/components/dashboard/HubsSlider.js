@@ -8,16 +8,7 @@ import DummyHub from '../hubsAndRests/DummyHub';
 const HubsSlider = ({ getFoodHubs, category: { categories, loading } }) => {
   useEffect(() => {
     getFoodHubs();
-    getHubs();
   }, [getFoodHubs]);
-
-  let foodHubs = [
-    ...(categories && categories.filter(x => x.parent == 0 && x.id !== 15))
-  ];
-  const getHubs = () => {
-    foodHubs =
-      categories && categories.filter(x => x.parent == 0 && x.id !== 15);
-  };
 
   return loading ? (
     <div className='hubs-container'>
@@ -27,7 +18,7 @@ const HubsSlider = ({ getFoodHubs, category: { categories, loading } }) => {
     categories && (
       <Fragment>
         <div className='hubs-container'>
-          {foodHubs.map(item => (
+          {categories.map(item => (
             <Link key={item.id} to={`/food-hub/${item.id}`}>
               <img alt='' src={item.image && item.image.src} />
             </Link>

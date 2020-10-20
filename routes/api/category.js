@@ -10,11 +10,26 @@ const WooCommerce = new WooCommerceRestApi({
   version: 'wc/v3'
 });
 
-// @route   get products latest
+// @route   get parent categories
 router.get('/foodshubs', async (req, res) => {
   let categories;
   if (!categories) {
-    WooCommerce.get('products/categories?per_page=100')
+    WooCommerce.get('products/categories?parent=0&per_page=100')
+      .then(response => {
+        categories = response.data;
+        res.json(categories.filter(x => x.id !== 15));
+      })
+      .catch(error => {
+        console.log(error.response.data);
+      });
+  }
+});
+
+// @route   get child Categories by ID
+router.get('/foodshub/restros/:id', async (req, res) => {
+  let categories;
+  if (!categories) {
+    WooCommerce.get(`products/categories?parent=${req.params.id}&per_page=100`)
       .then(response => {
         categories = response.data;
         res.json(categories);
@@ -25,14 +40,29 @@ router.get('/foodshubs', async (req, res) => {
   }
 });
 
-// @route   get child Categories by ID
-router.get('/restros/:id', async (req, res) => {
-  let categories;
-  if (!categories) {
+// @route   get products by Categories by ID
+router.get('/products/restros/:id', async (req, res) => {
+  let products;
+  if (!products) {
     WooCommerce.get(`products?category=${req.params.id}&&per_page=100`)
       .then(response => {
-        categories = response.data;
-        res.json(categories);
+        products = response.data;
+        res.json(products);
+      })
+      .catch(error => {
+        console.log(error.response.data);
+      });
+  }
+});
+
+// @route   get products by Categories by ID
+router.get('/restro/:id', async (req, res) => {
+  let products;
+  if (!products) {
+    WooCommerce.get(`products/categories/${req.params.id}`)
+      .then(response => {
+        products = response.data;
+        res.json(products);
       })
       .catch(error => {
         console.log(error.response.data);

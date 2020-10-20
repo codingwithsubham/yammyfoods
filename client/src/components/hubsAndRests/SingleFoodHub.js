@@ -1,32 +1,22 @@
 import React, { Fragment, useEffect } from 'react';
-import PropTypes, { element } from 'prop-types';
-import { getFoodHubs } from '../../actions/category';
+import PropTypes from 'prop-types';
+import { getRestrosByFoodhub } from '../../actions/category';
 import { connect } from 'react-redux';
 import DummyHub from './DummyHub';
 import { Link } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 
 const SingleFoodHub = ({
-  getFoodHubs,
-  category: { categories, loading },
+  getRestrosByFoodhub,
+  category: { restros, loading },
   match
 }) => {
-  let restros = [
-    ...categories.filter(x => x.parent == match.params.id && x.id !== 15)
-  ];
-  const getRestros = () => {
-    restros = categories.filter(
-      x => x.parent == match.params.id && x.id !== 15
-    );
-  };
-
   useEffect(() => {
-    getFoodHubs();
-    getRestros();
-  }, [getRestros, getFoodHubs]);
+    getRestrosByFoodhub(match.params.id);
+  }, [getRestrosByFoodhub, match.params.id]);
 
-  let data = restros;
-  const unique = [...new Set(data.map(item => item.description))];
+  let data = restros && restros;
+  const unique = [...new Set(data && data.map(item => item.description))];
 
   const scrollToId = name => {
     scroller.scrollTo(name, {
@@ -62,7 +52,7 @@ const SingleFoodHub = ({
       <DummyHub />
     </Fragment>
   ) : (
-    unique && restros && (
+    unique && (
       <Fragment>
         <div className='all-hubs'>
           {unique.map((tag, idx) => (
@@ -112,7 +102,7 @@ const SingleFoodHub = ({
 };
 
 SingleFoodHub.propTypes = {
-  getFoodHubs: PropTypes.func.isRequired
+  getRestrosByFoodhub: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -120,5 +110,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getFoodHubs
+  getRestrosByFoodhub
 })(SingleFoodHub);

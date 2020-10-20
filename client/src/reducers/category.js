@@ -1,9 +1,15 @@
-import { GET_FOOD_HUBS, SET_LOADING_TRUE } from '../actions/types';
+import {
+  GET_FOOD_HUBS,
+  SET_LOADING_TRUE_CATEGORY,
+  GET_RESTROS,
+  GET_RESTRO
+} from '../actions/types';
 
 const initialState = {
   loading: true,
   category: null,
-  categories: []
+  categories: [],
+  restros: []
 };
 
 export default function(state = initialState, action) {
@@ -15,6 +21,27 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         categories: payload
+      };
+
+    case GET_RESTROS:
+      return {
+        ...state,
+        loading: false,
+        restros: payload
+      };
+
+    case GET_RESTRO:
+      return {
+        ...state,
+        loading: false,
+        category: payload
+      };
+
+    case SET_LOADING_TRUE_CATEGORY:
+      return {
+        ...state,
+        loading: true,
+        restros: null
       };
 
     default:

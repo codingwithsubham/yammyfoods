@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { GET_FOOD_HUBS, GET_PRODUCTS, SET_LOADING_TRUE } from './types';
+import {
+  GET_FOOD_HUBS,
+  GET_PRODUCTS,
+  SET_LOADING_TRUE,
+  GET_RESTROS,
+  GET_RESTRO,
+  SET_LOADING_TRUE_CATEGORY
+} from './types';
 const { API_CONFIG } = require('../common/constants');
 
 // Get Food Hubs
@@ -15,15 +22,50 @@ export const getFoodHubs = () => async dispatch => {
   }
 };
 
-// Get Restros By  Id
-export const getRestrosById = id => async dispatch => {
+// Get Restros By  Foodhub
+export const getRestrosByFoodhub = id => async dispatch => {
+  dispatch({
+    type: SET_LOADING_TRUE_CATEGORY
+  });
+  try {
+    const res = await axios.get(
+      `/api/category/foodshub/restros/${id}`,
+      API_CONFIG
+    );
+    dispatch({
+      type: GET_RESTROS,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get Products by Restros Id
+export const getProductsByRestroId = id => async dispatch => {
   dispatch({
     type: SET_LOADING_TRUE
   });
   try {
-    const res = await axios.get(`/api/category/restros/${id}`, API_CONFIG);
+    const res = await axios.get(
+      `/api/category/products/restros/${id}`,
+      API_CONFIG
+    );
     dispatch({
       type: GET_PRODUCTS,
+      payload: res.data
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Get Restro by id
+export const getRestroById = id => async dispatch => {
+  try {
+    const res = await axios.get(`/api/category/restro/${id}`, API_CONFIG);
+    dispatch({
+      type: GET_RESTRO,
       payload: res.data
     });
   } catch (err) {

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { getRestrosById, getFoodHubs } from '../../actions/category';
+import { getProductsByRestroId, getRestroById } from '../../actions/category';
 import { connect } from 'react-redux';
 import DummyHub from '../hubsAndRests/DummyHub';
 import MenuItem from '../hubsAndRests/MenuItems';
@@ -8,22 +8,19 @@ import { scroller } from 'react-scroll';
 import StarRatings from 'react-star-ratings';
 
 const SingleRestros = ({
-  getRestrosById,
-  getFoodHubs,
+  getProductsByRestroId,
+  getRestroById,
   products: { products, loading },
-  category: { categories },
+  category: { category },
   match
 }) => {
   useEffect(() => {
-    getRestrosById(match.params.id);
-    getFoodHubs();
-  }, [getFoodHubs, getRestrosById, match.params.id]);
+    getProductsByRestroId(match.params.id);
+    getRestroById(match.params.id);
+  }, [getRestroById, getProductsByRestroId, match.params.id]);
 
   let data = products;
   const unique = [...new Set(data.map(item => item.tags && item.tags[0].name))];
-
-  let category =
-    categories && categories.filter(x => x.id == match.params.id)[0];
 
   const overallRating = () => {
     let rating = 0;
@@ -141,8 +138,8 @@ const SingleRestros = ({
 };
 
 SingleRestros.propTypes = {
-  getRestrosById: PropTypes.func.isRequired,
-  getFoodHubs: PropTypes.func.isRequired,
+  getProductsByRestroId: PropTypes.func.isRequired,
+  getRestroById: PropTypes.func.isRequired,
   products: PropTypes.object.isRequired,
   category: PropTypes.object.isRequired
 };
@@ -153,6 +150,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  getRestrosById,
-  getFoodHubs
+  getProductsByRestroId,
+  getRestroById
 })(SingleRestros);
