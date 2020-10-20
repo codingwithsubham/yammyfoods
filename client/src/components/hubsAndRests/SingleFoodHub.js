@@ -44,7 +44,7 @@ const SingleFoodHub = ({
     }
   };
 
-  return loading && !restros ? (
+  return loading || !restros ? (
     <Fragment>
       <DummyHub />
       <DummyHub />
