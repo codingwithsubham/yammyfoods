@@ -12,10 +12,13 @@ const { API_CONFIG } = require('../common/constants');
 export const getFoodHubs = () => async dispatch => {
   try {
     const res = await axios.get('/api/category/foodshubs', API_CONFIG);
+
     dispatch({
       type: GET_FOOD_HUBS,
       payload: res.data
     });
+    let hubs = res.data;
+    hubs && hubs.map(x => getRestrosByFoodhub(x.id));
   } catch (err) {
     console.log(err);
   }

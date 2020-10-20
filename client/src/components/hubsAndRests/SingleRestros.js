@@ -49,7 +49,7 @@ const SingleRestros = ({
     let elmnt = document.getElementById(id);
     let ovrly = document.getElementById('overlay');
     if (elmnt) {
-      if (elmnt.style.display == 'block') {
+      if (elmnt.style.display === 'block') {
         elmnt.style.display = 'none';
         ovrly.style.display = 'none';
       } else {
@@ -100,7 +100,7 @@ const SingleRestros = ({
                 {tag}
               </div>
               {products
-                .filter(item => item.tags && item.tags[0].name == tag)
+                .filter(item => item.tags && item.tags[0].name === tag)
                 .map(item => (
                   <MenuItem key={item.id} product={item} />
                 ))}

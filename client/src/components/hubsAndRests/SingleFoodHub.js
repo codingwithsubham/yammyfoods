@@ -15,7 +15,7 @@ const SingleFoodHub = ({
     getRestrosByFoodhub(match.params.id);
   }, [getRestrosByFoodhub, match.params.id]);
 
-  let data = restros && restros.filter(x => x.foodHub == match.params.id);
+  let data = restros && restros.filter(x => x.foodHub === match.params.id);
 
   let restroByHubs = data && data[0] && data[0].restros;
 
@@ -39,7 +39,7 @@ const SingleFoodHub = ({
     let elmnt = document.getElementById(id);
     let ovrly = document.getElementById('overlay');
     if (elmnt) {
-      if (elmnt.style.display == 'block') {
+      if (elmnt.style.display === 'block') {
         elmnt.style.display = 'none';
         ovrly.style.display = 'none';
       } else {
@@ -66,7 +66,7 @@ const SingleFoodHub = ({
                 {tag}
               </div>
               {restroByHubs
-                .filter(x => x.description == tag)
+                .filter(x => x.description === tag)
                 .map(item => (
                   <Link key={item.id} to={`/restro/${item.id}`}>
                     <img

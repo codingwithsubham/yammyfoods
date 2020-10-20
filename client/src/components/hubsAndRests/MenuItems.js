@@ -25,8 +25,8 @@ const MenuItems = ({
   const [qty, setQty] = useState(0);
 
   if (product && cart_items) {
-    if (qty !== cart_items.filter(x => x.id == product.id).length)
-      setQty(cart_items.filter(x => x.id == product.id).length);
+    if (qty !== cart_items.filter(x => x.id === product.id).length)
+      setQty(cart_items.filter(x => x.id === product.id).length);
   }
 
   const removeItems = () => {
