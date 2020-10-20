@@ -4,8 +4,7 @@ import {
   GET_PRODUCTS,
   SET_LOADING_TRUE,
   GET_RESTROS,
-  GET_RESTRO,
-  SET_LOADING_TRUE_CATEGORY
+  GET_RESTRO
 } from './types';
 const { API_CONFIG } = require('../common/constants');
 
@@ -24,9 +23,6 @@ export const getFoodHubs = () => async dispatch => {
 
 // Get Restros By  Foodhub
 export const getRestrosByFoodhub = id => async dispatch => {
-  dispatch({
-    type: SET_LOADING_TRUE_CATEGORY
-  });
   try {
     const res = await axios.get(
       `/api/category/foodshub/restros/${id}`,
