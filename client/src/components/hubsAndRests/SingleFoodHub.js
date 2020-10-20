@@ -44,7 +44,7 @@ const SingleFoodHub = ({
     }
   };
 
-  return loading ? (
+  return loading && !restros ? (
     <Fragment>
       <DummyHub />
       <DummyHub />
@@ -52,7 +52,7 @@ const SingleFoodHub = ({
       <DummyHub />
     </Fragment>
   ) : (
-    unique && (
+    unique && restros && (
       <Fragment>
         <div className='all-hubs'>
           {unique.map((tag, idx) => (
