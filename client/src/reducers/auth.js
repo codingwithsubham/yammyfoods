@@ -7,7 +7,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
-  USERS_LOADED
+  USERS_LOADED,
+  SEND_OTP_FAIL,
+  SEND_OTP_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -15,7 +17,9 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
-  users: []
+  users: [],
+  loginType: null,
+  otpSend: false
 };
 
 export default function(state = initialState, action) {
@@ -58,6 +62,13 @@ export default function(state = initialState, action) {
         users: payload,
         loading: false,
         isAuthenticated: true
+      };
+
+    case SEND_OTP_SUCCESS:
+      return {
+        ...state,
+        loginType: payload.type,
+        otpSend: payload.send
       };
 
     default:

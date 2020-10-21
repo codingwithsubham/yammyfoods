@@ -1,13 +1,9 @@
-import React, {
-  Fragment,
-  //  useEffect
-  useLayoutEffect,
-  useState
-} from 'react';
+import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Routes from './components/routing/Routes';
 import { Provider } from 'react-redux';
 import store from './store';
+import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
 import './index.css';
@@ -15,6 +11,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
 import BottomBar from './components/layout/BottomBar';
+import Login from './components/auth/Login';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -34,9 +31,9 @@ function useWindowSize() {
 }
 
 const App = () => {
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []);
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
   const [width] = useWindowSize();
 
   return (
@@ -48,7 +45,7 @@ const App = () => {
               <Navbar />
               <Sidebar />
               <Switch>
-                {/* <Route exact path='/' component={Dashboard} /> */}
+                <Route exact path='/' component={Login} />
                 <Route component={Routes} />
               </Switch>
               <BottomBar />

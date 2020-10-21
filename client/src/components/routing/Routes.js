@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import Login from '../auth/Login';
 import Dashboard from '../dashboard/Dashboard';
 import ProductDetails from '../singleProducts/SingleProducts';
 import FoodHubs from '../hubsAndRests/FoodHubs';
@@ -8,8 +7,10 @@ import FoodHub from '../hubsAndRests/SingleFoodHub';
 import Restro from '../hubsAndRests/SingleRestros';
 import NotFound from '../layout/NotFound';
 import Alert from '../layout/Alert';
+import Login from '../auth/Login';
 import Cart from '../cartAndChekout/Cart';
 import ScrollToTop from '../../ScrollToTop';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = () => {
   return (
@@ -18,12 +19,13 @@ const Routes = () => {
         <Alert />
         <ScrollToTop />
         <Switch>
-          <Route exact path='/' component={Dashboard} />
-          <Route exact path='/food-hubs' component={FoodHubs} />
-          <Route exact path='/cart' component={Cart} />
-          <Route exact path='/product/:id' component={ProductDetails} />
-          <Route exact path='/food-hub/:id' component={FoodHub} />
-          <Route exact path='/restro/:id' component={Restro} />
+          <Route exact path='/login' component={Login} />
+          <PrivateRoute exact path='/home' component={Dashboard} />
+          <PrivateRoute exact path='/food-hubs' component={FoodHubs} />
+          <PrivateRoute exact path='/cart' component={Cart} />
+          <PrivateRoute exact path='/product/:id' component={ProductDetails} />
+          <PrivateRoute exact path='/food-hub/:id' component={FoodHub} />
+          <PrivateRoute exact path='/restro/:id' component={Restro} />
           <Route component={NotFound} />
         </Switch>
       </div>

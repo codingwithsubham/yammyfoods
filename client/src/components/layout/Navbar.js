@@ -9,7 +9,8 @@ const Navbar = ({
   cart: { cart_items },
   getCart,
   openSidebar,
-  sidebar: { open }
+  sidebar: { open },
+  auth: { isAuthenticated }
 }) => {
   useEffect(() => {
     getCart('001');
@@ -26,19 +27,22 @@ const Navbar = ({
 
   let prevScrollpos = window.pageYOffset;
 
-  window.onscroll = function() {
-    let currentScrollPos = window.pageYOffset;
-    if (prevScrollpos > currentScrollPos) {
-      document.getElementById('nav-upper').style.display = 'flex';
-      document.getElementById('nav-search').style.paddingTop = '0px';
-    } else {
-      document.getElementById('nav-upper').style.display = 'none';
-      document.getElementById('nav-search').style.paddingTop = '12px';
-    }
-    prevScrollpos = currentScrollPos;
-  };
+  if (isAuthenticated) {
+    window.onscroll = function() {
+      let currentScrollPos = window.pageYOffset;
+      if (prevScrollpos > currentScrollPos) {
+        document.getElementById('nav-upper').style.display = 'flex';
+        document.getElementById('nav-search').style.paddingTop = '0px';
+      } else {
+        document.getElementById('nav-upper').style.display = 'none';
+        document.getElementById('nav-search').style.paddingTop = '12px';
+      }
+      prevScrollpos = currentScrollPos;
+    };
+  }
 
   return (
+    isAuthenticated &&
     cart_items && (
       <Fragment>
         <nav>
@@ -74,11 +78,13 @@ const Navbar = ({
 Navbar.propTypes = {
   getCart: PropTypes.func.isRequired,
   openSidebar: PropTypes.func.isRequired,
-  sidebar: PropTypes.object.isRequired
+  sidebar: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
   cart: state.cart,
-  sidebar: state.sidebar
+  sidebar: state.sidebar,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {

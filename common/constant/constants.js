@@ -22,7 +22,7 @@ module.exports = {
   AUTH_DENIED: 'Authorization Denied.',
   NO_TOKEN: 'No Token.',
   NOT_FOUND: 'NOT FOUND',
-
+  EXPIRES_IN: '30d',
   JWT_SECRET: 'jwtSecret',
   COMMON_PASSWORD: 'password',
   MONGO_URI: 'mongodb://localhost:27017/yammyfoods_db',
