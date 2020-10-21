@@ -13,7 +13,6 @@ const ProductsCard = ({
 }) => {
   const addItems = () => {
     const item = {
-      user: '001',
       id: product.id,
       name: product.name,
       img: product.images && product.images[0] && product.images[0].src,
@@ -31,7 +30,6 @@ const ProductsCard = ({
 
   const removeItems = () => {
     let removeItem = {
-      user: '001',
       id: product.id
     };
     removeFromCart(removeItem);

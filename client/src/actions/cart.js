@@ -32,9 +32,9 @@ export const removeFromCart = removeItem => async dispatch => {
 };
 
 //get cart items
-export const getCart = id => async dispatch => {
+export const getCart = () => async dispatch => {
   try {
-    const res = await axios.get(`/api/cart/${id}`, API_CONFIG);
+    const res = await axios.get(`/api/cart/`, API_CONFIG);
     dispatch({
       type: GET_CART_ITEMS,
       payload: res.data

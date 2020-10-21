@@ -19,7 +19,6 @@ const Cart = ({
 
   const addItems = product => {
     const item = {
-      user: '001',
       id: product.id,
       name: product.name,
       img: product.img,
@@ -30,7 +29,6 @@ const Cart = ({
 
   const removeItems = product => {
     let removeItem = {
-      user: '001',
       id: product.id
     };
     removeFromCart(removeItem);

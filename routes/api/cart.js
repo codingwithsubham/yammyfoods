@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Cart = require('../../models/cart');
-//const auth = require('../../middleware/auth');
+const auth = require('../../middleware/auth');
 
 // @route   get cart items
-router.get('/:id', async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
-    const cart = await Cart.find({ user: req.params.id });
+    const cart = await Cart.find({ user: req.user.id });
     res.json(cart[0].cartItems);
   } catch (err) {
     res.status(500).send(SERVER_ERROR);
@@ -14,12 +14,12 @@ router.get('/:id', async (req, res) => {
 });
 
 // @route   get cart items
-router.put('/add', async (req, res) => {
+router.put('/add', auth, async (req, res) => {
   try {
-    const { user, id, name, img, price } = req.body;
+    const { id, name, img, price } = req.body;
+    const user = req.user.id;
 
     const cart = await Cart.find({ user });
-
     if (cart.length > 0) {
       const cartItems = {
         id: id,
@@ -54,14 +54,14 @@ router.put('/add', async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-
     res.status(500).send('Server Error');
   }
 });
 
-router.put('/remove', async (req, res) => {
+router.put('/remove', auth, async (req, res) => {
   try {
-    const { user, id } = req.body;
+    const { id } = req.body;
+    const user = req.user.id;
     const cart = await Cart.find({ user });
     if (cart.length > 0) {
       const removeIndex = cart[0].cartItems.map(item => item.id).indexOf(id);

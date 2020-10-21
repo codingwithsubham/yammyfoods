@@ -23,7 +23,6 @@ const {
 // @access Private
 router.get('/load-user', auth, async (req, res) => {
   let user;
-  console.log(req.user.id);
 
   WooCommerce.get(`customers/${req.user.id}`)
     .then(response => {

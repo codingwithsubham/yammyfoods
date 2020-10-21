@@ -520,7 +520,8 @@
   .qty-group {
     display: flex;
     align-items: center;
-    column-gap: 20px;
+    grid-column-gap: 10px;
+    column-gap: 10px;
   }
 
   .cart-row {

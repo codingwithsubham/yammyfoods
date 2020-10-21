@@ -10,11 +10,13 @@ const Navbar = ({
   getCart,
   openSidebar,
   sidebar: { open },
-  auth: { isAuthenticated }
+  auth: { isAuthenticated, user }
 }) => {
   useEffect(() => {
-    getCart('001');
+    getCart();
   }, [getCart]);
+
+  console.log(user);
 
   const sidebarStyle = document.getElementById('sidebar');
   if (sidebarStyle) {
