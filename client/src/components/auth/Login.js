@@ -36,74 +36,76 @@ const Login = ({
   };
 
   if (isAuthenticated && user) {
-    return <Redirect to='/home' />;
+    return <Redirect to='/' />;
   }
 
   return (
-    <Fragment>
-      <div className='login'>
-        <div className='bg-login'>
-          <div className='features'>
-            <span>
-              <i className='material-icons'>near_me</i> Fast Delivery
-            </span>
-            <span>
-              <i className='material-icons'>search</i> Find and Search
-            </span>
-            <span>
-              <i className='material-icons'>restaurant</i> Enjoy Food At Home
-            </span>
+    !isAuthenticated && (
+      <Fragment>
+        <div className='login'>
+          <div className='bg-login'>
+            <div className='features'>
+              <span>
+                <i className='material-icons'>near_me</i> Fast Delivery
+              </span>
+              <span>
+                <i className='material-icons'>search</i> Find and Search
+              </span>
+              <span>
+                <i className='material-icons'>restaurant</i> Enjoy Food At Home
+              </span>
+            </div>
           </div>
+          {otpSend ? (
+            <form className='login-form' onSubmit={e => loginSubmit(e)}>
+              <img alt='' src={require('../../static/logo.png')} />
+              <p>Enter The OTP Send to Your Mobile Number</p>
+              <div className='inputs'>
+                <input
+                  type='text'
+                  name='otp'
+                  value={otp}
+                  onChange={e => onChange(e)}
+                  placeholder='Enter 6 digit OTP ...'
+                  required
+                  autoFocus
+                  maxLength={6}
+                  minLength={6}
+                />
+              </div>
+              <footer>
+                <button type='submit' className='btn'>
+                  Continue
+                </button>
+              </footer>
+            </form>
+          ) : (
+            <form className='login-form' onSubmit={e => onOTPSubmit(e)}>
+              <img alt='' src={require('../../static/logo.png')} />
+              <p>Enter Your Mobile No</p>
+              <div className='inputs'>
+                <input
+                  type='text'
+                  name='mobile'
+                  value={mobile}
+                  onChange={e => onChange(e)}
+                  placeholder='Mobile No ...'
+                  required
+                  autoFocus
+                  maxLength={10}
+                  minLength={10}
+                />
+              </div>
+              <footer>
+                <button type='submit' className='btn'>
+                  Continue
+                </button>
+              </footer>
+            </form>
+          )}
         </div>
-        {otpSend ? (
-          <form className='login-form' onSubmit={e => loginSubmit(e)}>
-            <img alt='' src={require('../../static/logo.png')} />
-            <p>Enter The OTP Send to Your Mobile Number</p>
-            <div className='inputs'>
-              <input
-                type='text'
-                name='otp'
-                value={otp}
-                onChange={e => onChange(e)}
-                placeholder='Enter 6 digit OTP ...'
-                required
-                autoFocus
-                maxLength={6}
-                minLength={6}
-              />
-            </div>
-            <footer>
-              <button type='submit' className='btn'>
-                Continue
-              </button>
-            </footer>
-          </form>
-        ) : (
-          <form className='login-form' onSubmit={e => onOTPSubmit(e)}>
-            <img alt='' src={require('../../static/logo.png')} />
-            <p>Enter Your Mobile No</p>
-            <div className='inputs'>
-              <input
-                type='text'
-                name='mobile'
-                value={mobile}
-                onChange={e => onChange(e)}
-                placeholder='Mobile No ...'
-                required
-                autoFocus
-                maxLength={10}
-                minLength={10}
-              />
-            </div>
-            <footer>
-              <button type='submit' className='btn'>
-                Continue
-              </button>
-            </footer>
-          </form>
-        )}
-      </div>
-    </Fragment>
+      </Fragment>
+    )
   );
 };
 

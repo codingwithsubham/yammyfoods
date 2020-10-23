@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCart, addToCart, removeFromCart } from '../../actions/cart';
 import DummyCart from './DummyCart';
+import { Link } from 'react-router-dom';
 
 const Cart = ({
   cart: { cart_items, loading },
@@ -46,8 +47,8 @@ const Cart = ({
     </div>
   ) : (
     unique && (
-      <Fragment>
-        <h1>What's in your Bag ?</h1>
+      <div className='cart'>
+        <div className='header'>Items In Your Bag</div>
         {unique.map((uniqueItem, idx) => (
           <div className='cart-row' key={idx}>
             <img
@@ -56,7 +57,10 @@ const Cart = ({
               className='cart-item img'
             />
             <div className='cart-item name'>
-              {cart_items.filter(x => x.id === uniqueItem)[0].name}
+              {cart_items
+                .filter(x => x.id === uniqueItem)[0]
+                .name.substring(0, 30)}
+              ...
               <br />
               Rs. {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
             </div>
@@ -81,8 +85,10 @@ const Cart = ({
             </div>
           </div>
         ))}
-        <button className='btn cart-final'>Proceed</button>
-      </Fragment>
+        <Link to='/checkout'>
+          <button className='btn cart-final'>Proceed</button>
+        </Link>
+      </div>
     )
   );
 };

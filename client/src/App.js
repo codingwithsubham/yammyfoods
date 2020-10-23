@@ -11,7 +11,6 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
 import BottomBar from './components/layout/BottomBar';
-import Login from './components/auth/Login';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -45,7 +44,6 @@ const App = () => {
               <Navbar />
               <Sidebar />
               <Switch>
-                <Route exact path='/' component={Login} />
                 <Route component={Routes} />
               </Switch>
               <BottomBar />

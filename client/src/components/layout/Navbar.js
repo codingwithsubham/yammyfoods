@@ -16,8 +16,6 @@ const Navbar = ({
     getCart();
   }, [getCart]);
 
-  console.log(user);
-
   const sidebarStyle = document.getElementById('sidebar');
   if (sidebarStyle) {
     if (open) {
@@ -34,10 +32,8 @@ const Navbar = ({
       let currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
         document.getElementById('nav-upper').style.display = 'flex';
-        document.getElementById('nav-search').style.paddingTop = '0px';
       } else {
         document.getElementById('nav-upper').style.display = 'none';
-        document.getElementById('nav-search').style.paddingTop = '12px';
       }
       prevScrollpos = currentScrollPos;
     };
@@ -57,15 +53,7 @@ const Navbar = ({
                 <img alt='' src={require('../../static/logo.png')} />
               </Link>
             </div>
-            <div className='location'>
-              Ghatal <i className='material-icons'>keyboard_arrow_down</i>
-            </div>
-          </div>
-          <div id='nav-search' className='nav-search'>
-            <div className='input-wrapper-search'>
-              <i className='material-icons'>search</i>
-              <input type='text' placeholder='Find Foods ...' />
-            </div>
+
             <Link to='/cart'>
               <i className='material-icons cart-icon'>shopping_basket</i>
               <span className='cart-badge'>{cart_items.length}</span>

@@ -11,6 +11,7 @@ import Login from '../auth/Login';
 import Cart from '../cartAndChekout/Cart';
 import ScrollToTop from '../../ScrollToTop';
 import PrivateRoute from './PrivateRoute';
+import Checkout from '../cartAndChekout/Checkout';
 
 const Routes = () => {
   return (
@@ -20,12 +21,13 @@ const Routes = () => {
         <ScrollToTop />
         <Switch>
           <Route exact path='/login' component={Login} />
-          <PrivateRoute exact path='/home' component={Dashboard} />
+          <PrivateRoute exact path='/' component={Dashboard} />
           <PrivateRoute exact path='/food-hubs' component={FoodHubs} />
           <PrivateRoute exact path='/cart' component={Cart} />
           <PrivateRoute exact path='/product/:id' component={ProductDetails} />
           <PrivateRoute exact path='/food-hub/:id' component={FoodHub} />
           <PrivateRoute exact path='/restro/:id' component={Restro} />
+          <PrivateRoute exact path='/checkout' component={Checkout} />
           <Route component={NotFound} />
         </Switch>
       </div>

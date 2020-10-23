@@ -97,13 +97,6 @@ const SingleProducts = ({
                 ))}
             </div>
           </div>
-          <p>
-            {product.description
-              .replace('<p>', '')
-              .replace('</p>')
-              .substring(1, 100)}
-            ...
-          </p>
         </div>
       </div>
     </Fragment>
