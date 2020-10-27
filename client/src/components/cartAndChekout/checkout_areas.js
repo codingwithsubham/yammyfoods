@@ -73,26 +73,3 @@ export const DELIVERY_TIME = [
     time: 100
   }
 ];
-
-// export const DELIVERY_CHARGE = [
-//   {
-//     pin: 721212,
-//     time:
-//   },
-//   {
-//     pin: 721211,
-//     time: 80
-//   },
-//   {
-//     pin: 721222,
-//     time: 80
-//   },
-//   {
-//     pin: 721146,
-//     time: 100
-//   },
-//   {
-//     pin: 721232,
-//     time: 100
-//   }
-// ];

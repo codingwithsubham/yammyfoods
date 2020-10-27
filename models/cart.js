@@ -26,6 +26,9 @@ const CartSchema = new mongoose.Schema({
       price: {
         type: String,
         required: true
+      },
+      ship_class: {
+        type: String
       }
     }
   ]

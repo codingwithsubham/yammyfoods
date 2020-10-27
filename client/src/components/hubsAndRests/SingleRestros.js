@@ -27,8 +27,10 @@ const SingleRestros = ({
     let devider = 0;
     products &&
       products.forEach(element => {
-        rating = rating + parseFloat(element.average_rating);
-        devider++;
+        if (element.average_rating > 0) {
+          rating = rating + parseFloat(element.average_rating);
+          devider++;
+        }
       });
     return rating / devider;
   };
@@ -61,6 +63,7 @@ const SingleRestros = ({
 
   return loading || !products ? (
     <Fragment>
+      <DummyHub />
       <DummyHub />
       <DummyHub />
       <DummyHub />

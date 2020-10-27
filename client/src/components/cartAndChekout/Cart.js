@@ -23,7 +23,8 @@ const Cart = ({
       id: product.id,
       name: product.name,
       img: product.img,
-      price: product.price
+      price: product.price,
+      ship_class: product.shipping_class_id
     };
     addToCart(item);
   };
@@ -33,6 +34,12 @@ const Cart = ({
       id: product.id
     };
     removeFromCart(removeItem);
+  };
+
+  const cartTotals = () => {
+    let total = 0;
+    cart_items.map(item => (total = total + parseFloat(item.price)));
+    return total;
   };
 
   return loading ? (
@@ -48,7 +55,6 @@ const Cart = ({
   ) : (
     unique && (
       <div className='cart'>
-        <div className='header'>Items In Your Bag</div>
         {unique.map((uniqueItem, idx) => (
           <div className='cart-row' key={idx}>
             <img
@@ -57,37 +63,46 @@ const Cart = ({
               className='cart-item img'
             />
             <div className='cart-item name'>
-              {cart_items
-                .filter(x => x.id === uniqueItem)[0]
-                .name.substring(0, 30)}
-              ...
+              {cart_items.filter(x => x.id === uniqueItem)[0].name}
               <br />
-              Rs. {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
-            </div>
-            <div className='qty-group'>
-              <button
-                className='btn'
-                onClick={() =>
-                  removeItems(cart_items.filter(x => x.id === uniqueItem)[0])
-                }
-              >
-                -
-              </button>
-              <span>{cart_items.filter(x => x.id === uniqueItem).length}</span>
-              <button
-                className='btn'
-                onClick={() =>
-                  addItems(cart_items.filter(x => x.id === uniqueItem)[0])
-                }
-              >
-                +
-              </button>
+              <b>
+                Rs. {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
+              </b>
+              <br />
+              <div className='qty-group'>
+                <button
+                  className='btn'
+                  onClick={() =>
+                    removeItems(cart_items.filter(x => x.id === uniqueItem)[0])
+                  }
+                >
+                  -
+                </button>
+                <span>
+                  {cart_items.filter(x => x.id === uniqueItem).length}
+                </span>
+                <button
+                  className='btn'
+                  onClick={() =>
+                    addItems(cart_items.filter(x => x.id === uniqueItem)[0])
+                  }
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         ))}
-        <Link to='/checkout'>
-          <button className='btn cart-final'>Proceed</button>
-        </Link>
+
+        <div className='cart-final'>
+          <div className='cart-total'>
+            <span>Subtotal:</span>
+            <span>Rs. {cartTotals()}/-</span>
+          </div>
+          <Link to='/checkout'>
+            <button className='btn'>Proceed</button>
+          </Link>
+        </div>
       </div>
     )
   );

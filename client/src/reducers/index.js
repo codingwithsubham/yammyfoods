@@ -5,6 +5,8 @@ import products from './products';
 import cart from './cart';
 import category from './category';
 import sidebar from './sidebar';
+import orders from './orders';
+import checkout from './checkout';
 
 export default combineReducers({
   alert,
@@ -12,5 +14,7 @@ export default combineReducers({
   products,
   cart,
   category,
-  sidebar
+  sidebar,
+  checkout,
+  orders
 });

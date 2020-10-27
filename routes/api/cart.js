@@ -9,14 +9,14 @@ router.get('/', auth, async (req, res) => {
     const cart = await Cart.find({ user: req.user.id });
     res.json(cart[0].cartItems);
   } catch (err) {
-    res.status(500).send(SERVER_ERROR);
+    res.status(500).send('SERVER ERROR');
   }
 });
 
 // @route   get cart items
 router.put('/add', auth, async (req, res) => {
   try {
-    const { id, name, img, price } = req.body;
+    const { id, name, img, price, ship_class } = req.body;
     const user = req.user.id;
 
     const cart = await Cart.find({ user });
@@ -26,7 +26,8 @@ router.put('/add', auth, async (req, res) => {
         name: name,
         img: img,
         price: price,
-        quantity: 1
+        quantity: 1,
+        ship_class: ship_class
       };
 
       let data = await Cart.findOneAndUpdate(
@@ -44,7 +45,8 @@ router.put('/add', auth, async (req, res) => {
             name: name,
             img: img,
             price: price,
-            quantity: 1
+            quantity: 1,
+            ship_class: ship_class
           }
         ]
       });
@@ -69,6 +71,17 @@ router.put('/remove', auth, async (req, res) => {
       await cart[0].save();
       res.json(cart[0].cartItems);
     }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send('Server Error');
+  }
+});
+
+router.delete('/reset-cart', auth, async (req, res) => {
+  try {
+    const user = req.user.id;
+    await Cart.deleteOne({ user });
+    return res.json({ status: 'success' });
   } catch (err) {
     console.log(err);
     res.status(500).send('Server Error');

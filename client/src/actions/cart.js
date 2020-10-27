@@ -40,6 +40,9 @@ export const getCart = () => async dispatch => {
       payload: res.data
     });
   } catch (err) {
-    console.log(err);
+    dispatch({
+      type: GET_CART_ITEMS,
+      payload: []
+    });
   }
 };

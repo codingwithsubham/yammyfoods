@@ -1,16 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AddressDetails from './CheckoutAddress';
 import TimeArea from './CheckoutTimeArea';
-import Cart from './Cart';
+import { getShipping, checkout } from '../../actions/checkout';
+import { Redirect } from 'react-router-dom';
 
-const Checkout = ({ cart: { cart_items }, auth: { user } }) => {
+const Checkout = ({
+  cart: { cart_items },
+  auth: { user },
+  getShipping,
+  checkout_state: { delivery_charge, checkoutData, loading },
+  checkout
+}) => {
   const [data, setData] = useState({
     address: null,
     locationAndTime: null,
-    payment: null,
-    shipping: 0
+    shipping: 0,
+    payment: null
   });
 
   const [formFlagdata, setFormFlagdata] = useState({
@@ -56,12 +63,66 @@ const Checkout = ({ cart: { cart_items }, auth: { user } }) => {
     });
   };
 
+  let cartData = cart_items;
+  const unique = [...new Set(cartData.map(item => item.id))];
+  const shippingClasses = [...new Set(cartData.map(item => item.ship_class))];
+
+  const cartTotals = () => {
+    let total = 0;
+    cart_items.map(item => (total = total + parseFloat(item.price)));
+    return total;
+  };
+
+  const deliveryTotals = () => {
+    const data = {
+      pin: address.postcode,
+      ship_class: shippingClasses
+    };
+    getShipping(data);
+    if (!loading) {
+      return `${delivery_charge +
+        parseFloat(
+          locationAndTime &&
+            locationAndTime.location &&
+            locationAndTime.location.value
+        )}/-`;
+    } else {
+      return '...';
+    }
+  };
+
+  const totalPrice = () => {
+    if (!loading) {
+      return `${delivery_charge +
+        parseFloat(
+          locationAndTime &&
+            locationAndTime.location &&
+            locationAndTime.location.value
+        ) +
+        cartTotals()}/-`;
+    } else {
+      return 'Calculating ...';
+    }
+  };
+
+  const onRadioChange = e => {
+    setData({ ...data, payment: e.target.value });
+  };
+
   const finalCall = () => {
+    let line_items = [];
+    unique.map(uniqueItem => {
+      line_items.push({
+        product_id: uniqueItem,
+        quantity: cart_items.filter(x => x.id === uniqueItem).length
+      });
+    });
+
     const finalData = {
-      payment_method: 'bacs',
-      payment_method_title: 'Direct Bank Transfer',
+      payment_method: 'Cash on delivery',
+      payment_method_title: 'Cash on delivery',
       set_paid: true,
-      customer_note: 'ddddddddddddddddddddd',
+      customer_note: locationAndTime.customerNotes,
       billing: {
         first_name: address.first_name,
         last_name: '',
@@ -71,44 +132,33 @@ const Checkout = ({ cart: { cart_items }, auth: { user } }) => {
         state: address.state,
         postcode: address.postcode,
         country: address.country,
-        email: '',
         phone: address.phone
       },
-      line_items: [
-        {
-          product_id: 93,
-          quantity: 2
-        },
-        {
-          product_id: 22,
-          variation_id: 23,
-          quantity: 1
-        }
-      ],
+      line_items: line_items,
       shipping_lines: [
         {
           method_id: 'flat_rate',
           method_title: 'Flat Rate',
-          total: '10.00'
+          total: `${deliveryTotals()}`
         }
       ]
     };
 
-    console.log(finalData);
+    checkout(finalData);
+    const overlayStyle = document.getElementById('overlay');
+    if (overlayStyle) {
+      overlayStyle.style.display = 'block';
+    }
   };
 
-  let cartData = cart_items;
-  const unique = [...new Set(cartData.map(item => item.id))];
-
-  const cartTotals = () => {
-    let total = 0;
-    cart_items.map(item => (total = total + parseFloat(item.price)));
-    return total;
-  };
+  if (checkoutData) {
+    return <Redirect to={`/checkout/success/${checkoutData.id}`} />;
+  }
 
   return (
     <div className='checkout'>
-      <div className='header'>Express Checkout</div>
+      <div id='overlay' className='overlay'></div>
+
       {addressFlag && (
         <AddressDetails user={address ? address : user} addedAddr={addedAddr} />
       )}
@@ -116,49 +166,86 @@ const Checkout = ({ cart: { cart_items }, auth: { user } }) => {
         <TimeArea timeArea={timeArea} pin={address.postcode} />
       )}
       {paymentFlag && (
-        <div className='multi-step-container'>
-          <div className='header'>Order Details</div>
+        <Fragment>
           <div className='order-details-table'>
             <table>
               <thead>
                 <tr>
-                  <th></th>
                   <th>Item</th>
                   <th>Price</th>
+                  <th>Quantity</th>
                 </tr>
               </thead>
               <tbody>
                 {unique.map((uniqueItem, idx) => (
                   <tr key={idx}>
                     <td>
-                      <img
-                        alt=''
-                        src={cart_items.filter(x => x.id === uniqueItem)[0].img}
-                        className='cart-item img'
-                      />
-                    </td>
-                    <td>
                       {cart_items.filter(x => x.id === uniqueItem)[0].name}
                     </td>
                     <td>
                       {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
                     </td>
+                    <td>
+                      {cart_items.filter(x => x.id === uniqueItem).length}
+                    </td>
                   </tr>
                 ))}
+                <tr>
+                  <td>
+                    Cart Sub Totals:
+                    <br />
+                    Delivery Charge:
+                  </td>
+                  <td>
+                    {cartTotals()}/- <br />
+                    {deliveryTotals()}
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
-          <div className='checkout-total'>
-            <b>Cart Totals</b>: {cartTotals()}/-
-            <b>Delivery Charge</b>: /-
+          <div className='checkout-header'>Total Cost: {totalPrice()}</div>
+          <div className='time-block'>
+            <label className='radio-container'>
+              Cash On Delivery
+              <input
+                type='radio'
+                name='radio'
+                value='standard'
+                onChange={e => onRadioChange(e)}
+                defaultChecked
+              />
+              <span className='checkmark'></span>
+            </label>
+            <label className='radio-container'>
+              Pay Online
+              <input
+                type='radio'
+                name='radio'
+                value='custom'
+                onChange={e => onRadioChange(e)}
+              />
+              <span className='checkmark'></span>
+            </label>
           </div>
-          <button className='btn' onClick={() => prevFromPayment()}>
-            Back
-          </button>{' '}
-          <button className='btn' onClick={() => finalCall()}>
-            Place Order
-          </button>
-        </div>
+          <div className='cart-final'>
+            <button className='btn prev' onClick={() => prevFromPayment()}>
+              Back
+            </button>
+            {!loading ? (
+              <button
+                className='btn next'
+                onClick={e => (!loading ? finalCall() : e.preventDefault())}
+              >
+                Place Order
+              </button>
+            ) : (
+              <button className='btn next' style={{ opacity: 0.4 }}>
+                Calculating
+              </button>
+            )}
+          </div>
+        </Fragment>
       )}
     </div>
   );
@@ -166,12 +253,16 @@ const Checkout = ({ cart: { cart_items }, auth: { user } }) => {
 
 Checkout.propTypes = {
   cart: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  getShipping: PropTypes.func.isRequired,
+  checkout_state: PropTypes.object.isRequired,
+  checkout: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  auth: state.auth
+  auth: state.auth,
+  checkout_state: state.checkout
 });
 
-export default connect(mapStateToProps, {})(Checkout);
+export default connect(mapStateToProps, { getShipping, checkout })(Checkout);

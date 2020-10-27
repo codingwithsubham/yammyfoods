@@ -10,8 +10,11 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
     customerNotes: ''
   });
 
+  const [error, setError] = useState(false);
+
   const onChange = e => {
     setOrderDetails({ ...orderDetails, [e.target.name]: e.target.value });
+    setError(false);
   };
 
   const onRadioChange = e => {
@@ -24,7 +27,11 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
 
   const onSubmit = e => {
     e.preventDefault();
-    timeArea(orderDetails, true);
+    if (orderDetails.location) {
+      timeArea(orderDetails, true);
+    } else {
+      setError(true);
+    }
   };
 
   const onPrevAction = () => {
@@ -63,12 +70,29 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
         <form onSubmit={e => onSubmit(e)} className='address-box'>
           <div className='checkout-inputs'>
             <h5>Select Your Area</h5>
+
             <Select
               closeMenuOnSelect={false}
               options={options}
-              onChange={e => setOrderDetails({ ...orderDetails, location: e })}
+              onChange={e => {
+                setOrderDetails({ ...orderDetails, location: e });
+                setError(false);
+              }}
               placeholder={'Select Your Area'}
+              className={error ? 'required' : 'select'}
             />
+            {error && <div className='err'>Please Select an Area</div>}
+            <Fragment>
+              <span>Order Notes</span>
+              <input
+                type='text'
+                name='customerNotes'
+                value={orderDetails.customerNotes}
+                onChange={e => onChange(e)}
+                maxLength={50}
+                minLength={2}
+              />
+            </Fragment>
 
             <h5>Select Time Span</h5>
             <div className='time-block'>
@@ -94,6 +118,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                 <span className='checkmark'></span>
               </label>
             </div>
+
             {orderDetails.customTime ? (
               <Fragment>
                 <span>Please Mention The Time</span>
@@ -117,26 +142,15 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                 )}
               </div>
             )}
-
-            <Fragment>
-              <span>Order Notes</span>
-              <input
-                type='text'
-                name='customerNotes'
-                value={orderDetails.customerNotes}
-                onChange={e => onChange(e)}
-                required
-                maxLength={50}
-                minLength={2}
-              />
-            </Fragment>
           </div>
-          <button onClick={() => onPrevAction()} className='btn'>
-            Prev
-          </button>
-          <button type='submit' className='btn'>
-            Next
-          </button>
+          <div className='cart-final'>
+            <button onClick={() => onPrevAction()} className='btn prev'>
+              Prev
+            </button>
+            <button type='submit' className='btn next'>
+              Next
+            </button>
+          </div>
         </form>
       </div>
     </Fragment>

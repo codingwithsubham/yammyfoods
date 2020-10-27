@@ -16,7 +16,8 @@ const ProductsCard = ({
       id: product.id,
       name: product.name,
       img: product.images && product.images[0] && product.images[0].src,
-      price: product.price
+      price: product.price,
+      ship_class: product.shipping_class_id
     };
     addToCart(item);
   };

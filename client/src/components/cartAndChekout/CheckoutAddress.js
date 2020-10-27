@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const CheckoutAddress = ({ addedAddr, user }) => {
   const [orderDetails, setOrderDetails] = useState({
@@ -20,6 +21,8 @@ const CheckoutAddress = ({ addedAddr, user }) => {
     addedAddr(orderDetails);
   };
 
+  const history = useHistory();
+
   return (
     <Fragment>
       <div className='multi-step-container'>
@@ -33,9 +36,8 @@ const CheckoutAddress = ({ addedAddr, user }) => {
               value={orderDetails.first_name}
               onChange={e => onChange(e)}
               required
-              autoFocus={true}
               maxLength={30}
-              minLength={30}
+              minLength={5}
             />
             <span>Whats App No</span>
             <input
@@ -55,7 +57,7 @@ const CheckoutAddress = ({ addedAddr, user }) => {
               onChange={e => onChange(e)}
               required
               maxLength={60}
-              minLength={60}
+              minLength={5}
             />
             <span>Pincode No</span>
             <input
@@ -68,9 +70,14 @@ const CheckoutAddress = ({ addedAddr, user }) => {
               minLength={6}
             />
           </div>
-          <button type='submit' className='btn'>
-            Next
-          </button>
+          <div className='cart-final'>
+            <button onClick={() => history.goBack()} className='btn prev'>
+              Prev
+            </button>
+            <button type='submit' className='btn next'>
+              Next
+            </button>
+          </div>
         </form>
       </div>
     </Fragment>
