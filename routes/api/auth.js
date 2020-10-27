@@ -23,8 +23,25 @@ const {
 // @access Private
 router.get('/load-user', auth, async (req, res) => {
   let user;
-
   WooCommerce.get(`customers/${req.user.id}`)
+    .then(response => {
+      user = response.data;
+      res.json(user);
+    })
+    .catch(error => {
+      console.log(error);
+      return res.status(400).json({
+        errors: [{ msg: 'Unable to Load User' }]
+      });
+    });
+});
+
+// @route PUT api/auth
+// @desc Update User
+// @access Private
+router.put('/update-user', auth, async (req, res) => {
+  let user;
+  WooCommerce.put(`customers/${req.user.id}`, req.body)
     .then(response => {
       user = response.data;
       res.json(user);

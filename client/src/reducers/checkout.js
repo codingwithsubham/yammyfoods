@@ -29,7 +29,9 @@ export default function(state = initialState, action) {
     case CHECKOUT_LOADING:
       return {
         ...state,
-        loading: true
+        loading: true,
+        checkoutData: null,
+        delivery_charge: 0
       };
 
     default:

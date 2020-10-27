@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
   GET_SHIPPING_PRICE,
   CHECKOUT_SUCCESS,
-  CHECKOUT_LOADING
+  CHECKOUT_LOADING,
+  USER_LOADED
 } from './types';
 const { API_CONFIG } = require('../common/constants');
 
@@ -34,6 +35,19 @@ export const checkout = data => async dispatch => {
 
     if (res.data) {
       await axios.delete('/api/cart/reset-cart/', API_CONFIG);
+      const userData = {
+        first_name: data && data.billing.first_name,
+        billing: data.billing
+      };
+      let user = await axios.put(
+        '/api/auth/update-user/',
+        userData,
+        API_CONFIG
+      );
+      dispatch({
+        type: USER_LOADED,
+        payload: user.data
+      });
     }
 
     dispatch({

@@ -30,14 +30,15 @@ const Navbar = ({
   }
 
   let prevScrollpos = window.pageYOffset;
+  const nav = document.getElementById('nav-upper');
 
-  if (isAuthenticated) {
+  if (isAuthenticated && nav) {
     window.onscroll = function() {
       let currentScrollPos = window.pageYOffset;
       if (prevScrollpos > currentScrollPos) {
-        document.getElementById('nav-upper').style.display = 'flex';
+        nav.style.display = 'flex';
       } else {
-        document.getElementById('nav-upper').style.display = 'none';
+        nav.style.display = 'none';
       }
       prevScrollpos = currentScrollPos;
     };
@@ -49,7 +50,7 @@ const Navbar = ({
       <Fragment>
         {location.pathname === '/cart' ? (
           <nav>
-            <div id='nav-upper' className='nav-upper'>
+            <div className='nav-upper'>
               <div className='nav-icon' onClick={() => history.goBack()}>
                 <i className='material-icons'>keyboard_arrow_left</i>
               </div>
@@ -62,7 +63,7 @@ const Navbar = ({
           </nav>
         ) : location.pathname === '/checkout' ? (
           <nav>
-            <div id='nav-upper' className='nav-upper'>
+            <div className='nav-upper'>
               <div className='nav-icon' onClick={() => history.goBack()}>
                 <i className='material-icons'>keyboard_arrow_left</i>
               </div>

@@ -78,10 +78,11 @@ const Checkout = ({
       pin: address.postcode,
       ship_class: shippingClasses
     };
+
     getShipping(data);
     if (!loading) {
       return `${delivery_charge +
-        parseFloat(
+        parseInt(
           locationAndTime &&
             locationAndTime.location &&
             locationAndTime.location.value
@@ -94,7 +95,7 @@ const Checkout = ({
   const totalPrice = () => {
     if (!loading) {
       return `${delivery_charge +
-        parseFloat(
+        parseInt(
           locationAndTime &&
             locationAndTime.location &&
             locationAndTime.location.value
@@ -123,6 +124,7 @@ const Checkout = ({
       payment_method_title: 'Cash on delivery',
       set_paid: true,
       customer_note: locationAndTime.customerNotes,
+      customer_id: user.id,
       billing: {
         first_name: address.first_name,
         last_name: '',
@@ -132,7 +134,7 @@ const Checkout = ({
         state: address.state,
         postcode: address.postcode,
         country: address.country,
-        phone: address.phone
+        phone: `+91${address.phone}`
       },
       line_items: line_items,
       shipping_lines: [
@@ -160,7 +162,10 @@ const Checkout = ({
       <div id='overlay' className='overlay'></div>
 
       {addressFlag && (
-        <AddressDetails user={address ? address : user} addedAddr={addedAddr} />
+        <AddressDetails
+          user={address ? address : user && user.billing}
+          addedAddr={addedAddr}
+        />
       )}
       {locationAndTimeFlag && (
         <TimeArea timeArea={timeArea} pin={address.postcode} />

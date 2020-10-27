@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 const CheckoutAddress = ({ addedAddr, user }) => {
+  console.log(user);
   const [orderDetails, setOrderDetails] = useState({
     first_name: (user && user.first_name) || '',
     address_1: (user && user.address_1) || '',
