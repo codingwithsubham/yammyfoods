@@ -85,14 +85,14 @@ const SingleRestros = ({
             <div className='rest-name'>{category.name}</div>
             <div className='rest-rat'>
               <StarRatings
-                rating={overallRating()}
+                rating={overallRating() ? overallRating() : 0}
                 starRatedColor='#FFC107'
                 numberOfStars={5}
                 name='rating'
                 starDimension='20px'
                 starSpacing='2px'
               />{' '}
-              {overallRating().toFixed(2)} - Overall
+              {overallRating() ? overallRating().toFixed(2) : '0.0'} - Overall
             </div>
           </div>
         </div>

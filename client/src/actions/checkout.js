@@ -3,7 +3,8 @@ import {
   GET_SHIPPING_PRICE,
   CHECKOUT_SUCCESS,
   CHECKOUT_LOADING,
-  USER_LOADED
+  USER_LOADED,
+  RESET_CART
 } from './types';
 const { API_CONFIG } = require('../common/constants');
 
@@ -35,6 +36,9 @@ export const checkout = data => async dispatch => {
 
     if (res.data) {
       await axios.delete('/api/cart/reset-cart/', API_CONFIG);
+      dispatch({
+        type: RESET_CART
+      });
       const userData = {
         first_name: data && data.billing.first_name,
         billing: data.billing
@@ -49,7 +53,6 @@ export const checkout = data => async dispatch => {
         payload: user.data
       });
     }
-
     dispatch({
       type: CHECKOUT_SUCCESS,
       payload: res.data

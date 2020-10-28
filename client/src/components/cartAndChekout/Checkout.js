@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AddressDetails from './CheckoutAddress';
@@ -75,7 +75,7 @@ const Checkout = ({
 
   const deliveryTotals = () => {
     const data = {
-      pin: address.postcode,
+      pin: address && address.postcode,
       ship_class: shippingClasses
     };
 
@@ -91,6 +91,10 @@ const Checkout = ({
       return '...';
     }
   };
+
+  useEffect(() => {
+    deliveryTotals();
+  }, [deliveryTotals]);
 
   const totalPrice = () => {
     if (!loading) {
@@ -134,7 +138,10 @@ const Checkout = ({
         state: address.state,
         postcode: address.postcode,
         country: address.country,
-        phone: `+91${address.phone}`
+        phone:
+          address && address.phone && address.phone.includes('+91')
+            ? address.phone
+            : `+91${address.phone}`
       },
       line_items: line_items,
       shipping_lines: [
@@ -149,7 +156,7 @@ const Checkout = ({
     checkout(finalData);
     const overlayStyle = document.getElementById('overlay');
     if (overlayStyle) {
-      overlayStyle.style.display = 'block';
+      overlayStyle.style.display = 'flex';
     }
   };
 
@@ -159,8 +166,16 @@ const Checkout = ({
 
   return (
     <div className='checkout'>
-      <div id='overlay' className='overlay'></div>
-
+      <div id='overlay' className='checkout-overlay'>
+        <div className='loading-content'>
+          <img
+            src={require('../../static/load.gif')}
+            alt='loading yammy foods'
+          />
+          <div className='process'>We're Processing Your Order</div>
+          <div className='process-sub'>DO NOT PRESS BACK OR HOME</div>
+        </div>
+      </div>
       {addressFlag && (
         <AddressDetails
           user={address ? address : user && user.billing}
@@ -199,12 +214,22 @@ const Checkout = ({
                   <td>
                     Cart Sub Totals:
                     <br />
-                    Delivery Charge:
+                    Delivery Base Price:
+                    <br />
+                    {locationAndTime &&
+                      locationAndTime.location &&
+                      locationAndTime.location.label}{' '}
+                    Price:
                   </td>
                   <td>
                     {cartTotals()}/- <br />
-                    {deliveryTotals()}
+                    {delivery_charge}/- <br />
+                    {locationAndTime &&
+                      locationAndTime.location &&
+                      locationAndTime.location.value}
+                    /-
                   </td>
+                  <td></td>
                 </tr>
               </tbody>
             </table>

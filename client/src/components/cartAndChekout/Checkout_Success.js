@@ -25,9 +25,10 @@ const Checkout_Success = ({
       <Fragment>
         <div className='checkout-success'>
           <img
-            src={require('../../static/success.gif')}
+            src={require('../../static/confirm.gif')}
             alt='yammy foods checkout success'
           />
+          <h3>Order Placed</h3>
           <button className='btn'>View Order Status</button>
         </div>
       </Fragment>

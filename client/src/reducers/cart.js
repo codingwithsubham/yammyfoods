@@ -1,12 +1,12 @@
 import {
   REMOVE_CART_ITEMS,
   ADD_CART_ITEMS,
-  GET_CART_ITEMS
+  GET_CART_ITEMS,
+  RESET_CART
 } from '../actions/types';
 
 const initialState = {
   loading: true,
-  cart: null,
   cart_items: []
 };
 
@@ -32,6 +32,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         cart_items: payload,
+        loading: false
+      };
+
+    case RESET_CART:
+      return {
+        ...state,
+        cart_items: [],
         loading: false
       };
 
