@@ -7,7 +7,6 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
 import './index.css';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
 import BottomBar from './components/layout/BottomBar';

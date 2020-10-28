@@ -1,7 +1,6 @@
 import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { getLatestproducts } from '../../actions/products';
-import { Carousel } from 'react-responsive-carousel';
 import { connect } from 'react-redux';
 
 const LatestProductSlider = ({
@@ -20,15 +19,15 @@ const LatestProductSlider = ({
       <div className='dmy-slider'></div>
     ) : (
       <Fragment>
-        <Carousel autoPlay>
+        <div className='img-slider'>
           {slider.map((item, idx) => (
             <img
               key={idx}
               alt=''
-              src={`https://order.yammyfoods.in/wp-content/uploads/2020/10/bb${item}.jpg`}
+              src={require(`../../sliders/abb${item}.jpg`)}
             />
           ))}
-        </Carousel>
+        </div>
       </Fragment>
     ))
   );
