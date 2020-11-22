@@ -54,7 +54,7 @@ const Navbar = ({
               <div className='nav-icon' onClick={() => history.goBack()}>
                 <i className='material-icons'>keyboard_arrow_left</i>
               </div>
-              <div className='logo'>YOUR CART</div>
+              <div className='logo'>YOUR BAG</div>
 
               <Link to='/'>
                 <i className='material-icons white'>home</i>

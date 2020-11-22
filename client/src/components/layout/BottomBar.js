@@ -17,8 +17,8 @@ const BottomBar = ({ auth: { isAuthenticated } }) => {
             </li>
 
             <li>
-              <i className='material-icons bttm-icon'>account_circle</i>
-              <div>Account</div>
+              <i className='material-icons bttm-icon'>search</i>
+              <div>Search</div>
             </li>
 
             <li className='center-item'>

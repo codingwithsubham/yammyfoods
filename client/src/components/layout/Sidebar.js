@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { closeSidebar } from '../../actions/sidebar';
 import { Link } from 'react-router-dom';
 
-const Sidebar = ({ closeSidebar, sidebar: { open } }) => {
+const Sidebar = ({
+  closeSidebar,
+  sidebar: { open },
+  auth: { isAuthenticated, user }
+}) => {
   const sidebarStyle = document.getElementById('sidebar');
   if (sidebarStyle) {
     if (open) {
@@ -20,7 +24,9 @@ const Sidebar = ({ closeSidebar, sidebar: { open } }) => {
       <div className='sidebar-content'>
         <div className='profile-area'>
           <i className='material-icons profile-icon'>assignment_ind</i>
-          <div className='profile-name'>Hi, Admin</div>
+          <div className='profile-name'>
+            Hi, {user && (user.first_name ? user.first_name : user.username)}
+          </div>
           <button className='btn'>Logout </button>
         </div>
         <div className='quick-links'>
@@ -80,7 +86,8 @@ Sidebar.propTypes = {
   sidebar: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  sidebar: state.sidebar
+  sidebar: state.sidebar,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {

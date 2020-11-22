@@ -18,7 +18,7 @@ code {
     opacity: 0;
   }
   to {
-    top: 10px;
+    top: 0px;
     opacity: 1;
   }
 }

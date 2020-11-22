@@ -187,13 +187,14 @@ const Checkout = ({
       )}
       {paymentFlag && (
         <Fragment>
+          <div className='checkout-header'>Final Details</div>
           <div className='order-details-table'>
             <table>
               <thead>
                 <tr>
                   <th>Item</th>
-                  <th>Price</th>
                   <th>Quantity</th>
+                  <th>Price</th>
                 </tr>
               </thead>
               <tbody>
@@ -203,10 +204,10 @@ const Checkout = ({
                       {cart_items.filter(x => x.id === uniqueItem)[0].name}
                     </td>
                     <td>
-                      {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
-                    </td>
-                    <td>
                       {cart_items.filter(x => x.id === uniqueItem).length}
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      {cart_items.filter(x => x.id === uniqueItem)[0].price}/-
                     </td>
                   </tr>
                 ))}
@@ -220,21 +221,25 @@ const Checkout = ({
                       locationAndTime.location &&
                       locationAndTime.location.label}{' '}
                     Price:
+                    <br />
+                    <br />
+                    ..
                   </td>
-                  <td>
+                  <td colSpan='2' style={{ textAlign: 'right' }}>
                     {cartTotals()}/- <br />
                     {delivery_charge}/- <br />
                     {locationAndTime &&
                       locationAndTime.location &&
                       locationAndTime.location.value}
                     /-
+                    <hr />
+                    Total - {totalPrice()}
                   </td>
-                  <td></td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div className='checkout-header'>Total Cost: {totalPrice()}</div>
+
           <div className='time-block'>
             <label className='radio-container'>
               Cash On Delivery

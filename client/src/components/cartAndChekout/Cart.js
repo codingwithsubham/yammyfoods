@@ -49,8 +49,10 @@ const Cart = ({
     </Fragment>
   ) : cart_items.length <= 0 ? (
     <div className='cart-empty'>
-      <i className='material-icons'>remove_shopping_cart</i>
-      <h1> Your Bag is Empty</h1>
+      <div style={{ textAlign: 'center' }}>
+        <i className='material-icons'>remove_shopping_cart</i>
+        <h1> Your Bag is Empty</h1>
+      </div>
     </div>
   ) : (
     unique && (

@@ -439,19 +439,18 @@
 
   .box-alert {
     color: white;
-    padding: 2%;
+    padding: 4%;
     font-size: 18px;
     font-weight: 400;
     position: fixed;
-    background-color: rgb(36 36 36);
-    border-radius: 4px;
     z-index: 999999;
-    left: 25%;
-    right: 25%;
+    left: 0%;
+    right: 0%;
     text-align: center;
     animation-name: animate;
     animation-duration: 0.5s;
-    top: 10px;
+    top: 0;
+    width: -webkit-fill-available;
   }
 
   img.product-img {
@@ -559,7 +558,7 @@
   .cart-item.name {
     margin: 0px 20px;
     width: 100%;
-    line-height: 25px;
+    line-height: 20px;
     font-weight: 500;
   }
 
@@ -1411,5 +1410,14 @@
   .img-slider {
     display: flex;
     overflow-x: scroll;
+  }
+
+  hr {
+    width: -webkit-fill-available;
+    padding: 0px;
+    height: 2px;
+    border-top: 1px solid #000 !important;
+    border: 1px solid #f9f9f9;
+    margin: 2px;
   }
 }
