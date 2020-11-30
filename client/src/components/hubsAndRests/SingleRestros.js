@@ -20,7 +20,11 @@ const SingleRestros = ({
   }, [getRestroById, getProductsByRestroId, match.params.id]);
 
   let data = products;
-  const unique = [...new Set(data.map(item => item.tags && item.tags[0].name))];
+  const unique = [
+    ...new Set(
+      data.map(item => item.tags && item.tags.length > 0 && item.tags[0].name)
+    )
+  ];
 
   const overallRating = () => {
     let rating = 0;

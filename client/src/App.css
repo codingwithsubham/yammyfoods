@@ -771,12 +771,13 @@
   }
 
   .restro-header {
-    height: 200px;
+    height: 300px;
     width: 100%;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     margin-bottom: 80px;
+    border-radius: 4px;
   }
 
   .restro-desc {
@@ -784,7 +785,7 @@
     padding: 11px 10px;
     width: 65%;
     background: #fff;
-    top: 200px;
+    top: 300px;
     left: 22px;
     border-radius: 4px;
     box-shadow: 0px 0px 10px 0px #2f2f2f;
