@@ -21,7 +21,7 @@ const Sidebar = ({
   return (
     <div id='sidebar' className='sidebar'>
       <div className='sidebar-overlay' onClick={closeSidebar}></div>
-      <div className='sidebar-content'>
+      <div className='sidebar-content' onClick={closeSidebar}>
         <div className='profile-area'>
           <i className='material-icons profile-icon'>assignment_ind</i>
           <div className='profile-name'>
@@ -31,9 +31,12 @@ const Sidebar = ({
         </div>
         <div className='quick-links'>
           <div className='quick-link-items'>
-            <i className='material-icons quick-link-icon'>shopping_basket</i>
-            Orders
+            <Link to='/orders'>
+              <i className='material-icons quick-link-icon'>shopping_basket</i>
+              Orders
+            </Link>
           </div>
+
           <div className='quick-link-items'>
             <i className='material-icons quick-link-icon'>account_box</i>
             Account
@@ -46,14 +49,6 @@ const Sidebar = ({
           </div>
         </div>
         <div className='sidebar-links'>
-          <Link to='#' className='silebar-link'>
-            Home
-          </Link>
-          <br />
-          <Link to='#' className='silebar-link'>
-            Food Hubs
-          </Link>
-          <br />
           <Link to='#' className='silebar-link'>
             Addresses
           </Link>

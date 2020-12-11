@@ -10,9 +10,21 @@ const WooCommerce = new WooCommerceRestApi({
   version: 'wc/v3'
 });
 
-// @route   to do checkout
+// @route   to get an order details
 router.get('/:id', auth, async (req, res) => {
   WooCommerce.get(`orders/${req.params.id}`)
+    .then(response => {
+      res.json(response.data);
+    })
+    .catch(error => {
+      res.json(error.response.data);
+    });
+});
+
+// @route   to get orders for a Customer
+router.get('/', auth, async (req, res) => {
+  console.log(req.user.id);
+  WooCommerce.get(`orders?customer=${req.user.id}`)
     .then(response => {
       res.json(response.data);
     })

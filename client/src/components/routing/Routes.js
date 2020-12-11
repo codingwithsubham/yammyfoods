@@ -13,6 +13,8 @@ import ScrollToTop from '../../ScrollToTop';
 import PrivateRoute from './PrivateRoute';
 import Checkout from '../cartAndChekout/Checkout';
 import Checkout_Success from '../cartAndChekout/Checkout_Success';
+import Orders from '../customer/Orders';
+import ViewOrder from '../customer/ViewOrder';
 
 const Routes = () => {
   return (
@@ -29,6 +31,8 @@ const Routes = () => {
           <PrivateRoute exact path='/food-hub/:id' component={FoodHub} />
           <PrivateRoute exact path='/restro/:id' component={Restro} />
           <PrivateRoute exact path='/checkout' component={Checkout} />
+          <PrivateRoute exact path='/orders' component={Orders} />
+          <PrivateRoute exact path='/view-Order/:id' component={ViewOrder} />
           <PrivateRoute
             exact
             path='/checkout/success/:id'

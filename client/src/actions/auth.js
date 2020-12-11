@@ -3,7 +3,9 @@ import {
   SEND_OTP_SUCCESS,
   LOGIN_SUCCESS,
   USER_LOADED,
-  AUTH_ERROR
+  AUTH_ERROR,
+  DELIVERY_BOY_LOADED,
+  DELIVERY_DETAILS_LOADING
 } from './types';
 import { setAlert } from './alert';
 import setAuthToken from '../utils/setAuthToken';
@@ -14,7 +16,6 @@ export const loadUser = () => async dispatch => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
-
   try {
     const res = await axios.get('/api/auth/load-user', API_CONFIG);
     dispatch({
@@ -60,5 +61,21 @@ export const login = (contrycode, mobile, loginType, otp) => async dispatch => {
     dispatch({
       type: AUTH_ERROR
     });
+  }
+};
+
+//Get Delivery Boy
+export const getDeliveryBoy = id => async dispatch => {
+  dispatch({
+    type: DELIVERY_DETAILS_LOADING
+  });
+  try {
+    const res = await axios.get(`/api/auth/get-delivery-boy/${id}`, API_CONFIG);
+    dispatch({
+      type: DELIVERY_BOY_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch(setAlert('Unable to Fetch Delivery Boy Details', 'danger'));
   }
 };

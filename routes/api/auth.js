@@ -141,9 +141,15 @@ router.post('/verifyotp', async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-
     res.status(500).send(SERVER_ERROR);
   }
+});
+
+// @route GET api/auth
+// @desc Get Delivery Boy By Id
+// @access Private
+router.get('/get-delivery-boy/:id', auth, async (req, res) => {
+  //not required if we spent money
 });
 
 module.exports = router;

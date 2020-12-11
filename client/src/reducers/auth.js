@@ -8,8 +8,9 @@ import {
   LOGOUT,
   ACCOUNT_DELETED,
   USERS_LOADED,
-  SEND_OTP_FAIL,
-  SEND_OTP_SUCCESS
+  SEND_OTP_SUCCESS,
+  DELIVERY_BOY_LOADED,
+  DELIVERY_DETAILS_LOADING
 } from '../actions/types';
 
 const initialState = {
@@ -19,7 +20,8 @@ const initialState = {
   user: null,
   users: [],
   loginType: null,
-  otpSend: false
+  otpSend: false,
+  delivery_boy: null
 };
 
 export default function(state = initialState, action) {
@@ -33,6 +35,14 @@ export default function(state = initialState, action) {
         loading: false,
         user: payload
       };
+
+    case DELIVERY_BOY_LOADED:
+      return {
+        ...state,
+        delivery_boy: payload,
+        loading: false
+      };
+
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
@@ -42,6 +52,7 @@ export default function(state = initialState, action) {
         isAuthenticated: true,
         loading: false
       };
+
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
@@ -69,6 +80,13 @@ export default function(state = initialState, action) {
         ...state,
         loginType: payload.type,
         otpSend: payload.send
+      };
+
+    case DELIVERY_DETAILS_LOADING:
+      return {
+        ...state,
+        loading: true,
+        delivery_boy: null
       };
 
     default:
