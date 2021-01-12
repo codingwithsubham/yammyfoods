@@ -80,3 +80,14 @@ img {
     opacity: 0;
   }
 }
+
+@keyframes fade-slider {
+  from {
+    right: 300px;
+    opacity: 0.4;
+  }
+  to {
+    right: 0px;
+    opacity: 1;
+  }
+}

@@ -1502,4 +1502,34 @@
     height: 300px;
     object-fit: cover;
   }
+
+  .mySlides {
+    display: none;
+  }
+  img {
+    vertical-align: middle;
+  }
+
+  .slideshow-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+  }
+
+  .active-slide {
+    background-color: #717171;
+  }
+
+  /* Fading animation */
+  .slide {
+    -webkit-animation-name: fade-slider;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade-slider;
+    animation-duration: 1.5s;
+  }
+
+  .active i {
+    color: #ec2617;
+    text-shadow: 0px 0px 5px #555;
+  }
 }
