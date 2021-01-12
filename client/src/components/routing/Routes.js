@@ -24,7 +24,8 @@ const Routes = () => {
         <ScrollToTop />
         <Switch>
           <Route exact path='/login' component={Login} />
-          <PrivateRoute exact path='/' component={Dashboard} />
+          <Route exact path='/' component={Login} />
+          <PrivateRoute exact path='/home' component={Dashboard} />
           <PrivateRoute exact path='/food-hubs' component={FoodHubs} />
           <PrivateRoute exact path='/cart' component={Cart} />
           <PrivateRoute exact path='/product/:id' component={ProductDetails} />

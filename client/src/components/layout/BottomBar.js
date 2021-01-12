@@ -10,7 +10,7 @@ const BottomBar = ({ auth: { isAuthenticated } }) => {
         <div className='bottom-bar'>
           <ul>
             <li>
-              <NavLink to='/'>
+              <NavLink to='/home'>
                 <i className='material-icons bttm-icon'>home</i>
                 <div>Home</div>
               </NavLink>
