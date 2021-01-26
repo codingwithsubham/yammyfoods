@@ -1,16 +1,18 @@
 import {
   GET_SHIPPING_PRICE,
   CHECKOUT_SUCCESS,
-  CHECKOUT_LOADING
+  CHECKOUT_LOADING,
+  PAYMENT_CAPTURED,
 } from '../actions/types';
 
 const initialState = {
   loading: true,
   delivery_charge: 0,
-  checkoutData: null
+  checkoutData: null,
+  paymentStatus: null,
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -18,22 +20,29 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        delivery_charge: payload.totalCost
+        delivery_charge: payload.totalCost,
       };
     case CHECKOUT_SUCCESS:
       return {
         ...state,
         loading: false,
-        checkoutData: payload
+        checkoutData: payload,
       };
     case CHECKOUT_LOADING:
       return {
         ...state,
         loading: true,
         checkoutData: null,
-        delivery_charge: 0
+        delivery_charge: 0,
+        paymentStatus: null,
       };
 
+    case PAYMENT_CAPTURED:
+      return {
+        ...state,
+        loading: false,
+        paymentStatus: payload,
+      };
     default:
       return state;
   }

@@ -3,11 +3,12 @@ import { getOrderDetails } from '../../actions/orders';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Dummy from './DummyCart';
+import { Link } from 'react-router-dom';
 
 const Checkout_Success = ({
   getOrderDetails,
   orders: { loading, order },
-  match
+  match,
 }) => {
   useEffect(() => {
     getOrderDetails(match.params.id);
@@ -29,7 +30,9 @@ const Checkout_Success = ({
             alt='yammy foods checkout success'
           />
           <h3>Order Placed</h3>
-          <button className='btn'>View Order Status</button>
+          <Link to='/orders'>
+            <button className='btn'>View Order Status</button>
+          </Link>
         </div>
       </Fragment>
     )
@@ -38,11 +41,11 @@ const Checkout_Success = ({
 
 Checkout_Success.propTypes = {
   orders: PropTypes.object.isRequired,
-  getOrderDetails: PropTypes.func.isRequired
+  getOrderDetails: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  orders: state.orders
+const mapStateToProps = (state) => ({
+  orders: state.orders,
 });
 
 export default connect(mapStateToProps, { getOrderDetails })(Checkout_Success);

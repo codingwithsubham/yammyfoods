@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 const LatestProductSlider = ({
   getLatestproducts,
-  products: { products, loading }
+  products: { products, loading },
 }) => {
   useEffect(() => {
     getLatestproducts();
@@ -16,26 +16,28 @@ const LatestProductSlider = ({
   var slideIndex = 0;
   showSlides();
 
-function showSlides() {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
+  function showSlides() {
+    var i;
+    var slides = document.getElementsByClassName('mySlides');
+    var dots = document.getElementsByClassName('dot');
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = 'none';
+    }
+    slideIndex++;
+    if (slideIndex > slides.length) {
+      slideIndex = 1;
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(' active', '');
+    }
+    if (slides[slideIndex - 1]) {
+      slides[slideIndex - 1].style.display = 'block';
+    }
+    if (dots[slideIndex - 1]) {
+      dots[slideIndex - 1].className += ' active-slide';
+    }
+    setTimeout(showSlides, 6000);
   }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  if(slides[slideIndex-1]){
-  slides[slideIndex-1].style.display = "block";  
-  }
-  if( dots[slideIndex-1]){
-  dots[slideIndex-1].className += " active-slide";
-  }
-  setTimeout(showSlides, 6000); // Change image every 2 seconds
-}
 
   return (
     products &&
@@ -43,14 +45,14 @@ function showSlides() {
       <div className='dmy-slider'></div>
     ) : (
       <Fragment>
-        <div className="slideshow-container">
+        <div className='slideshow-container'>
           {slider.map((item, idx) => (
-            <div key={idx} className="mySlides slide">  
-            <img
-              alt=''
-              src={require(`../../sliders/abb${item}.jpg`)}
-              style={{width: '100%'}}
-            />
+            <div key={idx} className='mySlides slide'>
+              <img
+                alt=''
+                src={require(`../../sliders/abb${item}.jpg`)}
+                style={{ width: '100%' }}
+              />
             </div>
           ))}
         </div>
@@ -61,10 +63,10 @@ function showSlides() {
 
 LatestProductSlider.propTypes = {
   products: PropTypes.object.isRequired,
-  getLatestproducts: PropTypes.func.isRequired
+  getLatestproducts: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
-  products: state.products
+const mapStateToProps = (state) => ({
+  products: state.products,
 });
 
 export default connect(mapStateToProps, { getLatestproducts })(

@@ -22,9 +22,11 @@
     "express-validator": "^6.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.14",
+    "razorpay": "^2.0.6",
     "react-scroll": "^1.8.1",
     "react-select": "^3.1.0",
     "request": "^2.88.0",
+    "shortid": "^2.2.16",
     "wpapi": "^1.2.1"
   },
   "devDependencies": {

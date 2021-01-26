@@ -7,6 +7,7 @@ import category from './category';
 import sidebar from './sidebar';
 import orders from './orders';
 import checkout from './checkout';
+import wallet from './wallet';
 
 export default combineReducers({
   alert,
@@ -16,5 +17,6 @@ export default combineReducers({
   category,
   sidebar,
   checkout,
-  orders
+  orders,
+  wallet,
 });

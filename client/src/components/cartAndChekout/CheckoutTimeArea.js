@@ -5,19 +5,19 @@ import { AREAS, DELIVERY_TIME } from './checkout_areas';
 const CheckoutTimeArea = ({ timeArea, pin }) => {
   const [orderDetails, setOrderDetails] = useState({
     location: '',
-    time: startTime(DELIVERY_TIME.filter(x => x.pin == pin)[0].time + 20),
+    time: startTime(DELIVERY_TIME.filter((x) => x.pin == pin)[0].time + 20),
     customTime: false,
-    customerNotes: ''
+    customerNotes: '',
   });
 
   const [error, setError] = useState(false);
 
-  const onChange = e => {
+  const onChange = (e) => {
     setOrderDetails({ ...orderDetails, [e.target.name]: e.target.value });
     setError(false);
   };
 
-  const onRadioChange = e => {
+  const onRadioChange = (e) => {
     if (e.target.value === 'standard') {
       setOrderDetails({ ...orderDetails, customTime: false });
     } else {
@@ -25,7 +25,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
     }
   };
 
-  const onSubmit = e => {
+  const onSubmit = (e) => {
     e.preventDefault();
     if (orderDetails.location) {
       timeArea(orderDetails, true);
@@ -39,7 +39,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
   };
 
   let options = [];
-  AREAS.forEach(item => {
+  AREAS.forEach((item) => {
     return item.pin == pin
       ? (options = [...item.areas])
       : (options = [...options]);
@@ -51,7 +51,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
     let h = today.getHours();
     let m = today.getMinutes();
     let pm = false;
-    setTimeout(function() {
+    setTimeout(function () {
       startTime();
     }, 500);
     if (h > 11) {
@@ -67,14 +67,15 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
     <Fragment>
       <div className='multi-step-container'>
         <div className='header'>Additional Details</div>
-        <form onSubmit={e => onSubmit(e)} className='address-box'>
+        <form onSubmit={(e) => onSubmit(e)} className='address-box'>
           <div className='checkout-inputs'>
             <h5>Select Your Area</h5>
 
             <Select
+              isSearchable={false}
               closeMenuOnSelect={false}
               options={options}
-              onChange={e => {
+              onChange={(e) => {
                 setOrderDetails({ ...orderDetails, location: e });
                 setError(false);
               }}
@@ -88,9 +89,10 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                 type='text'
                 name='customerNotes'
                 value={orderDetails.customerNotes}
-                onChange={e => onChange(e)}
+                onChange={(e) => onChange(e)}
                 maxLength={50}
                 minLength={2}
+                style={{ height: '60px' }}
               />
             </Fragment>
 
@@ -102,7 +104,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                   type='radio'
                   name='radio'
                   value='standard'
-                  onChange={e => onRadioChange(e)}
+                  onChange={(e) => onRadioChange(e)}
                   defaultChecked
                 />
                 <span className='checkmark'></span>
@@ -113,7 +115,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                   type='radio'
                   name='radio'
                   value='custom'
-                  onChange={e => onRadioChange(e)}
+                  onChange={(e) => onRadioChange(e)}
                 />
                 <span className='checkmark'></span>
               </label>
@@ -126,7 +128,7 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                   type='text'
                   name='time'
                   value={orderDetails.time}
-                  onChange={e => onChange(e)}
+                  onChange={(e) => onChange(e)}
                   required
                   maxLength={10}
                   minLength={3}
@@ -135,10 +137,10 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
             ) : (
               <div className='delivery-time'>
                 <b>Delivery Time:</b>
-                {startTime(DELIVERY_TIME.filter(x => x.pin == pin)[0].time)}
+                {startTime(DELIVERY_TIME.filter((x) => x.pin == pin)[0].time)}
                 {' - '}
                 {startTime(
-                  DELIVERY_TIME.filter(x => x.pin == pin)[0].time + 30
+                  DELIVERY_TIME.filter((x) => x.pin == pin)[0].time + 30
                 )}
               </div>
             )}

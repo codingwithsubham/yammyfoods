@@ -1,34 +1,26 @@
-import { GET_ORDER, GET_ORDERS, ORDER_LOADING } from '../actions/types';
+import { GET_WALLET_BALLANCE, WALLET_BALANCE_LOADING } from '../actions/types';
 
 const initialState = {
   loading: true,
-  orders: [],
-  order: null,
+  wallet: 0,
 };
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_ORDER:
+    case GET_WALLET_BALLANCE:
       return {
         ...state,
         loading: false,
-        order: payload,
+        wallet: payload,
       };
 
-    case GET_ORDERS:
-      return {
-        ...state,
-        loading: false,
-        orders: payload,
-      };
-
-    case ORDER_LOADING:
+    case WALLET_BALANCE_LOADING:
       return {
         ...state,
         loading: true,
-        order: null,
+        wallet: null,
       };
 
     default:

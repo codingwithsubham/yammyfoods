@@ -14,6 +14,8 @@ app.use('/api/category', require('./routes/api/category'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/checkout', require('./routes/api/checkout'));
 app.use('/api/orders', require('./routes/api/order'));
+app.use('/api/wallet', require('./routes/api/wallet'));
+app.use('/api/razorpay', require('./routes/api/razorpay'));
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
