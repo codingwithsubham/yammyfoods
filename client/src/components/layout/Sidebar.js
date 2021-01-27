@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Sidebar = ({
   closeSidebar,
   sidebar: { open },
-  auth: { isAuthenticated, user }
+  auth: { isAuthenticated, user },
 }) => {
   const sidebarStyle = document.getElementById('sidebar');
   if (sidebarStyle) {
@@ -42,10 +42,12 @@ const Sidebar = ({
             Account
           </div>
           <div className='quick-link-items'>
-            <i className='material-icons quick-link-icon'>
-              account_balance_wallet
-            </i>
-            Wallet
+            <Link to='/wallet'>
+              <i className='material-icons quick-link-icon'>
+                account_balance_wallet
+              </i>
+              Wallet
+            </Link>
           </div>
         </div>
         <div className='sidebar-links'>
@@ -78,13 +80,13 @@ const Sidebar = ({
 
 Sidebar.propTypes = {
   closeSidebar: PropTypes.func.isRequired,
-  sidebar: PropTypes.object.isRequired
+  sidebar: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   sidebar: state.sidebar,
-  auth: state.auth
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {
-  closeSidebar
+  closeSidebar,
 })(Sidebar);

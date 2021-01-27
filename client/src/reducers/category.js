@@ -1,13 +1,19 @@
-import { GET_FOOD_HUBS, GET_RESTROS, GET_RESTRO } from '../actions/types';
+import {
+  GET_FOOD_HUBS,
+  GET_RESTROS,
+  GET_RESTRO,
+  SEARCH_RESTRO_DATA,
+} from '../actions/types';
 
 const initialState = {
   loading: true,
   category: null,
   categories: [],
-  restros: []
+  restros: [],
+  searchRestroData: [],
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -15,7 +21,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: false,
-        categories: payload
+        categories: payload,
       };
 
     case GET_RESTROS:
@@ -23,16 +29,25 @@ export default function(state = initialState, action) {
         ...state,
         loading: false,
         restros: [
-          ...state.restros.filter(restro => restro.foodHub !== payload.foodHub),
-          payload
-        ]
+          ...state.restros.filter(
+            (restro) => restro.foodHub !== payload.foodHub
+          ),
+          payload,
+        ],
       };
 
     case GET_RESTRO:
       return {
         ...state,
         loading: false,
-        category: payload
+        category: payload,
+      };
+
+    case SEARCH_RESTRO_DATA:
+      return {
+        ...state,
+        loading: false,
+        searchRestroData: payload,
       };
 
     default:

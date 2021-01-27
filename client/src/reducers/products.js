@@ -1,12 +1,18 @@
-import { GET_PRODUCTS, GET_PRODUCT, SET_LOADING_TRUE } from '../actions/types';
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT,
+  SET_LOADING_TRUE,
+  SEARCH_PRODUCTS_DATA,
+} from '../actions/types';
 
 const initialState = {
   loading: true,
   product: null,
-  products: []
+  products: [],
+  searchProductData: [],
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -14,20 +20,27 @@ export default function(state = initialState, action) {
       return {
         ...state,
         loading: true,
-        product: null
+        product: null,
       };
     case GET_PRODUCTS:
       return {
         ...state,
         loading: false,
-        products: payload
+        products: payload,
       };
 
     case GET_PRODUCT:
       return {
         ...state,
         loading: false,
-        product: payload
+        product: payload,
+      };
+
+    case SEARCH_PRODUCTS_DATA:
+      return {
+        ...state,
+        loading: false,
+        searchProductData: payload,
       };
 
     default:

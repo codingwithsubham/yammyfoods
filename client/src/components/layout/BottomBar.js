@@ -17,8 +17,10 @@ const BottomBar = ({ auth: { isAuthenticated } }) => {
             </li>
 
             <li>
-              <i className='material-icons bttm-icon'>search</i>
-              <div>Search</div>
+              <NavLink to='/search'>
+                <i className='material-icons bttm-icon'>search</i>
+                <div>Search</div>
+              </NavLink>
             </li>
 
             <li className='center-item'>
@@ -45,10 +47,10 @@ const BottomBar = ({ auth: { isAuthenticated } }) => {
 };
 
 BottomBar.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
 };
-const mapStateToProps = state => ({
-  auth: state.auth
+const mapStateToProps = (state) => ({
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {})(BottomBar);

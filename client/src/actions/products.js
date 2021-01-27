@@ -1,14 +1,20 @@
 import axios from 'axios';
-import { GET_PRODUCTS, GET_PRODUCT, SET_LOADING_TRUE } from './types';
+import {
+  GET_PRODUCTS,
+  GET_PRODUCT,
+  SET_LOADING_TRUE,
+  SEARCH_PRODUCTS_DATA,
+} from './types';
 //import setAuthToken from '../utils/setAuthToken';
+const { API_CONFIG } = require('../common/constants');
 
 // Load Products
-export const getLatestproducts = () => async dispatch => {
+export const getLatestproducts = () => async (dispatch) => {
   try {
     const res = await axios.get('/api/products');
     dispatch({
       type: GET_PRODUCTS,
-      payload: res.data
+      payload: res.data,
     });
   } catch (err) {
     console.log(err);
@@ -16,15 +22,32 @@ export const getLatestproducts = () => async dispatch => {
 };
 
 //get product by id
-export const getProductById = id => async dispatch => {
+export const getProductById = (id) => async (dispatch) => {
   dispatch({
-    type: SET_LOADING_TRUE
+    type: SET_LOADING_TRUE,
   });
   try {
     const res = await axios.get(`/api/products/${id}`);
     dispatch({
       type: GET_PRODUCT,
-      payload: res.data
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+//get product by search
+export const searchProduct = (keyword) => async (dispatch) => {
+  try {
+    const res = await axios.post(
+      `/api/products/search`,
+      { keyword },
+      API_CONFIG
+    );
+    dispatch({
+      type: SEARCH_PRODUCTS_DATA,
+      payload: res.data,
     });
   } catch (err) {
     console.log(err);

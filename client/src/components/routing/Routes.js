@@ -16,6 +16,7 @@ import Checkout_Success from '../cartAndChekout/Checkout_Success';
 import Orders from '../customer/Orders';
 import ViewOrder from '../customer/ViewOrder';
 import Wallet from '../customer/Wallet';
+import SearchFoods from '../dashboard/SearchFoods';
 
 const Routes = () => {
   return (
@@ -34,6 +35,7 @@ const Routes = () => {
           <PrivateRoute exact path='/restro/:id' component={Restro} />
           <PrivateRoute exact path='/checkout' component={Checkout} />
           <PrivateRoute exact path='/orders' component={Orders} />
+          <PrivateRoute exact path='/search' component={SearchFoods} />
           <PrivateRoute exact path='/wallet' component={Wallet} />
           <PrivateRoute exact path='/view-Order/:id' component={ViewOrder} />
           <PrivateRoute

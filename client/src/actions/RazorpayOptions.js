@@ -1,6 +1,6 @@
 import axios from 'axios';
-const { API_CONFIG } = require('../../common/constants');
-const { PAYMENT_CAPTURED } = require('../../actions/types');
+const { API_CONFIG } = require('../common/constants');
+const { PAYMENT_CAPTURED } = require('./types');
 
 //init Razorpay
 export const showRazorpay = () => {
@@ -18,7 +18,7 @@ export const showRazorpay = () => {
 };
 
 //Razorpay Poup Form
-export const loadRazorpayToggle = (price) => async (dispatch) => {
+export const loadRazorpayToggle = (price, details) => async (dispatch) => {
   const res = await showRazorpay();
   if (!res) {
     alert('can not load payment method');
@@ -31,8 +31,9 @@ export const loadRazorpayToggle = (price) => async (dispatch) => {
     amount: data.amount,
     currency: data.currency,
     name: 'Yammy Foods',
-    description: 'Test Transaction',
-    image: 'https://example.com/your_logo',
+    description: 'Yammy Foods Order Online',
+    image:
+      'https://order.b-cdn.net/wp-content/uploads/2019/12/Logo-Main-e1592128542736.png',
     order_id: data.id,
     handler: function () {
       dispatch({
@@ -40,16 +41,24 @@ export const loadRazorpayToggle = (price) => async (dispatch) => {
         payload: 'Success',
       });
     },
+    modal: {
+      ondismiss: function () {
+        dispatch({
+          type: PAYMENT_CAPTURED,
+          payload: 'Closed',
+        });
+      },
+    },
     prefill: {
       name: 'Yammy Foods Customer',
-      email: 'gaurav.kumar@example.com',
+      email: 'yammyfoods@gmail.com',
       contact: '9999999999',
     },
     notes: {
-      address: 'Razorpay Corporate Office',
+      address: 'Yammy Foods Bengalore',
     },
     theme: {
-      color: '#3399cc',
+      color: '#ffcc00ff',
     },
   };
   var rzp1 = new window.Razorpay(options);

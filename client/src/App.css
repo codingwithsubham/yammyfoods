@@ -1473,11 +1473,6 @@
     letter-spacing: 1px;
     color: #fff;
     text-decoration: blink;
-    -webkit-animation-name: blink;
-    -webkit-animation-duration: 0.8s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-direction: alternate;
   }
 
   .order-short-details ul {
@@ -1515,6 +1510,9 @@
     max-width: 1000px;
     position: relative;
     margin: auto;
+    height: 198px;
+    background: #ddd;
+    border-radius: 4px;
   }
 
   .active-slide {
@@ -1539,5 +1537,121 @@
     margin: 0px;
     font-size: 17px;
     font-weight: 700;
+  }
+
+  .wlt-cntnr {
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    padding: 10px;
+  }
+
+  .wlt-hdr {
+    width: -webkit-fill-available;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2196f3;
+    border-radius: 11px;
+    box-shadow: 0px 1px 9px 0px #00000091;
+    margin: 5px 0px 20px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+    text-shadow: 0px 0px 8px #00000085;
+  }
+
+  .wlt-opt {
+    width: -webkit-fill-available;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .wlt-itms {
+    width: 50%;
+    text-align: center;
+    background: #ddd;
+    margin: 10px;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .wlt-cntnr form {
+    padding: 20px 0px;
+    text-align: center;
+  }
+
+  .srch-pge-form button.btn {
+    width: -webkit-fill-available;
+    margin-top: -7px;
+    margin-bottom: 20px;
+  }
+
+  .srch-pge-form {
+    width: -webkit-fill-available;
+  }
+
+  .srch-rslts {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .srch-rslts .prdct-crd {
+    width: 43%;
+  }
+
+  .srch-rslts .prdct-crd img {
+    width: 100%;
+  }
+
+  .react-tabs__tab--selected {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: #673ab7 !important;
+    border-radius: 5px 5px 0 0;
+    border-bottom: 2px solid #673ab7;
+  }
+
+  div#react-tabs-1 {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  div#react-tabs-3 {
+    width: 100%;
+  }
+
+  div#react-tabs-3 img {
+    width: 100%;
+    margin: 2px 0px;
+  }
+
+  ul.react-tabs__tab-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: none;
+  }
+
+  .react-tabs {
+    width: 100%;
+  }
+
+  .react-tabs__tab {
+    width: 50%;
+    text-align: center;
+    color: #888;
+  }
+
+  .srch-rslts h3 {
+    text-align: center;
+    width: 100%;
+    color: #636363;
   }
 }

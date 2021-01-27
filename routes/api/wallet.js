@@ -50,4 +50,46 @@ router.post('/debit', auth, async (req, res) => {
     });
 });
 
+// @route   to Credit wallet value
+router.post('/credit', auth, async (req, res) => {
+  let { creditamnt } = req.body;
+
+  axios
+    .post(
+      `${BASE_URL}/wallet/${req.user.id}`,
+      {
+        type: 'credit',
+        amount: parseFloat(creditamnt),
+        details: 'New Order At Yammy Foods',
+      },
+      {
+        headers: {
+          Authorization: `Basic ${token}`,
+        },
+      }
+    )
+    .then((response) => {
+      return res.json(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+});
+
+// @route   to get wallet trasactions
+router.get('/passbook', auth, async (req, res) => {
+  axios
+    .get(`${BASE_URL}/wallet/${req.user.id}`, {
+      headers: {
+        Authorization: `Basic ${token}`,
+      },
+    })
+    .then((response) => {
+      return res.json(response.data);
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+});
+
 module.exports = router;

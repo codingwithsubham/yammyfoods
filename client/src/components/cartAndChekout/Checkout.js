@@ -6,7 +6,7 @@ import TimeArea from './CheckoutTimeArea';
 import { getShipping, checkout } from '../../actions/checkout';
 import { getWalletBalance, debitWalletBallance } from '../../actions/wallet';
 import { Redirect } from 'react-router-dom';
-import { loadRazorpayToggle } from './RazorpayOptions';
+import { loadRazorpayToggle } from '../../actions/RazorpayOptions';
 
 const Checkout = ({
   cart: { cart_items },
@@ -210,6 +210,13 @@ const Checkout = ({
     if (payment === 'Wallet') {
       debitWalletBallance(wallet);
       checkout(dataToBeSend);
+    }
+  }
+
+  if (paymentStatus === 'Closed') {
+    const overlayStyle = document.getElementById('overlay');
+    if (overlayStyle) {
+      overlayStyle.style.display = 'none';
     }
   }
 
