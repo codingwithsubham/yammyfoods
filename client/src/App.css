@@ -1659,4 +1659,9 @@
   img.no-rslts {
     width: 98%;
   }
+
+  .srch-rslts img {
+    width: 100%;
+    margin: 5px 0px;
+  }
 }
