@@ -1145,6 +1145,7 @@
     justify-content: center;
     flex-wrap: wrap;
     padding-bottom: 100px;
+    width: 100%;
   }
 
   .multi-step-container .header {
@@ -1653,5 +1654,9 @@
     text-align: center;
     width: 100%;
     color: #636363;
+  }
+
+  img.no-rslts {
+    width: 98%;
   }
 }
