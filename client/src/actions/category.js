@@ -6,6 +6,7 @@ import {
   GET_RESTROS,
   SEARCH_RESTRO_DATA,
   GET_RESTRO,
+  SEARCH_LOADING_TRUE,
 } from './types';
 const { API_CONFIG } = require('../common/constants');
 
@@ -78,6 +79,9 @@ export const getRestroById = (id) => async (dispatch) => {
 //get Restros By Search
 export const searchRestro = (keyword) => async (dispatch) => {
   try {
+    dispatch({
+      type: SEARCH_LOADING_TRUE,
+    });
     const res = await axios.post(
       `/api/category/search`,
       { keyword },

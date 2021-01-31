@@ -19,11 +19,15 @@ const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
     categories && (
       <Fragment>
         <div className='all-hubs'>
-          {categories.map(item => (
-            <Link key={item.id} to={`/food-hub/${item.id}`}>
-              <img alt='' src={item.image && item.image.src} />
-            </Link>
-          ))}
+          {categories.map(
+            (item) =>
+              item.image &&
+              item.image.src && (
+                <Link key={item.id} to={`/food-hub/${item.id}`}>
+                  <img alt='' src={item.image && item.image.src} />
+                </Link>
+              )
+          )}
         </div>
       </Fragment>
     )
@@ -31,13 +35,13 @@ const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
 };
 
 FoodHubs.propTypes = {
-  getFoodHubs: PropTypes.func.isRequired
+  getFoodHubs: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = state => ({
-  category: state.category
+const mapStateToProps = (state) => ({
+  category: state.category,
 });
 
 export default connect(mapStateToProps, {
-  getFoodHubs
+  getFoodHubs,
 })(FoodHubs);

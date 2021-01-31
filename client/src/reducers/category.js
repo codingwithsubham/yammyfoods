@@ -3,6 +3,7 @@ import {
   GET_RESTROS,
   GET_RESTRO,
   SEARCH_RESTRO_DATA,
+  SEARCH_LOADING_TRUE,
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +49,13 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         searchRestroData: payload,
+      };
+
+    case SEARCH_LOADING_TRUE:
+      return {
+        ...state,
+        loading: true,
+        searchRestroData: [],
       };
 
     default:

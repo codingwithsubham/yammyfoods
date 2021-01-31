@@ -10,34 +10,34 @@ const SingleFoodHub = ({
   getRestrosByFoodhub,
   getFoodHubs,
   category: { categories, restros, loading },
-  match
+  match,
 }) => {
   useEffect(() => {
     getRestrosByFoodhub(match.params.id);
     getFoodHubs();
   }, [getRestrosByFoodhub, match.params.id, getFoodHubs]);
 
-  let data = restros && restros.filter(x => x.foodHub === match.params.id);
+  let data = restros && restros.filter((x) => x.foodHub === match.params.id);
 
   let restroByHubs = data && data[0] && data[0].restros;
 
   const unique = [
-    ...new Set(restroByHubs && restroByHubs.map(item => item.description))
+    ...new Set(restroByHubs && restroByHubs.map((item) => item.description)),
   ];
 
-  const scrollToId = name => {
+  const scrollToId = (name) => {
     scroller.scrollTo(name, {
       activeClass: 'active',
       duration: 500,
       delay: 100,
       smooth: true,
       spy: true,
-      offset: -120
+      offset: -120,
     });
     showHide('hover-content');
   };
 
-  const showHide = id => {
+  const showHide = (id) => {
     let elmnt = document.getElementById(id);
     let ovrly = document.getElementById('overlay');
     if (elmnt) {
@@ -52,7 +52,7 @@ const SingleFoodHub = ({
   };
 
   let foodHub =
-    categories && categories.filter(x => x.id == match.params.id)[0];
+    categories && categories.filter((x) => x.id == match.params.id)[0];
 
   return (
     <Fragment>
@@ -83,16 +83,20 @@ const SingleFoodHub = ({
                     {tag}
                   </div>
                   {restroByHubs
-                    .filter(x => x.description === tag)
-                    .map(item => (
-                      <Link key={item.id} to={`/restro/${item.id}`}>
-                        <img
-                          className='content'
-                          alt=''
-                          src={item.image && item.image.src}
-                        />
-                      </Link>
-                    ))}
+                    .filter((x) => x.description === tag)
+                    .map(
+                      (item) =>
+                        item.image &&
+                        item.image.src && (
+                          <Link key={item.id} to={`/restro/${item.id}`}>
+                            <img
+                              className='content'
+                              alt=''
+                              src={item.image && item.image.src}
+                            />
+                          </Link>
+                        )
+                    )}
                 </Fragment>
               ))}
             </div>
@@ -128,14 +132,14 @@ const SingleFoodHub = ({
 SingleFoodHub.propTypes = {
   getRestrosByFoodhub: PropTypes.func.isRequired,
   getFoodHubs: PropTypes.func.isRequired,
-  category: PropTypes.object.isRequired
+  category: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  category: state.category
+const mapStateToProps = (state) => ({
+  category: state.category,
 });
 
 export default connect(mapStateToProps, {
   getRestrosByFoodhub,
-  getFoodHubs
+  getFoodHubs,
 })(SingleFoodHub);
