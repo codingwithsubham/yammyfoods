@@ -5,8 +5,8 @@ const Razorpay = require('razorpay');
 const shortid = require('shortid');
 
 const instance = new Razorpay({
-  key_id: 'rzp_test_GPnkCc1uMzQQSQ',
-  key_secret: 'QMH4FcpksJSC1hoihCA42sjt',
+  key_id: 'rzp_live_BYGpN0byGfnwP8',
+  key_secret: 'CjN0whzqSDxqgpV6NeAfkWim',
 });
 
 // @route   to get an order details

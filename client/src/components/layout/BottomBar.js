@@ -31,16 +31,16 @@ const BottomBar = ({ auth: { isAuthenticated } }) => {
             </li>
 
             <li>
-              <a href='https://wa.me/917866993717'>
-                <i className='material-icons bttm-icon'>message</i>
-                <div>Message</div>
+              <a href='tel:+917866993717'>
+                <i className='material-icons bttm-icon'>call</i>
+                <div>Call</div>
               </a>
             </li>
 
             <li>
-              <a href='tel:+917866993717'>
-                <i className='material-icons bttm-icon'>call</i>
-                <div>Call</div>
+              <a href='https://wa.me/917866993717'>
+                <i className='material-icons bttm-icon'>message</i>
+                <div>SMS</div>
               </a>
             </li>
           </ul>

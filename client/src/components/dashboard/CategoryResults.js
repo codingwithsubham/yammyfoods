@@ -2,15 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-const CategoryResults = () => {
+const CategoryResults = ({ category }) => {
+  console.log(category);
   return <div></div>;
 };
 
 CategoryResults.propTypes = {
-  products: PropTypes.object.isRequired,
+  category: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  products: state.products,
+  category: state.category,
 });
 
 export default connect(mapStateToProps, {})(CategoryResults);

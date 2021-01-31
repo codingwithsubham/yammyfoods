@@ -17,6 +17,7 @@ import Orders from '../customer/Orders';
 import ViewOrder from '../customer/ViewOrder';
 import Wallet from '../customer/Wallet';
 import SearchFoods from '../dashboard/SearchFoods';
+import CategoryResults from '../dashboard/CategoryResults';
 
 const Routes = () => {
   return (
@@ -38,6 +39,11 @@ const Routes = () => {
           <PrivateRoute exact path='/search' component={SearchFoods} />
           <PrivateRoute exact path='/wallet' component={Wallet} />
           <PrivateRoute exact path='/view-Order/:id' component={ViewOrder} />
+          <PrivateRoute
+            exact
+            path='/category/:name'
+            component={CategoryResults}
+          />
           <PrivateRoute
             exact
             path='/checkout/success/:id'

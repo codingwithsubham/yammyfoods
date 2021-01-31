@@ -27,7 +27,7 @@ export const loadRazorpayToggle = (price, details) => async (dispatch) => {
   const response = await axios.post('/api/razorpay/', { price }, API_CONFIG);
   const data = response.data;
   var options = {
-    key: 'rzp_test_GPnkCc1uMzQQSQ',
+    key: 'rzp_live_BYGpN0byGfnwP8',
     amount: data.amount,
     currency: data.currency,
     name: 'Yammy Foods',
