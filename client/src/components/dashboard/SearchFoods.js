@@ -82,7 +82,7 @@ const SearchFoods = ({
                     (item) =>
                       item.image &&
                       item.image.src && (
-                        <Link key={item.id} to={`/food-hub/${item.id}`}>
+                        <Link key={item.id} to={`/restro/${item.id}`}>
                           <img alt='' src={item.image && item.image.src} />
                         </Link>
                       )

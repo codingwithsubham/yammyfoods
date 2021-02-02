@@ -79,14 +79,17 @@ const ViewOrder = ({ orders: { order }, getOrderDetails, match }) => {
             <br />
           </div>
         </div>
-        {order.driver && (
+        {order.driver && order.driver.driver_id && (
           <div className='order-items'>
             <strong>Delivery Buddy Details</strong>
             <div className='row'>
               <div className='col-3'>
                 <img
                   className='drivr-img'
-                  src={order.driver.driver_image}
+                  src={
+                    order.driver.driver_image ||
+                    'https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png'
+                  }
                   alt='yammyfoods driver'
                 />
               </div>

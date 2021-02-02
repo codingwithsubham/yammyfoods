@@ -9,36 +9,36 @@ const Cart = ({
   cart: { cart_items, loading },
   getCart,
   addToCart,
-  removeFromCart
+  removeFromCart,
 }) => {
   useEffect(() => {
     getCart('001');
   }, [getCart]);
 
   let data = cart_items;
-  const unique = [...new Set(data.map(item => item.id))];
+  const unique = [...new Set(data.map((item) => item.id))];
 
-  const addItems = product => {
+  const addItems = (product) => {
     const item = {
       id: product.id,
       name: product.name,
       img: product.img,
       price: product.price,
-      ship_class: product.shipping_class_id
+      ship_class: product.shipping_class_id,
     };
     addToCart(item);
   };
 
-  const removeItems = product => {
+  const removeItems = (product) => {
     let removeItem = {
-      id: product.id
+      id: product.id,
     };
     removeFromCart(removeItem);
   };
 
   const cartTotals = () => {
     let total = 0;
-    cart_items.map(item => (total = total + parseFloat(item.price)));
+    cart_items.map((item) => (total = total + parseFloat(item.price)));
     return total;
   };
 
@@ -61,32 +61,34 @@ const Cart = ({
           <div className='cart-row' key={idx}>
             <img
               alt=''
-              src={cart_items.filter(x => x.id === uniqueItem)[0].img}
+              src={cart_items.filter((x) => x.id === uniqueItem)[0].img}
               className='cart-item img'
             />
             <div className='cart-item name'>
-              {cart_items.filter(x => x.id === uniqueItem)[0].name}
+              {cart_items.filter((x) => x.id === uniqueItem)[0].name}
               <br />
               <b>
-                Rs. {cart_items.filter(x => x.id === uniqueItem)[0].price} /-
+                Rs. {cart_items.filter((x) => x.id === uniqueItem)[0].price} /-
               </b>
               <br />
               <div className='qty-group'>
                 <button
                   className='btn'
                   onClick={() =>
-                    removeItems(cart_items.filter(x => x.id === uniqueItem)[0])
+                    removeItems(
+                      cart_items.filter((x) => x.id === uniqueItem)[0]
+                    )
                   }
                 >
                   -
                 </button>
                 <span>
-                  {cart_items.filter(x => x.id === uniqueItem).length}
+                  {cart_items.filter((x) => x.id === uniqueItem).length}
                 </span>
                 <button
                   className='btn'
                   onClick={() =>
-                    addItems(cart_items.filter(x => x.id === uniqueItem)[0])
+                    addItems(cart_items.filter((x) => x.id === uniqueItem)[0])
                   }
                 >
                   +
@@ -101,9 +103,17 @@ const Cart = ({
             <span>Subtotal:</span>
             <span>Rs. {cartTotals()}/-</span>
           </div>
-          <Link to='/checkout'>
-            <button className='btn'>Proceed</button>
-          </Link>
+          {cartTotals() > 90 ? (
+            <Link to='/checkout'>
+              <button className='btn'>Proceed</button>
+            </Link>
+          ) : (
+            <Link>
+              <button className='btn' style={{ opacity: 0.5 }}>
+                Please Add More {90 - cartTotals()} Rs. to checkout
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     )
@@ -114,15 +124,15 @@ Cart.propTypes = {
   getCart: PropTypes.func.isRequired,
   addToCart: PropTypes.func.isRequired,
   removeFromCart: PropTypes.func.isRequired,
-  cart: PropTypes.object.isRequired
+  cart: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  cart: state.cart
+const mapStateToProps = (state) => ({
+  cart: state.cart,
 });
 
 export default connect(mapStateToProps, {
   getCart,
   addToCart,
-  removeFromCart
+  removeFromCart,
 })(Cart);
