@@ -2,18 +2,18 @@ import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { getLatestproducts } from '../../actions/products';
 import { connect } from 'react-redux';
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
+// import AliceCarousel from 'react-alice-carousel';
+// import 'react-alice-carousel/lib/alice-carousel.css';
 
 const LatestProductSlider = ({
   getLatestproducts,
-  products: { products, loading },
+  products: { products, loading }
 }) => {
   useEffect(() => {
     getLatestproducts();
   }, [getLatestproducts]);
 
-  let slider = [1, 2, 3, 4, 5];
+  //let slider = [1, 2, 3, 4, 5];
 
   return (
     products &&
@@ -21,21 +21,14 @@ const LatestProductSlider = ({
       <div className='dmy-slider'></div>
     ) : (
       <Fragment>
-        <AliceCarousel
-          autoPlay
-          autoPlayInterval='3000'
-          className='slideshow-container'
-        >
-          {slider.map((item, idx) => (
-            <img
-              key={idx}
-              alt='Yammy Foods Latest News'
-              src={require(`../../sliders/abb${item}.jpg`)}
-              style={{ width: '100%' }}
-              className='sliderimg'
-            />
-          ))}
-        </AliceCarousel>
+        <div className='slideshow-container'>
+          <img
+            alt='Yammy Foods Latest News'
+            src={require(`../../sliders/abb.gif`)}
+            style={{ width: '100%' }}
+            className='sliderimg'
+          />
+        </div>
       </Fragment>
     ))
   );
@@ -43,10 +36,10 @@ const LatestProductSlider = ({
 
 LatestProductSlider.propTypes = {
   products: PropTypes.object.isRequired,
-  getLatestproducts: PropTypes.func.isRequired,
+  getLatestproducts: PropTypes.func.isRequired
 };
-const mapStateToProps = (state) => ({
-  products: state.products,
+const mapStateToProps = state => ({
+  products: state.products
 });
 
 export default connect(mapStateToProps, { getLatestproducts })(

@@ -60,13 +60,13 @@ router.post('/sendotp', async (req, res) => {
     const { contrycode, mobile } = req.body;
 
     let responce = await axios.post(
-      `https://order.yammyfoods.in/wp-json/digits/v1/send_otp/?countrycode=${contrycode}&mobileNo=${mobile}&type=login`
+      `https://order.yammyfoods.in/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=login`
     );
 
     //If number does not exixts
     if (responce.data.code === -11) {
       responce = await axios.post(
-        `https://order.yammyfoods.in/wp-json/digits/v1/send_otp/?countrycode=${contrycode}&mobileNo=${mobile}&type=register`
+        `https://order.yammyfoods.in/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=register`
       );
       if (responce.data.code === '1') {
         return res.json({
@@ -101,13 +101,13 @@ router.post('/verifyotp', async (req, res) => {
     const { contrycode, mobile, type, otp } = req.body;
 
     let responce = await axios.post(
-      `https://order.yammyfoods.in/wp-json/digits/v1/verify_otp/?countrycode=${contrycode}&mobileNo=${mobile}&type=${type}&otp=${otp}`
+      `https://order.yammyfoods.in/wp-json/digits/v1/verify_otp/?countrycode=%2B91&mobileNo=${mobile}&type=${type}&otp=${otp}`
     );
 
     //if verified
     if (responce.data.code === 1) {
       let loginData = await axios.post(
-        `https://order.yammyfoods.in/wp-json/digits/v1/one_click/?mobileNo=${mobile}&countrycode=${contrycode}&otp=${otp}`
+        `https://order.yammyfoods.in/wp-json/digits/v1/one_click/?mobileNo=${mobile}&countrycode=%2B91&otp=${otp}`
       );
 
       if (loginData.data.success) {

@@ -38,18 +38,18 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Fragment>
-          {width <= 768 ? (
-            <Fragment>
-              <Navbar />
-              <Sidebar />
-              <Switch>
-                <Route component={Routes} />
-              </Switch>
-              <BottomBar />
-            </Fragment>
-          ) : (
+          {/* {width <= 768 ? ( */}
+          <Fragment>
+            <Navbar />
+            <Sidebar />
+            <Switch>
+              <Route component={Routes} />
+            </Switch>
+            <BottomBar />
+          </Fragment>
+          {/* ) : (
             <div>Device Unsupported</div>
-          )}
+          )} */}
         </Fragment>
       </Router>
     </Provider>

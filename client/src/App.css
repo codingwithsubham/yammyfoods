@@ -11,7 +11,7 @@ body {
 }
 
 .main-content {
-  padding: 70px 5px 70px;
+  padding: 80px 5px 70px;
 }
 
 .dashboard {
@@ -21,13 +21,14 @@ body {
 }
 
 nav {
-  width: 100%;
-  box-shadow: 0px 0px 5px 0px #ddd;
+  width: 50%;
+  box-shadow: 0px 0px 5px 0px #7b7b7b;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 5px;
+  left: 25%;
   background: #ffffff;
   z-index: 100;
+  border-radius: 20px;
 }
 .menu-button {
   position: fixed;
@@ -74,6 +75,7 @@ nav {
   background: #fff;
   min-width: 30px;
   max-width: 35%;
+  width: 20%;
 }
 
 .nav-search {
@@ -133,11 +135,12 @@ span.cart-badge {
 .bottom-bar {
   background: #fff;
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  box-shadow: 0px 0px 10px 0px #ddd;
+  bottom: 10px;
+  right: 5px;
+  width: 40%;
+  box-shadow: 0px 0px 10px 0px #000;
   z-index: 99999;
+  border-radius: 10px;
 }
 
 .bottom-bar ul {
@@ -225,10 +228,10 @@ ul.control-dots {
 }
 
 .header {
-  font-size: 17px;
+  font-size: 20px;
   color: #002f34;
   text-transform: capitalize;
-  font-weight: 600;
+  font-weight: 700;
   margin: 10px 0px;
 }
 
@@ -243,14 +246,12 @@ ul.control-dots {
 .catgry-slidr {
   display: flex;
   width: 100%;
-  overflow-x: scroll;
+  overflow-x: hidden;
   padding: 5px 0px 20px;
-  flex-wrap: nowrap;
-  flex: 0 0 200px;
 }
 
 .catgry-items {
-  margin: 0px 10px 0px 0px;
+  margin: 0px 15px 0px 0px;
   text-align: center;
 }
 
@@ -259,10 +260,11 @@ ul.control-dots {
 }
 
 .catgry-items img {
-  border-radius: 50%;
-  min-width: 80px;
-  width: 80px;
+  border-radius: 10%;
+  min-width: 50%;
+  width: 100%;
   box-shadow: 0px 0px 5px 0px #000;
+  margin: 10px 0px;
 }
 
 .catgry-items .label {
@@ -434,24 +436,23 @@ ul.control-dots {
 
 .dmy-slider {
   width: 99%;
-  height: 200px;
+  height: 350px;
   background: #ddd;
 }
 
 .box-alert {
   color: white;
-  padding: 4%;
+  padding: 15px;
   font-size: 18px;
   font-weight: 400;
   position: fixed;
   z-index: 999999;
-  left: 0%;
-  right: 0%;
-  text-align: center;
+  right: 20px;
   animation-name: animate;
   animation-duration: 0.5s;
-  top: 0;
-  width: -webkit-fill-available;
+  top: 10px;
+  width: 15%;
+  border-radius: 5px;
 }
 
 img.product-img {
@@ -638,7 +639,7 @@ img.cart-item.img {
 }
 
 .hubs-container a {
-  flex: 0 0 330px;
+  flex: 0 0 530px;
   margin: 10px 5px 10px 0px;
   border-radius: 5px;
   height: auto;
@@ -652,9 +653,9 @@ img.cart-item.img {
 }
 
 .all-hubs img {
-  width: 100%;
+  width: 32%;
   border-radius: 5px;
-  margin-bottom: 4px;
+  margin: 4px;
 }
 
 .sidebar-overlay {
@@ -665,9 +666,13 @@ img.cart-item.img {
   width: 100%;
 }
 
+.nav-icon {
+  cursor: pointer;
+}
+
 .sidebar-content {
   position: fixed;
-  width: 80%;
+  width: 25%;
   height: 100vh;
   background: #fff;
   z-index: 999999;
@@ -725,14 +730,14 @@ img.cart-item.img {
   background: #ffc107;
   position: fixed;
   bottom: 80px;
-  left: 25%;
+  left: 40%;
   border-radius: 25px;
   box-shadow: 0px 0px 15px 0px #000000f0;
   color: black;
   padding: 8px;
   font-size: 16px;
   border: 2px solid #fff;
-  width: 50%;
+  width: 20%;
   font-weight: 500;
   animation-name: animationMenuBtn;
   animation-duration: 1s;
@@ -787,7 +792,7 @@ img.cart-item.img {
 .restro-desc {
   position: absolute;
   padding: 11px 10px;
-  width: 65%;
+  width: 25%;
   background: #fff;
   top: 300px;
   left: 22px;
@@ -908,7 +913,7 @@ img.cart-item.img {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: 10px 15px;
 }
 
 .quick-link-items {
@@ -975,7 +980,7 @@ span.out-of-stock {
   width: 100%;
   background-image: url('./static/foodbg.png');
   margin: 0px;
-  height: 160px;
+  height: 350px;
   border-radius: 4px;
   box-shadow: 0px 0px 5px 0px #eee;
   background-size: cover;
@@ -986,17 +991,18 @@ span.out-of-stock {
 
 .food-hubs-content {
   position: absolute;
-  margin-top: 20%;
-  margin-left: 9%;
+  margin-top: 16%;
+  margin-left: 35%;
   background: #fff;
   border-radius: 4px;
-  width: 80%;
+  width: 30%;
   text-align: center;
   min-height: 80px;
   box-shadow: 0px 0px 5px 0px #777;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 20px;
 }
 
 .near-me {
@@ -1023,7 +1029,7 @@ span.out-of-stock {
 .bg-login {
   background-image: url('./static/food-bg-login.jpg');
   height: 100vh;
-  width: 100%;
+  width: 50%;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1034,23 +1040,17 @@ span.out-of-stock {
   top: 0px;
   left: 0px;
   width: 100%;
+  display: flex;
 }
 
 form.login-form {
-  position: absolute;
-  right: 0px;
-  width: -webkit-fill-available;
+  width: 40%;
   background: #fff;
-  height: 35vh;
-  padding: 10px;
-  border-radius: 0px;
-  box-shadow: 0px 0px 5px 0px #000;
+  padding: 15% 5%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  bottom: 0%;
-  left: 0px;
+  justify-content: space-around;
   align-items: center;
+  flex-direction: column;
 }
 
 .login-form .inputs {
@@ -1092,12 +1092,11 @@ form.login-form {
 }
 
 .features {
-  position: absolute;
-  top: 30%;
-  right: 20px;
   width: 60%;
   display: grid;
   color: #fff;
+  margin-top: 35%;
+  margin-left: 35%;
 }
 
 .features span {
@@ -1147,9 +1146,8 @@ form.login-form {
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding-bottom: 100px;
-  width: 100%;
   overflow: hidden;
+  padding: 0px 25% 100px;
 }
 
 .multi-step-container .header {
@@ -1443,16 +1441,17 @@ hr {
 }
 
 .orders-wrapper {
-  display: block;
+  display: flex;
   padding: 5px;
-  width: -webkit-fill-available;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .order-items {
   padding: 10px 10px;
-  width: -webkit-fill-available;
+  width: 30%;
   box-shadow: 0px 0px 5px 0px #ddd;
-  margin: 10px 0px;
+  margin: 10px 10px;
   border-radius: 4px;
 }
 .order-status-completed {
@@ -1512,10 +1511,8 @@ img {
 }
 
 .slideshow-container {
-  max-width: 1000px;
   position: relative;
   margin: auto;
-  height: 198px;
   background: #ddd;
   border-radius: 4px;
 }
@@ -1583,7 +1580,9 @@ p.error {
 }
 
 .srch-pge-form {
-  width: -webkit-fill-available;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .srch-rslts {
@@ -1593,8 +1592,11 @@ p.error {
   justify-content: space-between;
 }
 
+.srch-pge-form form {
+  width: 50%;
+}
+
 .srch-rslts .prdct-crd {
-  width: 100%;
   margin: 2px;
 }
 
@@ -1614,7 +1616,7 @@ div#react-tabs-1 {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 div#react-tabs-3 {
@@ -1650,7 +1652,7 @@ ul.react-tabs__tab-list {
 }
 
 img.no-rslts {
-  width: 98%;
+  width: 20% !important;
 }
 
 .srch-rslts img {
@@ -1662,12 +1664,11 @@ img.no-rslts {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-between;
 }
 
 .sliderimg {
   width: 100%;
-  height: 200px;
+  height: 350px;
   object-fit: cover;
 }
 
@@ -1776,6 +1777,7 @@ img.drivr-img {
     left: 0;
     background: #ffffff;
     z-index: 100;
+    border-radius: 0px;
   }
   .menu-button {
     position: fixed;
@@ -1822,6 +1824,7 @@ img.drivr-img {
     background: #fff;
     min-width: 30px;
     max-width: 35% !important;
+    width: 35%;
   }
 
   .nav-search {
@@ -2402,7 +2405,7 @@ img.drivr-img {
   .all-hubs img {
     width: 100%;
     border-radius: 5px;
-    margin-bottom: 4px;
+    margin: 0px 0px 5px 0px;
   }
 
   .sidebar-overlay {
@@ -2798,6 +2801,7 @@ img.drivr-img {
     bottom: 0%;
     left: 0px;
     align-items: center;
+    flex-direction: row
   }
 
   .login-form .inputs {
@@ -2845,6 +2849,8 @@ img.drivr-img {
     width: 60%;
     display: grid;
     color: #fff;
+    margin-top: 0%;
+    margin-left: 0%;
   }
 
   .features span {
@@ -2894,9 +2900,9 @@ img.drivr-img {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding-bottom: 100px;
     width: 100%;
     overflow: hidden;
+    padding: 0px 0px 100px 0px;
   }
 
   .multi-step-container .header {
@@ -3262,7 +3268,6 @@ img.drivr-img {
     max-width: 1000px;
     position: relative;
     margin: auto;
-    height: 198px;
     background: #ddd;
     border-radius: 4px;
   }
@@ -3397,7 +3402,11 @@ img.drivr-img {
   }
 
   img.no-rslts {
-    width: 98%;
+    width: 98% !important;
+  }
+
+  .srch-pge-form form {
+    width: 100%;
   }
 
   .srch-rslts img {
