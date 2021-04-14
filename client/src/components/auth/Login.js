@@ -58,6 +58,8 @@ const Login = ({
           </div>
           {otpSend ? (
             <form className='login-form' onSubmit={e => loginSubmit(e)}>
+              <p>Enter The OTP Sent on You Mobile Number</p>
+              <br />
               <div className='inputs'>
                 <input
                   type='text'

@@ -2,16 +2,9 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken');
-const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 const auth = require('../../middleware/auth');
 const urlGetter = require('../../middleware/urlGetter');
-
-const WooCommerce = new WooCommerceRestApi({
-  url: 'https://order.yammyfoods.in',
-  consumerKey: 'ck_dc8dad5098d39337e95edb17b2f39867e2bf09ab',
-  consumerSecret: 'cs_44a85a5cc16d5998b5e0bd24d1b5b6cee4388ec1',
-  version: 'wc/v3'
-});
+const getWooInstance = require('../../middleware/getWooInstance');
 
 const {
   SERVER_ERROR,
@@ -24,6 +17,8 @@ const {
 // @access Private
 router.get('/load-user', auth, async (req, res) => {
   let user;
+  const WooCommerce = getWooInstance(req.user.location);
+
   WooCommerce.get(`customers/${req.user.id}`)
     .then(response => {
       user = response.data;
@@ -42,6 +37,8 @@ router.get('/load-user', auth, async (req, res) => {
 // @access Private
 router.put('/update-user', auth, async (req, res) => {
   let user;
+  const WooCommerce = getWooInstance(req.user.location);
+
   WooCommerce.put(`customers/${req.user.id}`, req.body)
     .then(response => {
       user = response.data;
@@ -70,6 +67,7 @@ router.post('/sendotp', async (req, res) => {
       responce = await axios.post(
         `https://${uri}/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=register`
       );
+
       if (responce.data.code === '1') {
         return res.json({
           send: true,
@@ -102,15 +100,16 @@ router.post('/sendotp', async (req, res) => {
 router.post('/verifyotp', async (req, res) => {
   try {
     const { location, mobile, type, otp } = req.body;
+    const uri = urlGetter(location);
 
     let responce = await axios.post(
-      `https://order.yammyfoods.in/wp-json/digits/v1/verify_otp/?countrycode=%2B91&mobileNo=${mobile}&type=${type}&otp=${otp}`
+      `https://${uri}/wp-json/digits/v1/verify_otp/?countrycode=%2B91&mobileNo=${mobile}&type=${type}&otp=${otp}`
     );
 
     //if verified
     if (responce.data.code === 1) {
       let loginData = await axios.post(
-        `https://order.yammyfoods.in/wp-json/digits/v1/one_click/?mobileNo=${mobile}&countrycode=%2B91&otp=${otp}`
+        `https://${uri}/wp-json/digits/v1/one_click/?mobileNo=${mobile}&countrycode=%2B91&otp=${otp}`
       );
 
       if (loginData.data.success) {
@@ -118,7 +117,8 @@ router.post('/verifyotp', async (req, res) => {
 
         const payload = {
           user: {
-            id: data.user_id
+            id: data.user_id,
+            location: location
           }
         };
         jwt.sign(
