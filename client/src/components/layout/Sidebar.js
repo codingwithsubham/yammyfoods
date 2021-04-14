@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { closeSidebar } from '../../actions/sidebar';
+import { logout } from '../../actions/auth';
 import { Link } from 'react-router-dom';
 
 const Sidebar = ({
   closeSidebar,
+  logout,
   sidebar: { open },
-  auth: { isAuthenticated, user },
+  auth: { isAuthenticated, user }
 }) => {
   const sidebarStyle = document.getElementById('sidebar');
   if (sidebarStyle) {
@@ -27,7 +29,9 @@ const Sidebar = ({
           <div className='profile-name'>
             Hi, {user && (user.first_name ? user.first_name : user.username)}
           </div>
-          <button className='btn'>Logout </button>
+          <a className='btn' href='/login' onClick={() => logout()}>
+            Logout{' '}
+          </a>
         </div>
         <div className='quick-links'>
           <div className='quick-link-items'>
@@ -81,12 +85,14 @@ const Sidebar = ({
 Sidebar.propTypes = {
   closeSidebar: PropTypes.func.isRequired,
   sidebar: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   sidebar: state.sidebar,
-  auth: state.auth,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, {
   closeSidebar,
+  logout
 })(Sidebar);

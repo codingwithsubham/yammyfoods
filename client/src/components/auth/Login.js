@@ -12,12 +12,12 @@ const Login = ({
   auth: { otpSend, loginType }
 }) => {
   const [formData, setFormData] = useState({
-    contrycode: '+91',
+    location: '',
     mobile: '',
     otp: ''
   });
 
-  const { contrycode, mobile, otp } = formData;
+  const { location, mobile, otp } = formData;
 
   const onChange = e => {
     if (!isNaN(e.target.value)) {
@@ -27,12 +27,12 @@ const Login = ({
 
   const onOTPSubmit = async e => {
     e.preventDefault();
-    sendOtp(contrycode, mobile);
+    sendOtp(location, mobile);
   };
 
   const loginSubmit = async e => {
     e.preventDefault();
-    login(contrycode, mobile, loginType, otp);
+    login(location, mobile, loginType, otp);
   };
 
   if (isAuthenticated && user) {
@@ -58,8 +58,6 @@ const Login = ({
           </div>
           {otpSend ? (
             <form className='login-form' onSubmit={e => loginSubmit(e)}>
-              <img alt='' src={require('../../static/logo.png')} />
-              <p>Enter The OTP Send to Your Mobile Number</p>
               <div className='inputs'>
                 <input
                   type='text'
@@ -81,8 +79,51 @@ const Login = ({
             </form>
           ) : (
             <form className='login-form' onSubmit={e => onOTPSubmit(e)}>
-              <img alt='' src={require('../../static/logo.png')} />
-              <p>Enter Your Mobile No</p>
+              {/* <img alt='' src={require('../../static/logo.png')} /> */}
+              <div className='location-box'>
+                <div
+                  className='location-content'
+                  style={
+                    location === 'Ghatal'
+                      ? {
+                          boxShadow: '#ff5722de 0px 0px 17px 3px'
+                        }
+                      : {}
+                  }
+                  onClick={() =>
+                    setFormData({ ...formData, location: 'Ghatal' })
+                  }
+                >
+                  <img
+                    src={require('../../static/ghatal.svg')}
+                    alt='Ghatal Yammy foods'
+                    className='loc-img'
+                  />
+                  <p className='subtitle'>Ghatal</p>
+                </div>
+                <div
+                  className='location-content'
+                  style={
+                    location === 'Haldia'
+                      ? {
+                          boxShadow: '#ff5722de 0px 0px 17px 3px'
+                        }
+                      : {}
+                  }
+                  onClick={() =>
+                    setFormData({ ...formData, location: 'Haldia' })
+                  }
+                >
+                  <img
+                    src={require('../../static/haldia.svg')}
+                    alt='Ghatal Yammy foods'
+                    className='loc-img'
+                  />
+                  <p className='subtitle'>Haldia</p>
+                </div>
+              </div>
+              <br />
+
               <div className='inputs'>
                 <input
                   type='text'

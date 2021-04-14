@@ -5,6 +5,7 @@ import {
   USER_LOADED,
   AUTH_ERROR,
   DELIVERY_BOY_LOADED,
+  LOGOUT,
   DELIVERY_DETAILS_LOADING
 } from './types';
 import { setAlert } from './alert';
@@ -30,8 +31,8 @@ export const loadUser = () => async dispatch => {
 };
 
 //send OTP
-export const sendOtp = (contrycode, mobile) => async dispatch => {
-  const body = JSON.stringify({ contrycode, mobile });
+export const sendOtp = (location, mobile) => async dispatch => {
+  const body = JSON.stringify({ location, mobile });
   try {
     const res = await axios.post('/api/auth/sendotp', body, API_CONFIG);
 
@@ -47,8 +48,8 @@ export const sendOtp = (contrycode, mobile) => async dispatch => {
 };
 
 //Verify OTP and Login
-export const login = (contrycode, mobile, loginType, otp) => async dispatch => {
-  const body = JSON.stringify({ contrycode, mobile, loginType, otp });
+export const login = (location, mobile, loginType, otp) => async dispatch => {
+  const body = JSON.stringify({ location, mobile, loginType, otp });
   try {
     const res = await axios.post('/api/auth/verifyotp', body, API_CONFIG);
     dispatch({
@@ -78,4 +79,11 @@ export const getDeliveryBoy = id => async dispatch => {
   } catch (err) {
     dispatch(setAlert('Unable to Fetch Delivery Boy Details', 'danger'));
   }
+};
+
+//Logout
+export const logout = () => async dispatch => {
+  dispatch({
+    type: LOGOUT
+  });
 };

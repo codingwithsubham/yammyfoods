@@ -4,6 +4,7 @@ const axios = require('axios');
 const jwt = require('jsonwebtoken');
 const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
 const auth = require('../../middleware/auth');
+const urlGetter = require('../../middleware/urlGetter');
 
 const WooCommerce = new WooCommerceRestApi({
   url: 'https://order.yammyfoods.in',
@@ -57,16 +58,17 @@ router.put('/update-user', auth, async (req, res) => {
 // @route  to send otp
 router.post('/sendotp', async (req, res) => {
   try {
-    const { contrycode, mobile } = req.body;
+    const { location, mobile } = req.body;
+    const uri = urlGetter(location);
 
     let responce = await axios.post(
-      `https://order.yammyfoods.in/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=login`
+      `https://${uri}/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=login`
     );
 
     //If number does not exixts
-    if (responce.data.code === -11) {
+    if (responce.data.code === -11 || responce.data.code === -99) {
       responce = await axios.post(
-        `https://order.yammyfoods.in/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=register`
+        `https://${uri}/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=register`
       );
       if (responce.data.code === '1') {
         return res.json({
@@ -92,13 +94,14 @@ router.post('/sendotp', async (req, res) => {
     }
   } catch (err) {
     res.status(500).send(SERVER_ERROR);
+    console.log(err);
   }
 });
 
 // @route   verify otp
 router.post('/verifyotp', async (req, res) => {
   try {
-    const { contrycode, mobile, type, otp } = req.body;
+    const { location, mobile, type, otp } = req.body;
 
     let responce = await axios.post(
       `https://order.yammyfoods.in/wp-json/digits/v1/verify_otp/?countrycode=%2B91&mobileNo=${mobile}&type=${type}&otp=${otp}`
