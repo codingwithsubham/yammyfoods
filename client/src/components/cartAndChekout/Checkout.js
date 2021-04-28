@@ -17,33 +17,34 @@ const Checkout = ({
   checkout_state: { delivery_charge, checkoutData, loading, paymentStatus },
   checkout,
   loadRazorpayToggle,
-  debitWalletBallance,
+  debitWalletBallance
 }) => {
   const [data, setData] = useState({
     address: null,
     locationAndTime: null,
     shipping: 0,
-    payment: null,
+    payment: null
   });
 
   const [formFlagdata, setFormFlagdata] = useState({
     addressFlag: true,
     locationAndTimeFlag: false,
-    paymentFlag: false,
+    paymentFlag: false
   });
 
   const [dataToBeSend, setDataToBeSend] = useState();
   const [checkoutProcessed, setCheckoutProcessed] = useState(false);
+  const [checkoutSuccess, setCheckoutSuccess] = useState(false);
 
   const { address, locationAndTime, payment } = data;
   const { addressFlag, locationAndTimeFlag, paymentFlag } = formFlagdata;
 
-  const addedAddr = (propdata) => {
+  const addedAddr = propdata => {
     setData({ ...data, address: propdata });
     setFormFlagdata({
       addressFlag: false,
       locationAndTimeFlag: true,
-      paymentFlag: false,
+      paymentFlag: false
     });
   };
 
@@ -53,13 +54,13 @@ const Checkout = ({
       setFormFlagdata({
         addressFlag: false,
         locationAndTimeFlag: false,
-        paymentFlag: true,
+        paymentFlag: true
       });
     } else {
       setFormFlagdata({
         addressFlag: true,
         locationAndTimeFlag: false,
-        paymentFlag: false,
+        paymentFlag: false
       });
     }
   };
@@ -68,36 +69,34 @@ const Checkout = ({
     setFormFlagdata({
       addressFlag: false,
       locationAndTimeFlag: true,
-      paymentFlag: false,
+      paymentFlag: false
     });
   };
 
   let cartData = cart_items;
-  const unique = [...new Set(cartData.map((item) => item.id))];
-  const shippingClasses = [...new Set(cartData.map((item) => item.ship_class))];
+  const unique = [...new Set(cartData.map(item => item.id))];
+  const shippingClasses = [...new Set(cartData.map(item => item.ship_class))];
 
   const cartTotals = () => {
     let total = 0;
-    cart_items.map((item) => (total = total + parseFloat(item.price)));
+    cart_items.map(item => (total = total + parseFloat(item.price)));
     return total;
   };
 
   const deliveryTotals = () => {
     const data = {
       pin: address && address.postcode,
-      ship_class: shippingClasses,
+      ship_class: shippingClasses
     };
 
     getShipping(data);
     if (!loading) {
-      return `${
-        delivery_charge +
+      return `${delivery_charge +
         parseInt(
           locationAndTime &&
             locationAndTime.location &&
             locationAndTime.location.value
-        )
-      }/-`;
+        )}/-`;
     } else {
       return '...';
     }
@@ -113,30 +112,28 @@ const Checkout = ({
 
   const totalPrice = () => {
     if (!loading) {
-      return `${
-        delivery_charge +
+      return `${delivery_charge +
         parseInt(
           locationAndTime &&
             locationAndTime.location &&
             locationAndTime.location.value
         ) +
-        cartTotals()
-      }/-`;
+        cartTotals()}/-`;
     } else {
       return 'Calculating ...';
     }
   };
 
-  const onRadioChange = (e) => {
+  const onRadioChange = e => {
     setData({ ...data, payment: e.target.value });
   };
 
   const finalCall = () => {
     let line_items = [];
-    unique.map((uniqueItem) => {
+    unique.map(uniqueItem => {
       line_items.push({
         product_id: uniqueItem,
-        quantity: cart_items.filter((x) => x.id === uniqueItem).length,
+        quantity: cart_items.filter(x => x.id === uniqueItem).length
       });
     });
 
@@ -158,16 +155,16 @@ const Checkout = ({
         phone:
           address && address.phone && address.phone.includes('+91')
             ? address.phone
-            : `+91${address.phone}`,
+            : `+91${address.phone}`
       },
       line_items: line_items,
       shipping_lines: [
         {
           method_id: 'flat_rate',
           method_title: 'Flat Rate',
-          total: `${deliveryTotals()}`,
-        },
-      ],
+          total: `${deliveryTotals()}`
+        }
+      ]
     };
 
     const priceData = totalPrice();
@@ -185,11 +182,13 @@ const Checkout = ({
       } else {
         debitWalletBallance(priceData);
         checkout(finalData);
+        setCheckoutSuccess(true);
       }
     }
 
     if (payment === 'Cash on delivery') {
       checkout(finalData);
+      setCheckoutSuccess(true);
     }
 
     const overlayStyle = document.getElementById('overlay');
@@ -198,18 +197,16 @@ const Checkout = ({
     }
   };
 
-  if (checkoutData) {
-    return <Redirect to={`/checkout/success/${checkoutData.id}`} />;
-  }
-
   if (!checkoutProcessed && paymentStatus === 'Success') {
     setCheckoutProcessed(true);
     if (payment === 'Razorpay') {
       checkout(dataToBeSend);
+      setCheckoutSuccess(true);
     }
     if (payment === 'Wallet') {
       debitWalletBallance(wallet);
       checkout(dataToBeSend);
+      setCheckoutSuccess(true);
     }
   }
 
@@ -218,6 +215,10 @@ const Checkout = ({
     if (overlayStyle) {
       overlayStyle.style.display = 'none';
     }
+  }
+
+  if (checkoutSuccess) {
+    return <Redirect to={`/checkout/success/`} />;
   }
 
   return (
@@ -257,13 +258,13 @@ const Checkout = ({
                 {unique.map((uniqueItem, idx) => (
                   <tr key={idx}>
                     <td>
-                      {cart_items.filter((x) => x.id === uniqueItem)[0].name}
+                      {cart_items.filter(x => x.id === uniqueItem)[0].name}
                     </td>
                     <td>
-                      {cart_items.filter((x) => x.id === uniqueItem).length}
+                      {cart_items.filter(x => x.id === uniqueItem).length}
                     </td>
                     <td style={{ textAlign: 'right' }}>
-                      {cart_items.filter((x) => x.id === uniqueItem)[0].price}/-
+                      {cart_items.filter(x => x.id === uniqueItem)[0].price}/-
                     </td>
                   </tr>
                 ))}
@@ -300,7 +301,7 @@ const Checkout = ({
                 type='radio'
                 name='radio'
                 value='Wallet'
-                onChange={(e) => onRadioChange(e)}
+                onChange={e => onRadioChange(e)}
               />
               <span className='checkmark'></span>
             </label>
@@ -310,7 +311,7 @@ const Checkout = ({
                 type='radio'
                 name='radio'
                 value='Cash on delivery'
-                onChange={(e) => onRadioChange(e)}
+                onChange={e => onRadioChange(e)}
               />
               <span className='checkmark'></span>
             </label>
@@ -320,7 +321,7 @@ const Checkout = ({
                 type='radio'
                 name='radio'
                 value='Razorpay'
-                onChange={(e) => onRadioChange(e)}
+                onChange={e => onRadioChange(e)}
               />
               <span className='checkmark'></span>
             </label>
@@ -332,7 +333,7 @@ const Checkout = ({
             {!loading ? (
               <button
                 className='btn next'
-                onClick={(e) => (!loading ? finalCall() : e.preventDefault())}
+                onClick={e => (!loading ? finalCall() : e.preventDefault())}
               >
                 Place Order
               </button>
@@ -357,14 +358,14 @@ Checkout.propTypes = {
   getWalletBalance: PropTypes.func.isRequired,
   wallet: PropTypes.object,
   loadRazorpayToggle: PropTypes.func,
-  debitWalletBallance: PropTypes.func,
+  debitWalletBallance: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   cart: state.cart,
   auth: state.auth,
   checkout_state: state.checkout,
-  wallet: state.wallet,
+  wallet: state.wallet
 });
 
 export default connect(mapStateToProps, {
@@ -372,5 +373,5 @@ export default connect(mapStateToProps, {
   checkout,
   getWalletBalance,
   loadRazorpayToggle,
-  debitWalletBallance,
+  debitWalletBallance
 })(Checkout);

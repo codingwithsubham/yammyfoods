@@ -28,10 +28,17 @@ const Sidebar = ({
           <i className='material-icons profile-icon'>assignment_ind</i>
           <div className='profile-name'>
             Hi, {user && (user.first_name ? user.first_name : user.username)}
+            <br />
+            <strong>{user && user.location}</strong>
           </div>
-          <a className='btn' href='/login' onClick={() => logout()}>
-            Logout{' '}
-          </a>
+          <div className='sidebar-btns'>
+            <a className='btn' href='/login' onClick={() => logout()}>
+              Switch Location{' '}
+            </a>
+            <a className='btn' href='/login' onClick={() => logout()}>
+              Logout{' '}
+            </a>
+          </div>
         </div>
         <div className='quick-links'>
           <div className='quick-link-items'>

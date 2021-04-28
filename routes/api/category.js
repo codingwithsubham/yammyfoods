@@ -1,86 +1,84 @@
 const express = require('express');
 const router = express.Router();
-//const auth = require('../../middleware/auth');
-const WooCommerceRestApi = require('@woocommerce/woocommerce-rest-api').default;
-
-const WooCommerce = new WooCommerceRestApi({
-  url: 'https://order.yammyfoods.in',
-  consumerKey: 'ck_dc8dad5098d39337e95edb17b2f39867e2bf09ab',
-  consumerSecret: 'cs_44a85a5cc16d5998b5e0bd24d1b5b6cee4388ec1',
-  version: 'wc/v3',
-});
+const auth = require('../../middleware/auth');
+const getWooInstance = require('../../middleware/getWooInstance');
 
 // @route   get parent categories
-router.get('/foodshubs', async (req, res) => {
+router.get('/foodshubs', auth, async (req, res) => {
   let categories;
+  const WooCommerce = getWooInstance(req.user.location);
   if (!categories) {
     WooCommerce.get('products/categories?parent=0&per_page=100')
-      .then((response) => {
+      .then(response => {
         categories = response.data;
-        res.json(categories.filter((x) => x.id !== 15));
+        res.json(categories.filter(x => x.id !== 15));
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
       });
   }
 });
 
 // @route   get child Categories by ID
-router.get('/foodshub/restros/:id', async (req, res) => {
+router.get('/foodshub/restros/:id', auth, async (req, res) => {
   let categories;
+  const WooCommerce = getWooInstance(req.user.location);
   if (!categories) {
     WooCommerce.get(`products/categories?parent=${req.params.id}&per_page=100`)
-      .then((response) => {
+      .then(response => {
         categories = response.data;
         res.json(categories);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
       });
   }
 });
 
 // @route   get products by Categories by ID
-router.get('/products/restros/:id', async (req, res) => {
+router.get('/products/restros/:id', auth, async (req, res) => {
   let products;
+  const WooCommerce = getWooInstance(req.user.location);
   if (!products) {
     WooCommerce.get(`products?category=${req.params.id}&&per_page=100`)
-      .then((response) => {
+      .then(response => {
         products = response.data;
         res.json(products);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
       });
   }
 });
 
 // @route   get products by Categories by ID
-router.get('/restro/:id', async (req, res) => {
+router.get('/restro/:id', auth, async (req, res) => {
   let products;
+  const WooCommerce = getWooInstance(req.user.location);
   if (!products) {
     WooCommerce.get(`products/categories/${req.params.id}`)
-      .then((response) => {
+      .then(response => {
         products = response.data;
         res.json(products);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
       });
   }
 });
 
 // @route restros Search
-router.post('/search', async (req, res) => {
+router.post('/search', auth, async (req, res) => {
   const { keyword } = req.body;
   let category;
+  const WooCommerce = getWooInstance(req.user.location);
   if (!category) {
     WooCommerce.get(`products/categories?search=${keyword}`)
-      .then((response) => {
+      .then(response => {
         category = response.data;
         res.json(category);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
       });
   }

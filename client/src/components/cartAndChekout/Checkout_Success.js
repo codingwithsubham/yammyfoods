@@ -1,51 +1,24 @@
 import React, { useEffect, Fragment } from 'react';
-import { getOrderDetails } from '../../actions/orders';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Dummy from './DummyCart';
 import { Link } from 'react-router-dom';
 
-const Checkout_Success = ({
-  getOrderDetails,
-  orders: { loading, order },
-  match,
-}) => {
-  useEffect(() => {
-    getOrderDetails(match.params.id);
-  }, [getOrderDetails, match.params.id]);
-
-  return loading ? (
+const Checkout_Success = ({}) => {
+  return (
     <Fragment>
-      <Dummy />
-      <Dummy />
-      <Dummy />
-      <Dummy />
+      <div className='checkout-success'>
+        <img
+          src={require('../../static/confirm.gif')}
+          alt='yammy foods checkout success'
+        />
+        <h3>Order Placed</h3>
+        <Link to='/orders'>
+          <button className='btn'>View Order Status</button>
+        </Link>
+      </div>
     </Fragment>
-  ) : (
-    order && (
-      <Fragment>
-        <div className='checkout-success'>
-          <img
-            src={require('../../static/confirm.gif')}
-            alt='yammy foods checkout success'
-          />
-          <h3>Order Placed</h3>
-          <Link to='/orders'>
-            <button className='btn'>View Order Status</button>
-          </Link>
-        </div>
-      </Fragment>
-    )
   );
 };
 
-Checkout_Success.propTypes = {
-  orders: PropTypes.object.isRequired,
-  getOrderDetails: PropTypes.func.isRequired,
-};
+const mapStateToProps = state => ({});
 
-const mapStateToProps = (state) => ({
-  orders: state.orders,
-});
-
-export default connect(mapStateToProps, { getOrderDetails })(Checkout_Success);
+export default connect(mapStateToProps, {})(Checkout_Success);

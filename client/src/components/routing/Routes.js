@@ -46,7 +46,7 @@ const Routes = () => {
           />
           <PrivateRoute
             exact
-            path='/checkout/success/:id'
+            path='/checkout/success'
             component={Checkout_Success}
           />
           <Route component={NotFound} />

@@ -22,6 +22,7 @@ router.get('/load-user', auth, async (req, res) => {
   WooCommerce.get(`customers/${req.user.id}`)
     .then(response => {
       user = response.data;
+      user.location = req.user.location;
       res.json(user);
     })
     .catch(error => {
@@ -42,6 +43,7 @@ router.put('/update-user', auth, async (req, res) => {
   WooCommerce.put(`customers/${req.user.id}`, req.body)
     .then(response => {
       user = response.data;
+      user.location = req.user.location;
       res.json(user);
     })
     .catch(error => {

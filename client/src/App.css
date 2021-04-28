@@ -1781,6 +1781,13 @@ img.drivr-img {
   margin: 10px 0px 6px;
 }
 
+.sidebar-btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 /*Mobile Screen*/
 @media screen and (max-width: 450px) {
   body {
