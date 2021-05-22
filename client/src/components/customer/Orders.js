@@ -9,9 +9,6 @@ const Orders = ({ getOrders, orders: { orders, loading } }) => {
   useEffect(() => {
     getOrders();
   }, [getOrders]);
-
-  console.log(orders);
-
   return loading ? (
     <Fragment>
       <div className='orders-heading'>My Orders</div>

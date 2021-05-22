@@ -27,8 +27,6 @@ const DeliveryHome = ({
     getMarkedOrdersForDriver();
   }, [getCompletedOrdersForDriver]);
 
-  console.log(assigned_orders, marked_orders, completed_orders);
-
   return loading ? (
     <Fragment>
       <div className='delivery-header'>
