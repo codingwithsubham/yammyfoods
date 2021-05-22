@@ -63,11 +63,9 @@ router.post('/marked-orders-for-delivery', auth, async (req, res) => {
 
 // @route   to get Assigned orders for a driver
 router.post('/completed-for-delivery', auth, async (req, res) => {
-  console.log('here');
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders?status=completed&per_page=100`)
     .then((response) => {
-      console.log(response.data);
       res.json(
         response.data &&
           response.data.filter(
