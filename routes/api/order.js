@@ -7,10 +7,10 @@ const getWooInstance = require('../../middleware/getWooInstance');
 router.get('/:id', auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders/${req.params.id}`)
-    .then(response => {
+    .then((response) => {
       res.json(response.data);
     })
-    .catch(error => {
+    .catch((error) => {
       res.json(error.response.data);
     });
 });
@@ -19,10 +19,75 @@ router.get('/:id', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders?customer=${req.user.id}`)
-    .then(response => {
+    .then((response) => {
       res.json(response.data);
     })
-    .catch(error => {
+    .catch((error) => {
+      res.json(error.response.data);
+    });
+});
+
+// @route   to get Assigned orders for a driver
+router.post('/assigned-for-delivery', auth, async (req, res) => {
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.get(`orders?status=driver-assigned&per_page=100`)
+    .then((response) => {
+      res.json(
+        response.data &&
+          response.data.filter(
+            (x) => x && x.driver && x.driver.driver_id == req.user.id
+          )
+      );
+    })
+    .catch((error) => {
+      res.json(error.response.data);
+    });
+});
+
+// @route   to get Assigned orders for a driver
+router.post('/marked-orders-for-delivery', auth, async (req, res) => {
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.get(`orders?status=out-for-delivery&per_page=100`)
+    .then((response) => {
+      res.json(
+        response.data &&
+          response.data.filter(
+            (x) => x && x.driver && x.driver.driver_id == req.user.id
+          )
+      );
+    })
+    .catch((error) => {
+      res.json(error.response.data);
+    });
+});
+
+// @route   to get Assigned orders for a driver
+router.post('/completed-for-delivery', auth, async (req, res) => {
+  console.log('here');
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.get(`orders?status=completed&per_page=100`)
+    .then((response) => {
+      console.log(response.data);
+      res.json(
+        response.data &&
+          response.data.filter(
+            (x) => x && x.driver && x.driver.driver_id == req.user.id
+          )
+      );
+    })
+    .catch((error) => {
+      res.json(error.response.data);
+    });
+});
+
+// @route   to change Order Status
+router.post('/change-status/:id', auth, async (req, res) => {
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.put(`orders/${req.params.id}`, req.body)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((error) => {
       res.json(error.response.data);
     });
 });

@@ -10,6 +10,8 @@ const Orders = ({ getOrders, orders: { orders, loading } }) => {
     getOrders();
   }, [getOrders]);
 
+  console.log(orders);
+
   return loading ? (
     <Fragment>
       <div className='orders-heading'>My Orders</div>
@@ -75,13 +77,13 @@ const Orders = ({ getOrders, orders: { orders, loading } }) => {
 
 Orders.propTypes = {
   getOrders: PropTypes.func.isRequired,
-  orders: PropTypes.object.isRequired
+  orders: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => ({
-  orders: state.orders
+const mapStateToProps = (state) => ({
+  orders: state.orders,
 });
 
 export default connect(mapStateToProps, {
-  getOrders
+  getOrders,
 })(Orders);

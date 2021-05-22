@@ -18,6 +18,8 @@ import ViewOrder from '../customer/ViewOrder';
 import Wallet from '../customer/Wallet';
 import SearchFoods from '../dashboard/SearchFoods';
 import CategoryResults from '../dashboard/CategoryResults';
+import DeliveryHome from '../delivery_driver/DeliveryHome';
+import GetOrderDetailsForDriver from '../delivery_driver/GetOrderDetailsForDriver';
 
 const Routes = () => {
   return (
@@ -48,6 +50,16 @@ const Routes = () => {
             exact
             path='/checkout/success'
             component={Checkout_Success}
+          />
+          <PrivateRoute
+            exact
+            path='/delivery-dashboard'
+            component={DeliveryHome}
+          />
+          <PrivateRoute
+            exact
+            path='/order-details-delivery/:id'
+            component={GetOrderDetailsForDriver}
           />
           <Route component={NotFound} />
         </Switch>

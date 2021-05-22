@@ -9,34 +9,44 @@ const Login = ({
   isAuthenticated,
   user,
   sendOtp,
-  auth: { otpSend, loginType }
+  auth: { otpSend, loginType },
 }) => {
   const [formData, setFormData] = useState({
     location: '',
     mobile: '',
-    otp: ''
+    otp: '',
+    error: '',
   });
 
-  const { location, mobile, otp } = formData;
+  const { location, mobile, otp, error } = formData;
 
-  const onChange = e => {
+  const onChange = (e) => {
     if (!isNaN(e.target.value)) {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
 
-  const onOTPSubmit = async e => {
+  const onOTPSubmit = async (e) => {
     e.preventDefault();
-    sendOtp(location, mobile);
+    if (location !== '') {
+      setFormData({ ...formData, error: '' });
+      sendOtp(location, mobile);
+    } else {
+      setFormData({ ...formData, error: 'Please Select and Area..' });
+    }
   };
 
-  const loginSubmit = async e => {
+  const loginSubmit = async (e) => {
     e.preventDefault();
-    login(location, mobile, loginType, otp);
+    if (location !== '') login(location, mobile, loginType, otp);
   };
 
   if (isAuthenticated && user) {
-    return <Redirect to='/home' />;
+    if (user.role === 'driver') {
+      return <Redirect to='/delivery-dashboard' />;
+    } else {
+      return <Redirect to='/home' />;
+    }
   }
 
   return (
@@ -57,7 +67,7 @@ const Login = ({
             </div>
           </div>
           {otpSend ? (
-            <form className='login-form' onSubmit={e => loginSubmit(e)}>
+            <form className='login-form' onSubmit={(e) => loginSubmit(e)}>
               <p>Enter The OTP Sent on You Mobile Number</p>
               <br />
               <div className='inputs'>
@@ -65,7 +75,7 @@ const Login = ({
                   type='text'
                   name='otp'
                   value={otp}
-                  onChange={e => onChange(e)}
+                  onChange={(e) => onChange(e)}
                   placeholder='Enter 6 digit OTP ...'
                   required
                   autoFocus
@@ -80,7 +90,7 @@ const Login = ({
               </footer>
             </form>
           ) : (
-            <form className='login-form' onSubmit={e => onOTPSubmit(e)}>
+            <form className='login-form' onSubmit={(e) => onOTPSubmit(e)}>
               {/* <img alt='' src={require('../../static/logo.png')} /> */}
               <div className='location-box'>
                 <div
@@ -88,7 +98,7 @@ const Login = ({
                   style={
                     location === 'Ghatal'
                       ? {
-                          boxShadow: '#ff5722de 0px 0px 17px 3px'
+                          boxShadow: '#ff5722de 0px 0px 17px 3px',
                         }
                       : {}
                   }
@@ -108,7 +118,7 @@ const Login = ({
                   style={
                     location === 'Haldia'
                       ? {
-                          boxShadow: '#ff5722de 0px 0px 17px 3px'
+                          boxShadow: '#ff5722de 0px 0px 17px 3px',
                         }
                       : {}
                   }
@@ -124,6 +134,7 @@ const Login = ({
                   <p className='subtitle'>Haldia</p>
                 </div>
               </div>
+              {error && <p className='error'>{error}</p>}
               <br />
 
               <div className='inputs'>
@@ -131,7 +142,7 @@ const Login = ({
                   type='text'
                   name='mobile'
                   value={mobile}
-                  onChange={e => onChange(e)}
+                  onChange={(e) => onChange(e)}
                   placeholder='Mobile No ...'
                   required
                   autoFocus
@@ -156,13 +167,13 @@ Login.propTypes = {
   login: PropTypes.func.isRequired,
   sendOtp: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
-  user: PropTypes.object
+  user: PropTypes.object,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
   auth: state.auth,
-  user: state.auth.user
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { login, sendOtp })(Login);

@@ -1,9 +1,19 @@
-import { GET_ORDER, GET_ORDERS, ORDER_LOADING } from '../actions/types';
+import {
+  GET_ORDER,
+  GET_ORDERS,
+  ORDER_LOADING,
+  GET_ASSIGNED_ORDERS,
+  GET_COMPLETED_ORDERS,
+  GET_MARKED_ORDERS,
+} from '../actions/types';
 
 const initialState = {
   loading: true,
   orders: [],
   order: null,
+  assigned_orders: [],
+  marked_orders: [],
+  completed_orders: [],
 };
 
 export default function (state = initialState, action) {
@@ -22,6 +32,27 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         orders: payload,
+      };
+
+    case GET_ASSIGNED_ORDERS:
+      return {
+        ...state,
+        loading: false,
+        assigned_orders: payload,
+      };
+
+    case GET_MARKED_ORDERS:
+      return {
+        ...state,
+        loading: false,
+        marked_orders: payload,
+      };
+
+    case GET_COMPLETED_ORDERS:
+      return {
+        ...state,
+        loading: false,
+        completed_orders: payload,
       };
 
     case ORDER_LOADING:
