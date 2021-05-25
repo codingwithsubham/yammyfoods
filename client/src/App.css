@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,900|Poppins:400,500');
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,900|Poppins:400,500");
 
 /**DESKTOP SCREEN***/
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -128,7 +128,7 @@ span.cart-badge {
   font-size: 17px;
 }
 
-.input-wrapper-search input[type='text']:focus {
+.input-wrapper-search input[type="text"]:focus {
   outline: none;
 }
 
@@ -325,8 +325,8 @@ ul.control-dots {
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
   font-family: var(
     --pure-material-font,
-    'Roboto',
-    'Segoe UI',
+    "Roboto",
+    "Segoe UI",
     BlinkMacSystemFont,
     system-ui,
     -apple-system
@@ -347,7 +347,7 @@ ul.control-dots {
 }
 
 .btn::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   bottom: 0;
@@ -360,7 +360,7 @@ ul.control-dots {
 
 /* Ripple */
 .btn::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -473,7 +473,7 @@ img.product-img {
       rgb(0 0 0 / 73%),
       rgb(193 143 29 / 54%)
     ),
-    url('./static/bryni.jpg');
+    url("./static/bryni.jpg");
   color: #fff;
   white-space: break-spaces;
   line-height: 25px;
@@ -879,7 +879,7 @@ img.cart-item.img {
 .profile-area {
   margin: 10px 5px;
   background-image: linear-gradient(0deg, rgb(255 255 255 / 81%), #673ab791),
-    url('./static/bg.png');
+    url("./static/bg.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -978,7 +978,7 @@ span.out-of-stock {
 
 .food-hubs-header {
   width: 100%;
-  background-image: url('./static/foodbg.png');
+  background-image: url("./static/foodbg.png");
   margin: 0px;
   height: 350px;
   border-radius: 4px;
@@ -1027,7 +1027,7 @@ span.out-of-stock {
 }
 
 .bg-login {
-  background-image: url('./static/food-bg-login.jpg');
+  background-image: url("./static/food-bg-login.jpg");
   height: 100vh;
   width: 50%;
   background-repeat: no-repeat;
@@ -1069,7 +1069,7 @@ form.login-form {
   align-items: center;
   cursor: pointer;
   padding: 10px;
-  border-radius: 10px
+  border-radius: 10px;
 }
 
 img.loc-img {
@@ -1286,7 +1286,7 @@ img.loc-img {
 }
 
 .checkmark:after {
-  content: '';
+  content: "";
   position: absolute;
   display: none;
 }
@@ -1788,13 +1788,49 @@ img.drivr-img {
   align-items: center;
 }
 
+.delivery-header h1 {
+  background: #ffeb3b;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 0px 0px 5px 0px #ddd;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.delivery-header {
+  text-align: center;
+  border-bottom: 2px solid #828282;
+}
+
+.delivery-home .table table {
+  text-align: center;
+}
+
+.refresh-btn {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 9999;
+  background: #2196f3;
+  border-radius: 100%;
+  border: 2px solid #fff;
+  color: #fff;
+  box-shadow: 1px 1px 11px 0px #000;
+}
+
+.refresh-btn .refresh {
+  font-size: 30px;
+  padding: 10px;
+}
+
 /*Mobile Screen*/
 @media screen and (max-width: 450px) {
   body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-      'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-      'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+      "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -1917,7 +1953,7 @@ img.drivr-img {
     font-size: 17px;
   }
 
-  .input-wrapper-search input[type='text']:focus {
+  .input-wrapper-search input[type="text"]:focus {
     outline: none;
   }
 
@@ -2114,8 +2150,8 @@ img.drivr-img {
       0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     font-family: var(
       --pure-material-font,
-      'Roboto',
-      'Segoe UI',
+      "Roboto",
+      "Segoe UI",
       BlinkMacSystemFont,
       system-ui,
       -apple-system
@@ -2136,7 +2172,7 @@ img.drivr-img {
   }
 
   .btn::before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     bottom: 0;
@@ -2149,7 +2185,7 @@ img.drivr-img {
 
   /* Ripple */
   .btn::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     top: 50%;
@@ -2263,7 +2299,7 @@ img.drivr-img {
         rgb(0 0 0 / 73%),
         rgb(193 143 29 / 54%)
       ),
-      url('./static/bryni.jpg');
+      url("./static/bryni.jpg");
     color: #fff;
     white-space: break-spaces;
     line-height: 25px;
@@ -2664,7 +2700,7 @@ img.drivr-img {
   .profile-area {
     margin: 10px 5px;
     background-image: linear-gradient(0deg, rgb(255 255 255 / 81%), #673ab791),
-      url('./static/bg.png');
+      url("./static/bg.png");
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -2763,7 +2799,7 @@ img.drivr-img {
 
   .food-hubs-header {
     width: 100%;
-    background-image: url('./static/foodbg.png');
+    background-image: url("./static/foodbg.png");
     margin: 0px;
     height: 160px !important;
     border-radius: 4px;
@@ -2811,7 +2847,7 @@ img.drivr-img {
   }
 
   .bg-login {
-    background-image: url('./static/food-bg-login.jpg');
+    background-image: url("./static/food-bg-login.jpg");
     height: 100vh;
     width: 100%;
     background-repeat: no-repeat;
@@ -2840,7 +2876,7 @@ img.drivr-img {
     bottom: 0%;
     left: 0px;
     align-items: center;
-    flex-direction: row
+    flex-direction: row;
   }
 
   .location-box {
@@ -2849,9 +2885,9 @@ img.drivr-img {
     justify-content: center;
     align-items: center;
     margin-bottom: 30px;
-}
+  }
 
-.location-content {
+  .location-content {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -2859,9 +2895,8 @@ img.drivr-img {
     align-items: center;
     cursor: pointer;
     padding: 25px;
-    border-radius: 10px
-}
-
+    border-radius: 10px;
+  }
 
   .login-form .inputs {
     width: 100%;
@@ -3068,7 +3103,7 @@ img.drivr-img {
   }
 
   .checkmark:after {
-    content: '';
+    content: "";
     position: absolute;
     display: none;
   }
@@ -3562,6 +3597,24 @@ img.drivr-img {
     line-height: 28px;
     margin: 10px 0px 6px;
   }
+  .delivery-header h1 {
+    background: #ffeb3b;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px #ddd;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .delivery-header {
+    text-align: center;
+    border-bottom: 2px solid #828282;
+  }
+
+  .delivery-home .table table {
+    text-align: center;
+  }
 }
 
 /*Tablet Screen*/
@@ -3624,5 +3677,23 @@ img.drivr-img {
     width: 40%;
     padding: 3%;
     top: 300px;
+  }
+  .delivery-header h1 {
+    background: #ffeb3b;
+    text-align: center;
+    padding: 10px;
+    box-shadow: 0px 0px 5px 0px #ddd;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  .delivery-header {
+    text-align: center;
+    border-bottom: 2px solid #828282;
+  }
+
+  .delivery-home .table table {
+    text-align: center;
   }
 }

@@ -1,10 +1,10 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const auth = require('../../middleware/auth');
-const getWooInstance = require('../../middleware/getWooInstance');
+const auth = require("../../middleware/auth");
+const getWooInstance = require("../../middleware/getWooInstance");
 
 // @route   to get an order details
-router.get('/:id', auth, async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders/${req.params.id}`)
     .then((response) => {
@@ -16,7 +16,7 @@ router.get('/:id', auth, async (req, res) => {
 });
 
 // @route   to get orders for a Customer
-router.get('/', auth, async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders?customer=${req.user.id}`)
     .then((response) => {
@@ -28,7 +28,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route   to get Assigned orders for a driver
-router.post('/assigned-for-delivery', auth, async (req, res) => {
+router.post("/assigned-for-delivery", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders?status=driver-assigned&per_page=100`)
     .then((response) => {
@@ -45,7 +45,7 @@ router.post('/assigned-for-delivery', auth, async (req, res) => {
 });
 
 // @route   to get Assigned orders for a driver
-router.post('/marked-orders-for-delivery', auth, async (req, res) => {
+router.post("/marked-orders-for-delivery", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.get(`orders?status=out-for-delivery&per_page=100`)
     .then((response) => {
@@ -62,9 +62,10 @@ router.post('/marked-orders-for-delivery', auth, async (req, res) => {
 });
 
 // @route   to get Assigned orders for a driver
-router.post('/completed-for-delivery', auth, async (req, res) => {
+router.post("/completed-for-delivery", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
-  WooCommerce.get(`orders?status=completed&per_page=100`)
+  const { offset } = req.body;
+  WooCommerce.get(`orders?status=completed&page=${offset}&per_page=50`)
     .then((response) => {
       res.json(
         response.data &&
@@ -79,7 +80,7 @@ router.post('/completed-for-delivery', auth, async (req, res) => {
 });
 
 // @route   to change Order Status
-router.post('/change-status/:id', auth, async (req, res) => {
+router.post("/change-status/:id", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   WooCommerce.put(`orders/${req.params.id}`, req.body)
     .then((response) => {

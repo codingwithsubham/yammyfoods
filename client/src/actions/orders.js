@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   GET_ORDER,
   CHECKOUT_LOADING,
@@ -7,9 +7,9 @@ import {
   GET_ASSIGNED_ORDERS,
   GET_COMPLETED_ORDERS,
   GET_MARKED_ORDERS,
-} from './types';
-import { setAlert } from './alert';
-const { API_CONFIG } = require('../common/constants');
+} from "./types";
+import { setAlert } from "./alert";
+const { API_CONFIG } = require("../common/constants");
 
 // get Order Details
 export const getOrderDetails = (id) => async (dispatch) => {
@@ -35,13 +35,13 @@ export const getOrderDetails = (id) => async (dispatch) => {
 // get Orders for a Customer
 export const getOrders = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/orders/', API_CONFIG);
+    const res = await axios.get("/api/orders/", API_CONFIG);
     dispatch({
       type: GET_ORDERS,
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('Unable to Fetch Details', 'danger'));
+    dispatch(setAlert("Unable to Fetch Details", "danger"));
   }
 };
 
@@ -49,7 +49,7 @@ export const getOrders = () => async (dispatch) => {
 export const getAssignedOrdersForDriver = () => async (dispatch) => {
   try {
     const res = await axios.post(
-      '/api/orders/assigned-for-delivery',
+      "/api/orders/assigned-for-delivery",
       {},
       API_CONFIG
     );
@@ -58,7 +58,7 @@ export const getAssignedOrdersForDriver = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('Unable to Fetch Details', 'danger'));
+    dispatch(setAlert("Unable to Fetch Details", "danger"));
   }
 };
 
@@ -66,7 +66,7 @@ export const getAssignedOrdersForDriver = () => async (dispatch) => {
 export const getMarkedOrdersForDriver = () => async (dispatch) => {
   try {
     const res = await axios.post(
-      '/api/orders/marked-orders-for-delivery',
+      "/api/orders/marked-orders-for-delivery",
       {},
       API_CONFIG
     );
@@ -75,16 +75,19 @@ export const getMarkedOrdersForDriver = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('Unable to Fetch Details', 'danger'));
+    dispatch(setAlert("Unable to Fetch Details", "danger"));
   }
 };
 
 // get Completed Orders for Driver
-export const getCompletedOrdersForDriver = () => async (dispatch) => {
+export const getCompletedOrdersForDriver = (offset) => async (dispatch) => {
   try {
+    dispatch({
+      type: ORDER_LOADING,
+    });
     const res = await axios.post(
-      '/api/orders/completed-for-delivery',
-      {},
+      "/api/orders/completed-for-delivery",
+      { offset },
       API_CONFIG
     );
     dispatch({
@@ -92,7 +95,7 @@ export const getCompletedOrdersForDriver = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    dispatch(setAlert('Unable to Fetch Details', 'danger'));
+    dispatch(setAlert("Unable to Fetch Details", "danger"));
   }
 };
 
