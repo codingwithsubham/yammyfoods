@@ -1,8 +1,8 @@
-import React, { Fragment, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { login, sendOtp } from '../../actions/auth';
+import React, { Fragment, useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { login, sendOtp } from "../../actions/auth";
 
 const Login = ({
   login,
@@ -12,10 +12,10 @@ const Login = ({
   auth: { otpSend, loginType },
 }) => {
   const [formData, setFormData] = useState({
-    location: '',
-    mobile: '',
-    otp: '',
-    error: '',
+    location: "",
+    mobile: "",
+    otp: "",
+    error: "",
   });
 
   const { location, mobile, otp, error } = formData;
@@ -28,130 +28,128 @@ const Login = ({
 
   const onOTPSubmit = async (e) => {
     e.preventDefault();
-    if (location !== '') {
-      setFormData({ ...formData, error: '' });
+    if (location !== "") {
+      setFormData({ ...formData, error: "" });
       sendOtp(location, mobile);
     } else {
-      setFormData({ ...formData, error: 'Please Select and Area..' });
+      setFormData({ ...formData, error: "Please Select and Area.." });
     }
   };
 
   const loginSubmit = async (e) => {
     e.preventDefault();
-    if (location !== '') login(location, mobile, loginType, otp);
+    if (location !== "") login(location, mobile, loginType, otp);
   };
 
   if (isAuthenticated && user) {
-    if (user.role === 'driver') {
-      return <Redirect to='/delivery-dashboard' />;
+    if (user.role === "driver") {
+      return <Redirect to="/delivery-dashboard" />;
     } else {
-      return <Redirect to='/home' />;
+      return <Redirect to="/home" />;
     }
   }
 
   return (
     !isAuthenticated && (
       <Fragment>
-        <div className='login'>
-          <div className='bg-login'>
-            <div className='features'>
+        <div className="login">
+          <div className="bg-login">
+            <div className="features">
               <span>
-                <i className='material-icons'>near_me</i> Fast Delivery
+                <i className="material-icons">near_me</i> Fast Delivery
               </span>
               <span>
-                <i className='material-icons'>search</i> Find and Search
+                <i className="material-icons">search</i> Find and Search
               </span>
               <span>
-                <i className='material-icons'>restaurant</i> Enjoy Food At Home
+                <i className="material-icons">restaurant</i> Enjoy Food At Home
               </span>
             </div>
           </div>
           {otpSend ? (
-            <form className='login-form' onSubmit={(e) => loginSubmit(e)}>
+            <form className="login-form" onSubmit={(e) => loginSubmit(e)}>
               <p>Enter The OTP Sent on You Mobile Number</p>
               <br />
-              <div className='inputs'>
+              <div className="inputs">
                 <input
-                  type='text'
-                  name='otp'
+                  type="text"
+                  name="otp"
                   value={otp}
                   onChange={(e) => onChange(e)}
-                  placeholder='Enter 6 digit OTP ...'
+                  placeholder="Enter 6 digit OTP ..."
                   required
-                  autoFocus
                   maxLength={6}
                   minLength={6}
                 />
               </div>
               <footer>
-                <button type='submit' className='btn'>
+                <button type="submit" className="btn">
                   Continue
                 </button>
               </footer>
             </form>
           ) : (
-            <form className='login-form' onSubmit={(e) => onOTPSubmit(e)}>
+            <form className="login-form" onSubmit={(e) => onOTPSubmit(e)}>
               {/* <img alt='' src={require('../../static/logo.png')} /> */}
-              <div className='location-box'>
+              <div className="location-box">
                 <div
-                  className='location-content'
+                  className="location-content"
                   style={
-                    location === 'Ghatal'
+                    location === "Ghatal"
                       ? {
-                          boxShadow: '#ff5722de 0px 0px 17px 3px',
+                          boxShadow: "#ff5722de 0px 0px 17px 3px",
                         }
                       : {}
                   }
                   onClick={() =>
-                    setFormData({ ...formData, location: 'Ghatal' })
+                    setFormData({ ...formData, location: "Ghatal" })
                   }
                 >
                   <img
-                    src={require('../../static/ghatal.svg')}
-                    alt='Ghatal Yammy foods'
-                    className='loc-img'
+                    src={require("../../static/ghatal.svg")}
+                    alt="Ghatal Yammy foods"
+                    className="loc-img"
                   />
-                  <p className='subtitle'>Ghatal</p>
+                  <p className="subtitle">Ghatal</p>
                 </div>
                 <div
-                  className='location-content'
+                  className="location-content"
                   style={
-                    location === 'Haldia'
+                    location === "Haldia"
                       ? {
-                          boxShadow: '#ff5722de 0px 0px 17px 3px',
+                          boxShadow: "#ff5722de 0px 0px 17px 3px",
                         }
                       : {}
                   }
                   onClick={() =>
-                    setFormData({ ...formData, location: 'Haldia' })
+                    setFormData({ ...formData, location: "Haldia" })
                   }
                 >
                   <img
-                    src={require('../../static/haldia.svg')}
-                    alt='Ghatal Yammy foods'
-                    className='loc-img'
+                    src={require("../../static/haldia.svg")}
+                    alt="Ghatal Yammy foods"
+                    className="loc-img"
                   />
-                  <p className='subtitle'>Haldia</p>
+                  <p className="subtitle">Haldia</p>
                 </div>
               </div>
-              {error && <p className='error'>{error}</p>}
+              {error && <p className="error">{error}</p>}
               <br />
 
-              <div className='inputs'>
+              <div className="inputs">
                 <input
-                  type='text'
-                  name='mobile'
+                  type="text"
+                  name="mobile"
                   value={mobile}
                   onChange={(e) => onChange(e)}
-                  placeholder='Mobile No ...'
+                  placeholder="Mobile No ..."
                   required
-                  autoFocus
                   maxLength={10}
                   minLength={10}
                 />
               </div>
               <footer>
-                <button type='submit' className='btn'>
+                <button type="submit" className="btn">
                   Continue
                 </button>
               </footer>
