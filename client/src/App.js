@@ -34,25 +34,19 @@ const App = () => {
   }, []);
   const [width] = useWindowSize();
 
-  const AppContent = () => {
-    return (
-      <Fragment>
-        <Navbar />
-        <Sidebar />
-        <Switch>
-          <Route component={Routes} />
-        </Switch>
-        <BottomBar />
-      </Fragment>
-    );
-  };
-
   return (
     <Provider store={store}>
       <Router>
         <Fragment>
           {width <= 768 ? (
-            <AppContent />
+            <Fragment>
+              <Navbar />
+              <Sidebar />
+              <Switch>
+                <Route component={Routes} />
+              </Switch>
+              <BottomBar />
+            </Fragment>
           ) : (
             <div className="scrn-wrapper">
               <div className="smartphone">

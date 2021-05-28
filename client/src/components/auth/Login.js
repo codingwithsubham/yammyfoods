@@ -72,7 +72,7 @@ const Login = ({
               <br />
               <div className="inputs">
                 <input
-                  type="number"
+                  type="text"
                   name="otp"
                   value={otp}
                   onChange={(e) => onChange(e)}
@@ -139,7 +139,7 @@ const Login = ({
 
               <div className="inputs">
                 <input
-                  type="number"
+                  type="text"
                   name="mobile"
                   value={mobile}
                   onChange={(e) => onChange(e)}
