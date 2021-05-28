@@ -21,7 +21,9 @@ const Login = ({
   const { location, mobile, otp, error } = formData;
 
   const onChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (!isNaN(e.target.value)) {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    }
   };
 
   const onOTPSubmit = async (e) => {
@@ -75,9 +77,10 @@ const Login = ({
                   value={otp}
                   onChange={(e) => onChange(e)}
                   placeholder="Enter 6 digit OTP ..."
-                  // required
-                  // maxLength={6}
-                  // minLength={6}
+                  required
+                  autoFocus
+                  maxLength={6}
+                  minLength={6}
                 />
               </div>
               <footer>
@@ -141,9 +144,10 @@ const Login = ({
                   value={mobile}
                   onChange={(e) => onChange(e)}
                   placeholder="Mobile No ..."
-                  // required
-                  // maxLength={10}
-                  // minLength={10}
+                  required
+                  autoFocus
+                  maxLength={10}
+                  minLength={10}
                 />
               </div>
               <footer>
