@@ -1,22 +1,24 @@
-import React from 'react';
-import LatestProductSlider from './LatestProductSlider';
-import CategorySlider from './CategorySlider';
-import LatestProducts from '../all_products/LatestProducts';
-import HubsSlider from '../dashboard/HubsSlider';
+import React from "react";
+import LatestProductSlider from "./LatestProductSlider";
+import CategorySlider from "./CategorySlider";
+import LatestProducts from "../all_products/LatestProducts";
+import HubsSlider from "../dashboard/HubsSlider";
+import GlobalMessage from "../layout/GlobalMessage";
 
 const Dashboard = () => {
   return (
-    <div className='dashboard'>
+    <div className="dashboard">
       <LatestProductSlider />
-      <div className='header'>
+      <GlobalMessage />
+      <div className="header">
         Find By Category <span>View All</span>
       </div>
       <CategorySlider />
-      <div className='header'>
+      <div className="header">
         Hubs Near You <span>View All</span>
         <HubsSlider />
       </div>
-      <div className='header'>
+      <div className="header">
         New Arrivals <span>View All</span>
       </div>
       <LatestProducts />

@@ -65,7 +65,7 @@ router.post("/marked-orders-for-delivery", auth, async (req, res) => {
 router.post("/completed-for-delivery", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
   const { offset } = req.body;
-  WooCommerce.get(`orders?status=completed&page=${offset}&per_page=50`)
+  WooCommerce.get(`orders?status=completed&page=${offset}&per_page=25`)
     .then((response) => {
       res.json(
         response.data &&

@@ -1,34 +1,34 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const axios = require('axios');
-const jwt = require('jsonwebtoken');
-const auth = require('../../middleware/auth');
-const urlGetter = require('../../middleware/urlGetter');
-const getWooInstance = require('../../middleware/getWooInstance');
+const axios = require("axios");
+const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
+const urlGetter = require("../../middleware/urlGetter");
+const getWooInstance = require("../../middleware/getWooInstance");
 
 const {
   SERVER_ERROR,
   JWT_SECRET,
-  EXPIRES_IN
-} = require('../../common/constant/constants');
+  EXPIRES_IN,
+} = require("../../common/constant/constants");
 
 // @route GET api/auth
 // @desc Get User By Id
 // @access Private
-router.get('/load-user', auth, async (req, res) => {
+router.get("/load-user", auth, async (req, res) => {
   let user;
   const WooCommerce = getWooInstance(req.user.location);
 
   WooCommerce.get(`customers/${req.user.id}`)
-    .then(response => {
+    .then((response) => {
       user = response.data;
       user.location = req.user.location;
       res.json(user);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       return res.status(400).json({
-        errors: [{ msg: 'Unable to Load User' }]
+        errors: [{ msg: "Unable to Load User" }],
       });
     });
 });
@@ -36,26 +36,26 @@ router.get('/load-user', auth, async (req, res) => {
 // @route PUT api/auth
 // @desc Update User
 // @access Private
-router.put('/update-user', auth, async (req, res) => {
+router.put("/update-user", auth, async (req, res) => {
   let user;
   const WooCommerce = getWooInstance(req.user.location);
 
   WooCommerce.put(`customers/${req.user.id}`, req.body)
-    .then(response => {
+    .then((response) => {
       user = response.data;
       user.location = req.user.location;
       res.json(user);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
       return res.status(400).json({
-        errors: [{ msg: 'Unable to Load User' }]
+        errors: [{ msg: "Unable to Load User" }],
       });
     });
 });
 
 // @route  to send otp
-router.post('/sendotp', async (req, res) => {
+router.post("/sendotp", async (req, res) => {
   try {
     const { location, mobile } = req.body;
     const uri = urlGetter(location);
@@ -70,26 +70,26 @@ router.post('/sendotp', async (req, res) => {
         `https://${uri}/wp-json/digits/v1/send_otp/?countrycode=%2B91&mobileNo=${mobile}&type=register`
       );
 
-      if (responce.data.code === '1') {
+      if (responce.data.code === "1") {
         return res.json({
           send: true,
-          type: 'register'
+          type: "register",
         });
       } else {
         return res.status(400).json({
-          errors: [{ msg: 'Unable to send OTP' }]
+          errors: [{ msg: "Unable to send OTP" }],
         });
       }
     }
     //if number exists
-    if (responce.data.code === '1') {
+    if (responce.data.code === "1") {
       return res.json({
         send: true,
-        type: 'login'
+        type: "login",
       });
     } else {
       return res.status(400).json({
-        errors: [{ msg: 'Unable to send OTP' }]
+        errors: [{ msg: "Unable to send OTP" }],
       });
     }
   } catch (err) {
@@ -99,7 +99,7 @@ router.post('/sendotp', async (req, res) => {
 });
 
 // @route   verify otp
-router.post('/verifyotp', async (req, res) => {
+router.post("/verifyotp", async (req, res) => {
   try {
     const { location, mobile, type, otp } = req.body;
     const uri = urlGetter(location);
@@ -120,8 +120,8 @@ router.post('/verifyotp', async (req, res) => {
         const payload = {
           user: {
             id: data.user_id,
-            location: location
-          }
+            location: location,
+          },
         };
         jwt.sign(
           payload,
@@ -136,12 +136,12 @@ router.post('/verifyotp', async (req, res) => {
         );
       } else {
         return res.status(400).json({
-          errors: [{ msg: 'Unable to Verify OTP' }]
+          errors: [{ msg: "Unable to Verify OTP" }],
         });
       }
     } else {
       return res.status(400).json({
-        errors: [{ msg: 'Unable to Verify OTP' }]
+        errors: [{ msg: "Unable to Verify OTP" }],
       });
     }
   } catch (err) {
@@ -153,8 +153,63 @@ router.post('/verifyotp', async (req, res) => {
 // @route GET api/auth
 // @desc Get Delivery Boy By Id
 // @access Private
-router.get('/get-delivery-boy/:id', auth, async (req, res) => {
+router.get("/get-delivery-boy/:id", auth, async (req, res) => {
   //not required if we spent money
+});
+
+// @route GET api/auth
+// @desc Get Service Availablity
+// @access Private
+router.get("/service-availablity", auth, async (req, res) => {
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.get(
+    "settings/account/woocommerce_allow_bulk_remove_personal_data"
+  )
+    .then((response) => {
+      return res.json(response.data && response.data.value);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      return res.status(400).json({
+        errors: [{ msg: "Unable to Get Service Availablity" }],
+      });
+    });
+});
+
+// @route GET api/auth
+// @desc Get Service Availablity Notice
+// @access Private
+router.get("/service-availablity-notice", auth, async (req, res) => {
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.get(
+    "settings/account/woocommerce_registration_privacy_policy_text"
+  )
+    .then((response) => {
+      return res.json(response.data && response.data.value);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      return res.status(400).json({
+        errors: [{ msg: "Unable to Get Service Availablity Notice" }],
+      });
+    });
+});
+
+// @route GET api/auth
+// @desc Get Service Availablity Notice
+// @access Private
+router.get("/global-notice", auth, async (req, res) => {
+  const WooCommerce = getWooInstance(req.user.location);
+  WooCommerce.get("settings/account/woocommerce_checkout_privacy_policy_text")
+    .then((response) => {
+      return res.json(response.data && response.data.value);
+    })
+    .catch((error) => {
+      console.log(error.response.data);
+      return res.status(400).json({
+        errors: [{ msg: "Unable to Get Service Availablity Notice" }],
+      });
+    });
 });
 
 module.exports = router;

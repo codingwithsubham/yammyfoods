@@ -10,6 +10,7 @@ import "./index.css";
 import Navbar from "./components/layout/Navbar";
 import Sidebar from "./components/layout/Sidebar";
 import BottomBar from "./components/layout/BottomBar";
+import ServiceUnavailable from "./components/layout/ServiceUnavailable";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -40,6 +41,7 @@ const App = () => {
         <Fragment>
           {width <= 768 ? (
             <Fragment>
+              <ServiceUnavailable />
               <Navbar />
               <Sidebar />
               <Switch>
