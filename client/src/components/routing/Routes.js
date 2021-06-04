@@ -21,6 +21,9 @@ import CategoryResults from "../dashboard/CategoryResults";
 import DeliveryHome from "../delivery_driver/DeliveryHome";
 import GetOrderDetailsForDriver from "../delivery_driver/GetOrderDetailsForDriver";
 import PastOrders from "../delivery_driver/PastOrders";
+import PrivacyPolicy from "../layout/PrivacyPolicy";
+import TermsOfService from "../layout/TermsOfService";
+import AboutUs from "../layout/AboutUs";
 
 const Routes = () => {
   return (
@@ -31,6 +34,13 @@ const Routes = () => {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/" component={Login} />
+          <Route exact path="/about" component={AboutUs} />
+          <Route exact path="/privacy-policy" component={PrivacyPolicy} />
+          <Route
+            exact
+            path="/terms-and-conditions"
+            component={TermsOfService}
+          />
           <PrivateRoute exact path="/home" component={Dashboard} />
           <PrivateRoute exact path="/food-hubs" component={FoodHubs} />
           <PrivateRoute exact path="/cart" component={Cart} />

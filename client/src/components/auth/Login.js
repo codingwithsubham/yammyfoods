@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login, sendOtp } from "../../actions/auth";
@@ -134,9 +134,15 @@ const Login = ({
                   <p className="subtitle">Haldia</p>
                 </div>
               </div>
+              <br />
               {error && <p className="error">{error}</p>}
               <br />
-
+              <div className="terms-conditions">
+                <input type="checkbox" defaultChecked={true} disabled />
+                Agreed to <Link to="/privacy-policy">Privacy</Link> and{" "}
+                <Link to="/terms-and-conditions">Terms</Link>
+              </div>
+              <br />
               <div className="inputs">
                 <input
                   type="text"

@@ -6,6 +6,7 @@ import DummyOrders from "../customer/DummyOrders";
 import { connect } from "react-redux";
 import { useState } from "react";
 import Moment from "react-moment";
+import Pagination from "../layout/Pagination";
 
 const PastOrders = ({
   getCompletedOrdersForDriver,
@@ -27,6 +28,23 @@ const PastOrders = ({
     setOffSet(offSet + 1);
   };
 
+  //pagination code
+  const [currentData, setCurrentData] = useState(1);
+  const [dataPerPage] = useState(10);
+  //Get Current Data
+  const indexOfLastData = currentData * dataPerPage;
+  const indexOfFirstData = indexOfLastData - dataPerPage;
+  const currentDatas =
+    completed_orders &&
+    completed_orders.orders &&
+    completed_orders.orders.length > 0 &&
+    completed_orders.orders.slice(indexOfFirstData, indexOfLastData);
+  //change page
+  const paginate = (nmbr) => {
+    setCurrentData(nmbr);
+  };
+  //pagination code ends
+
   return loading ? (
     <Fragment>
       <div className="delivery-header">
@@ -47,7 +65,7 @@ const PastOrders = ({
 
       {/* Completed Orders */}
       <div className="table">
-        {completed_orders && completed_orders.length > 0 ? (
+        {currentDatas && currentDatas.length > 0 ? (
           <table>
             <thead>
               <tr>
@@ -58,13 +76,14 @@ const PastOrders = ({
               </tr>
             </thead>
             <tbody>
-              {completed_orders &&
-                completed_orders.length > 0 &&
-                completed_orders.map((item, idx) => (
+              {currentDatas &&
+                currentDatas.map((item, idx) => (
                   <tr key={idx}>
                     <td>{item.id}</td>
                     <td>
-                      <Moment format="DD/MM/YYYY">{item.date_completed}</Moment>
+                      <Moment format="DD/MM/YYYY">
+                        {item.date_completed && item.date_completed.date}
+                      </Moment>
                     </td>
                     <td>{item.status}</td>
                     <td>
@@ -80,13 +99,22 @@ const PastOrders = ({
           <p>No Completed Orders</p>
         )}
         <div className="pginte-sml">
-          <button className="btn" onClick={() => handlePrev()}>
-            PREV
-          </button>
-          {"         "}
-          <button className="btn" onClick={() => handleNext()}>
-            NEXT
-          </button>
+          {completed_orders &&
+          completed_orders.orders &&
+          completed_orders.orders.length > 0 ? (
+            <Pagination
+              dataPerPage={dataPerPage}
+              totalData={
+                completed_orders &&
+                completed_orders.orders &&
+                completed_orders.orders.length
+              }
+              paginate={paginate}
+              currentPage={currentData}
+            />
+          ) : (
+            <Fragment />
+          )}
         </div>
       </div>
     </div>
