@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 import {
   getServiceAvailablity,
   getServiceAvailablityNotice,
+  logout,
 } from "../../actions/auth";
 import { connect } from "react-redux";
 
 const ServiceUnavailable = ({
   getServiceAvailablity,
   getServiceAvailablityNotice,
+  logout,
   auth: { serviceAvailablity, serviceAvailablityNotice },
 }) => {
   useEffect(() => {
@@ -26,6 +28,9 @@ const ServiceUnavailable = ({
             alt="closed yammy foods"
           />
           <div className="Message">{serviceAvailablityNotice}</div>
+          <a className="btn" href="/login" onClick={() => logout()}>
+            Switch Location{" "}
+          </a>
           <img
             className="logo-icon"
             src="https://order.b-cdn.net/wp-content/uploads/2019/12/Logo-Main-e1592128542736.png"
@@ -40,6 +45,7 @@ const ServiceUnavailable = ({
 ServiceUnavailable.propTypes = {
   getServiceAvailablity: PropTypes.func.isRequired,
   getServiceAvailablityNotice: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
 };
 
@@ -50,4 +56,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   getServiceAvailablity,
   getServiceAvailablityNotice,
+  logout,
 })(ServiceUnavailable);
