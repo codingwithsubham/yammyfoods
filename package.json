@@ -8,9 +8,7 @@
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build-client": "npm install --prefix client && npm run build --prefix client",
-    "build-server": "npm install",
-    "build_my_app": "concurrently \"npm run build-server\" \"npm run build-client\""
+    "build_my_app": "npm install && npm install --prefix client && npm run build --prefix client"
   },
   "author": "ICS , India",
   "license": "ISC",
