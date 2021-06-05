@@ -442,17 +442,20 @@ ul.control-dots {
 
 .box-alert {
   color: white;
-  padding: 15px;
+  padding: 4%;
   font-size: 18px;
   font-weight: 400;
   position: fixed;
   z-index: 999999;
-  right: 20px;
+  left: auto;
+  right: 20%;
+  text-align: center;
   animation-name: animate;
   animation-duration: 0.5s;
-  top: 10px;
-  width: 15%;
-  border-radius: 5px;
+  bottom: 13%;
+  width: 50%;
+  top: auto;
+  border-radius: 6px;
 }
 
 img.product-img {
@@ -2504,13 +2507,16 @@ img.drivr-img {
     font-weight: 400;
     position: fixed;
     z-index: 999999;
-    left: 0%;
-    right: 0%;
+    left: auto;
+    right: 20%;
     text-align: center;
     animation-name: animate;
     animation-duration: 0.5s;
-    top: 0;
-    width: -webkit-fill-available;
+    bottom: 13%;
+    width: 50%;
+    top: auto;
+  border-radius: 6px;
+
   }
 
   img.product-img {
