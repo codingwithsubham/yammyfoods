@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {
   getWalletBalance,
   creditWalletBalance,
   getPassBook,
-} from '../../actions/wallet';
-import { Fragment, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { loadRazorpayToggle } from '../../actions/RazorpayOptions';
+} from "../../actions/wallet";
+import { Fragment, useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { loadRazorpayToggle } from "../../actions/RazorpayOptions";
 
 const Wallet = ({
   getWalletBalance,
@@ -16,6 +16,7 @@ const Wallet = ({
   checkout_state: { paymentStatus },
   creditWalletBalance,
   getPassBook,
+  auth: { user },
 }) => {
   useEffect(() => {
     getWalletBalance();
@@ -27,7 +28,7 @@ const Wallet = ({
 
   const [topUp, setTopUp] = useState({
     tpupOpned: false,
-    amunt: '',
+    amunt: "",
     transOpened: false,
   });
   const { tpupOpned, amunt, transOpened } = topUp;
@@ -35,53 +36,57 @@ const Wallet = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    loadRazorpayToggle(amunt);
-    const overlayStyle = document.getElementById('overlay');
+    loadRazorpayToggle(
+      amunt,
+      user && user.billing && user.billing.first_name,
+      user && user.billing && user.billing.phone
+    );
+    const overlayStyle = document.getElementById("overlay");
     if (overlayStyle) {
-      overlayStyle.style.display = 'flex';
+      overlayStyle.style.display = "flex";
     }
   };
 
-  if (!checkoutProcessed && paymentStatus === 'Success') {
+  if (!checkoutProcessed && paymentStatus === "Success") {
     setCheckoutProcessed(true);
-    const overlayStyle = document.getElementById('overlay');
+    const overlayStyle = document.getElementById("overlay");
     if (overlayStyle) {
-      overlayStyle.style.display = 'none';
+      overlayStyle.style.display = "none";
     }
     creditWalletBalance(amunt);
     setTopUp({
       tpupOpned: false,
-      amunt: '',
+      amunt: "",
       transOpened: false,
     });
   }
 
-  if (paymentStatus === 'Closed') {
-    const overlayStyle = document.getElementById('overlay');
+  if (paymentStatus === "Closed") {
+    const overlayStyle = document.getElementById("overlay");
     if (overlayStyle) {
-      overlayStyle.style.display = 'none';
+      overlayStyle.style.display = "none";
     }
   }
 
   return (
     <Fragment>
-      <div className='wlt-cntnr'>
-        <div id='overlay' className='checkout-overlay'>
-          <div className='loading-content'>
+      <div className="wlt-cntnr">
+        <div id="overlay" className="checkout-overlay">
+          <div className="loading-content">
             <img
-              src={require('../../static/load.gif')}
-              alt='loading yammy foods'
+              src={require("../../static/load.gif")}
+              alt="loading yammy foods"
             />
-            <div className='process'>We're Processing Your Transaction</div>
-            <div className='process-sub'>DO NOT PRESS BACK OR HOME</div>
+            <div className="process">We're Processing Your Transaction</div>
+            <div className="process-sub">DO NOT PRESS BACK OR HOME</div>
           </div>
         </div>
-        <div className='wlt-hdr'>
-          <p>{loading ? 'Fetching...' : `${wallet} INR`}</p>
+        <div className="wlt-hdr">
+          <p>{loading ? "Fetching..." : `${wallet} INR`}</p>
         </div>
-        <div className='wlt-opt'>
+        <div className="wlt-opt">
           <div
-            className='wlt-itms'
+            className="wlt-itms"
             onClick={() =>
               setTopUp({ ...topUp, tpupOpned: !tpupOpned, transOpened: false })
             }
@@ -89,7 +94,7 @@ const Wallet = ({
             Top Up
           </div>
           <div
-            className='wlt-itms'
+            className="wlt-itms"
             onClick={() =>
               setTopUp({
                 ...topUp,
@@ -104,17 +109,17 @@ const Wallet = ({
 
         {tpupOpned && (
           <form onSubmit={(e) => handleSubmit(e)}>
-            <div className='checkout-inputs'>
+            <div className="checkout-inputs">
               <span>Enter The Amount</span>
               <input
-                type='number'
+                type="number"
                 value={amunt}
                 onChange={(e) => setTopUp({ ...topUp, amunt: e.target.value })}
                 required
                 autoFocus
               />
             </div>
-            <button type='submit' className='btn'>
+            <button type="submit" className="btn">
               Continue
             </button>
           </form>
@@ -122,7 +127,7 @@ const Wallet = ({
 
         {transOpened && (
           <Fragment>
-            <div className='order-details-table'>
+            <div className="order-details-table">
               <table>
                 <thead>
                   <tr>
@@ -136,7 +141,7 @@ const Wallet = ({
                     transactions.map((itm, indx) => (
                       <tr
                         style={{
-                          color: itm.type === 'credit' ? 'green' : 'red',
+                          color: itm.type === "credit" ? "green" : "red",
                         }}
                         key={indx}
                       >
@@ -167,6 +172,7 @@ Wallet.propTypes = {
 const mapStateToProps = (state) => ({
   wallet: state.wallet,
   checkout_state: state.checkout,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, {

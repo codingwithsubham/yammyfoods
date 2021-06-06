@@ -3,7 +3,8 @@ import {
   CHECKOUT_SUCCESS,
   CHECKOUT_LOADING,
   PAYMENT_CAPTURED,
-} from '../actions/types';
+  PAYMENT_INIT,
+} from "../actions/types";
 
 const initialState = {
   loading: true,
@@ -34,6 +35,13 @@ export default function (state = initialState, action) {
         loading: true,
         checkoutData: null,
         delivery_charge: 0,
+        paymentStatus: null,
+      };
+
+    case PAYMENT_INIT:
+      return {
+        ...state,
+        loading: false,
         paymentStatus: null,
       };
 

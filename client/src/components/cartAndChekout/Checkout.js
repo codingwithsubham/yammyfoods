@@ -1,12 +1,15 @@
-import React, { useState, Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import AddressDetails from './CheckoutAddress';
-import TimeArea from './CheckoutTimeArea';
-import { getShipping, checkout } from '../../actions/checkout';
-import { getWalletBalance, debitWalletBallance } from '../../actions/wallet';
-import { Redirect } from 'react-router-dom';
-import { loadRazorpayToggle } from '../../actions/RazorpayOptions';
+import React, { useState, Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import AddressDetails from "./CheckoutAddress";
+import TimeArea from "./CheckoutTimeArea";
+import { getShipping, checkout } from "../../actions/checkout";
+import { getWalletBalance, debitWalletBallance } from "../../actions/wallet";
+import { Redirect } from "react-router-dom";
+import {
+  loadRazorpayToggle,
+  initRazorpay,
+} from "../../actions/RazorpayOptions";
 
 const Checkout = ({
   cart: { cart_items },
@@ -17,19 +20,20 @@ const Checkout = ({
   checkout_state: { delivery_charge, checkoutData, loading, paymentStatus },
   checkout,
   loadRazorpayToggle,
-  debitWalletBallance
+  debitWalletBallance,
+  initRazorpay,
 }) => {
   const [data, setData] = useState({
     address: null,
     locationAndTime: null,
     shipping: 0,
-    payment: null
+    payment: null,
   });
 
   const [formFlagdata, setFormFlagdata] = useState({
     addressFlag: true,
     locationAndTimeFlag: false,
-    paymentFlag: false
+    paymentFlag: false,
   });
 
   const [dataToBeSend, setDataToBeSend] = useState();
@@ -39,12 +43,12 @@ const Checkout = ({
   const { address, locationAndTime, payment } = data;
   const { addressFlag, locationAndTimeFlag, paymentFlag } = formFlagdata;
 
-  const addedAddr = propdata => {
+  const addedAddr = (propdata) => {
     setData({ ...data, address: propdata });
     setFormFlagdata({
       addressFlag: false,
       locationAndTimeFlag: true,
-      paymentFlag: false
+      paymentFlag: false,
     });
   };
 
@@ -54,13 +58,13 @@ const Checkout = ({
       setFormFlagdata({
         addressFlag: false,
         locationAndTimeFlag: false,
-        paymentFlag: true
+        paymentFlag: true,
       });
     } else {
       setFormFlagdata({
         addressFlag: true,
         locationAndTimeFlag: false,
-        paymentFlag: false
+        paymentFlag: false,
       });
     }
   };
@@ -69,36 +73,38 @@ const Checkout = ({
     setFormFlagdata({
       addressFlag: false,
       locationAndTimeFlag: true,
-      paymentFlag: false
+      paymentFlag: false,
     });
   };
 
   let cartData = cart_items;
-  const unique = [...new Set(cartData.map(item => item.id))];
-  const shippingClasses = [...new Set(cartData.map(item => item.ship_class))];
+  const unique = [...new Set(cartData.map((item) => item.id))];
+  const shippingClasses = [...new Set(cartData.map((item) => item.ship_class))];
 
   const cartTotals = () => {
     let total = 0;
-    cart_items.map(item => (total = total + parseFloat(item.price)));
+    cart_items.map((item) => (total = total + parseFloat(item.price)));
     return total;
   };
 
   const deliveryTotals = () => {
     const data = {
       pin: address && address.postcode,
-      ship_class: shippingClasses
+      ship_class: shippingClasses,
     };
 
     getShipping(data);
     if (!loading) {
-      return `${delivery_charge +
+      return `${
+        delivery_charge +
         parseInt(
           locationAndTime &&
             locationAndTime.location &&
             locationAndTime.location.value
-        )}/-`;
+        )
+      }/-`;
     } else {
-      return '...';
+      return "...";
     }
   };
 
@@ -112,28 +118,30 @@ const Checkout = ({
 
   const totalPrice = () => {
     if (!loading) {
-      return `${delivery_charge +
+      return `${
+        delivery_charge +
         parseInt(
           locationAndTime &&
             locationAndTime.location &&
             locationAndTime.location.value
         ) +
-        cartTotals()}/-`;
+        cartTotals()
+      }/-`;
     } else {
-      return 'Calculating ...';
+      return "Calculating ...";
     }
   };
 
-  const onRadioChange = e => {
+  const onRadioChange = (e) => {
     setData({ ...data, payment: e.target.value });
   };
 
   const finalCall = () => {
     let line_items = [];
-    unique.map(uniqueItem => {
+    unique.map((uniqueItem) => {
       line_items.push({
         product_id: uniqueItem,
-        quantity: cart_items.filter(x => x.id === uniqueItem).length
+        quantity: cart_items.filter((x) => x.id === uniqueItem).length,
       });
     });
 
@@ -145,7 +153,7 @@ const Checkout = ({
       customer_id: user.id,
       billing: {
         first_name: address.first_name,
-        last_name: '',
+        last_name: "",
         address_1: address.address_1,
         address_2: `Location: ${locationAndTime.location.label} | Time: ${locationAndTime.time}`,
         city: address.city,
@@ -153,31 +161,31 @@ const Checkout = ({
         postcode: address.postcode,
         country: address.country,
         phone:
-          address && address.phone && address.phone.includes('+91')
+          address && address.phone && address.phone.includes("+91")
             ? address.phone
-            : `+91${address.phone}`
+            : `+91${address.phone}`,
       },
       line_items: line_items,
       shipping_lines: [
         {
-          method_id: 'flat_rate',
-          method_title: 'Flat Rate',
-          total: `${deliveryTotals()}`
-        }
-      ]
+          method_id: "flat_rate",
+          method_title: "Flat Rate",
+          total: `${deliveryTotals()}`,
+        },
+      ],
     };
 
     const priceData = totalPrice();
 
-    if (payment === 'Razorpay') {
-      loadRazorpayToggle(priceData);
+    if (payment === "Razorpay") {
+      loadRazorpayToggle(priceData, address.first_name, address.phone);
       setDataToBeSend(finalData);
     }
 
-    if (payment === 'Wallet') {
+    if (payment === "Wallet") {
       if (parseFloat(priceData) > parseFloat(wallet)) {
         let reAmt = parseFloat(priceData) - parseFloat(wallet);
-        loadRazorpayToggle(reAmt);
+        loadRazorpayToggle(reAmt, address.first_name, address.phone);
         setDataToBeSend(finalData);
       } else {
         debitWalletBallance(priceData);
@@ -186,34 +194,35 @@ const Checkout = ({
       }
     }
 
-    if (payment === 'Cash on delivery') {
+    if (payment === "Cash on delivery") {
       checkout(finalData);
       setCheckoutSuccess(true);
     }
 
-    const overlayStyle = document.getElementById('overlay');
+    const overlayStyle = document.getElementById("overlay");
     if (overlayStyle) {
-      overlayStyle.style.display = 'flex';
+      overlayStyle.style.display = "flex";
     }
   };
 
-  if (!checkoutProcessed && paymentStatus === 'Success') {
+  if (!checkoutProcessed && paymentStatus === "Success") {
     setCheckoutProcessed(true);
-    if (payment === 'Razorpay') {
+    if (payment === "Razorpay") {
       checkout(dataToBeSend);
       setCheckoutSuccess(true);
     }
-    if (payment === 'Wallet') {
+    if (payment === "Wallet") {
       debitWalletBallance(wallet);
       checkout(dataToBeSend);
       setCheckoutSuccess(true);
     }
   }
 
-  if (paymentStatus === 'Closed') {
-    const overlayStyle = document.getElementById('overlay');
+  if (paymentStatus === "Closed") {
+    initRazorpay();
+    const overlayStyle = document.getElementById("overlay");
     if (overlayStyle) {
-      overlayStyle.style.display = 'none';
+      overlayStyle.style.display = "none";
     }
   }
 
@@ -222,15 +231,15 @@ const Checkout = ({
   }
 
   return (
-    <div className='checkout'>
-      <div id='overlay' className='checkout-overlay'>
-        <div className='loading-content'>
+    <div className="checkout">
+      <div id="overlay" className="checkout-overlay">
+        <div className="loading-content">
           <img
-            src={require('../../static/load.gif')}
-            alt='loading yammy foods'
+            src={require("../../static/load.gif")}
+            alt="loading yammy foods"
           />
-          <div className='process'>We're Processing Your Order</div>
-          <div className='process-sub'>DO NOT PRESS BACK OR HOME</div>
+          <div className="process">We're Processing Your Order</div>
+          <div className="process-sub">DO NOT PRESS BACK OR HOME</div>
         </div>
       </div>
       {addressFlag && (
@@ -244,8 +253,8 @@ const Checkout = ({
       )}
       {paymentFlag && (
         <Fragment>
-          <div className='checkout-header'>Final Details</div>
-          <div className='order-details-table'>
+          <div className="checkout-header">Final Details</div>
+          <div className="order-details-table">
             <table>
               <thead>
                 <tr>
@@ -258,13 +267,13 @@ const Checkout = ({
                 {unique.map((uniqueItem, idx) => (
                   <tr key={idx}>
                     <td>
-                      {cart_items.filter(x => x.id === uniqueItem)[0].name}
+                      {cart_items.filter((x) => x.id === uniqueItem)[0].name}
                     </td>
                     <td>
-                      {cart_items.filter(x => x.id === uniqueItem).length}
+                      {cart_items.filter((x) => x.id === uniqueItem).length}
                     </td>
-                    <td style={{ textAlign: 'right' }}>
-                      {cart_items.filter(x => x.id === uniqueItem)[0].price}/-
+                    <td style={{ textAlign: "right" }}>
+                      {cart_items.filter((x) => x.id === uniqueItem)[0].price}/-
                     </td>
                   </tr>
                 ))}
@@ -277,14 +286,14 @@ const Checkout = ({
                     <br />
                     ..
                   </td>
-                  <td colSpan='2' style={{ textAlign: 'right' }}>
+                  <td colSpan="2" style={{ textAlign: "right" }}>
                     {cartTotals()}/- <br />
                     {delivery_charge +
                       parseInt(
                         locationAndTime &&
                           locationAndTime.location &&
                           locationAndTime.location.value
-                      )}{' '}
+                      )}{" "}
                     /-
                     <hr />
                     Total - {totalPrice()}
@@ -294,51 +303,51 @@ const Checkout = ({
             </table>
           </div>
 
-          <div className='time-block'>
-            <label className='radio-container'>
+          <div className="time-block">
+            <label className="radio-container">
               Pay By Wallet ({wallet})
               <input
-                type='radio'
-                name='radio'
-                value='Wallet'
-                onChange={e => onRadioChange(e)}
+                type="radio"
+                name="radio"
+                value="Wallet"
+                onChange={(e) => onRadioChange(e)}
               />
-              <span className='checkmark'></span>
+              <span className="checkmark"></span>
             </label>
-            <label className='radio-container'>
+            <label className="radio-container">
               Cash On Delivery
               <input
-                type='radio'
-                name='radio'
-                value='Cash on delivery'
-                onChange={e => onRadioChange(e)}
+                type="radio"
+                name="radio"
+                value="Cash on delivery"
+                onChange={(e) => onRadioChange(e)}
               />
-              <span className='checkmark'></span>
+              <span className="checkmark"></span>
             </label>
-            <label className='radio-container'>
+            <label className="radio-container">
               Pay Online
               <input
-                type='radio'
-                name='radio'
-                value='Razorpay'
-                onChange={e => onRadioChange(e)}
+                type="radio"
+                name="radio"
+                value="Razorpay"
+                onChange={(e) => onRadioChange(e)}
               />
-              <span className='checkmark'></span>
+              <span className="checkmark"></span>
             </label>
           </div>
-          <div className='cart-final'>
-            <button className='btn prev' onClick={() => prevFromPayment()}>
+          <div className="cart-final">
+            <button className="btn prev" onClick={() => prevFromPayment()}>
               Back
             </button>
             {!loading ? (
               <button
-                className='btn next'
-                onClick={e => (!loading ? finalCall() : e.preventDefault())}
+                className="btn next"
+                onClick={(e) => (!loading ? finalCall() : e.preventDefault())}
               >
                 Place Order
               </button>
             ) : (
-              <button className='btn next' style={{ opacity: 0.4 }}>
+              <button className="btn next" style={{ opacity: 0.4 }}>
                 Calculating
               </button>
             )}
@@ -350,6 +359,7 @@ const Checkout = ({
 };
 
 Checkout.propTypes = {
+  initRazorpay: PropTypes.func.isRequired,
   cart: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   getShipping: PropTypes.func.isRequired,
@@ -358,14 +368,14 @@ Checkout.propTypes = {
   getWalletBalance: PropTypes.func.isRequired,
   wallet: PropTypes.object,
   loadRazorpayToggle: PropTypes.func,
-  debitWalletBallance: PropTypes.func
+  debitWalletBallance: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   cart: state.cart,
   auth: state.auth,
   checkout_state: state.checkout,
-  wallet: state.wallet
+  wallet: state.wallet,
 });
 
 export default connect(mapStateToProps, {
@@ -373,5 +383,6 @@ export default connect(mapStateToProps, {
   checkout,
   getWalletBalance,
   loadRazorpayToggle,
-  debitWalletBallance
+  debitWalletBallance,
+  initRazorpay,
 })(Checkout);
