@@ -8,7 +8,7 @@ const Checkout_Success = ({}) => {
       <div className="checkout-success">
         <img
           src={
-            "https://order.yammyfoods.in/wp-content/uploads/2021/05/success-green-check-mark.png"
+            "https://order.yammyfoods.in/wp-content/uploads/2021/06/9136df0949a40e6567c6f4f7a6343672.gif"
           }
           alt="yammy foods checkout success"
         />

@@ -1384,6 +1384,7 @@ td {
 
 .checkout-success img {
   width: 100%;
+  background-color: #fff !important;
 }
 
 .checkout-success {
@@ -3435,6 +3436,7 @@ img.drivr-img {
 
   .checkout-success img {
     width: 100%;
+    background-color: #fff !important;
   }
 
   .checkout-success {

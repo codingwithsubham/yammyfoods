@@ -90,7 +90,10 @@ const SingleFoodHub = ({
                         item.image.src && (
                           <div key={item.id}>
                             {item.display === "both" ? (
-                              <Link to="#" className="restro-closed">
+                              <Link
+                                to={`/restro/${item.id}`}
+                                className="restro-closed"
+                              >
                                 <img
                                   className="content"
                                   alt=""
