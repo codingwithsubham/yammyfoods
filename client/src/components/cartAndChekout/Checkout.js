@@ -11,6 +11,11 @@ import {
   initRazorpay,
 } from "../../actions/RazorpayOptions";
 
+import {
+  getServiceAvailablity,
+  getServiceAvailablityNotice,
+} from "../../actions/auth";
+
 const Checkout = ({
   cart: { cart_items },
   auth: { user },
@@ -22,7 +27,14 @@ const Checkout = ({
   loadRazorpayToggle,
   debitWalletBallance,
   initRazorpay,
+  getServiceAvailablity,
+  getServiceAvailablityNotice,
 }) => {
+  useEffect(() => {
+    getServiceAvailablity();
+    getServiceAvailablityNotice();
+  }, []);
+
   const [data, setData] = useState({
     address: null,
     locationAndTime: null,
@@ -369,6 +381,8 @@ Checkout.propTypes = {
   wallet: PropTypes.object,
   loadRazorpayToggle: PropTypes.func,
   debitWalletBallance: PropTypes.func,
+  getServiceAvailablity: PropTypes.func.isRequired,
+  getServiceAvailablityNotice: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -385,4 +399,6 @@ export default connect(mapStateToProps, {
   loadRazorpayToggle,
   debitWalletBallance,
   initRazorpay,
+  getServiceAvailablity,
+  getServiceAvailablityNotice,
 })(Checkout);
