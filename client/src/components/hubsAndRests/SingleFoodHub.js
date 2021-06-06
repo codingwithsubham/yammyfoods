@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { getRestrosByFoodhub, getFoodHubs } from '../../actions/category';
-import { connect } from 'react-redux';
-import DummyHub from './DummyHub';
-import { Link } from 'react-router-dom';
-import { scroller } from 'react-scroll';
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import { getRestrosByFoodhub, getFoodHubs } from "../../actions/category";
+import { connect } from "react-redux";
+import DummyHub from "./DummyHub";
+import { Link } from "react-router-dom";
+import { scroller } from "react-scroll";
 
 const SingleFoodHub = ({
   getRestrosByFoodhub,
@@ -27,26 +27,26 @@ const SingleFoodHub = ({
 
   const scrollToId = (name) => {
     scroller.scrollTo(name, {
-      activeClass: 'active',
+      activeClass: "active",
       duration: 500,
       delay: 100,
       smooth: true,
       spy: true,
       offset: -120,
     });
-    showHide('hover-content');
+    showHide("hover-content");
   };
 
   const showHide = (id) => {
     let elmnt = document.getElementById(id);
-    let ovrly = document.getElementById('overlay');
+    let ovrly = document.getElementById("overlay");
     if (elmnt) {
-      if (elmnt.style.display === 'block') {
-        elmnt.style.display = 'none';
-        ovrly.style.display = 'none';
+      if (elmnt.style.display === "block") {
+        elmnt.style.display = "none";
+        ovrly.style.display = "none";
       } else {
-        elmnt.style.display = 'block';
-        ovrly.style.display = 'block';
+        elmnt.style.display = "block";
+        ovrly.style.display = "block";
       }
     }
   };
@@ -56,12 +56,12 @@ const SingleFoodHub = ({
 
   return (
     <Fragment>
-      <div className='food-hubs-header'>
-        <div className='food-hubs-content'>
-          <div className='near-me'>
-            <i className='material-icons'>near_me</i> Food Hub
+      <div className="food-hubs-header">
+        <div className="food-hubs-content">
+          <div className="near-me">
+            <i className="material-icons">near_me</i> Food Hub
           </div>
-          <div className='hub-name'>{foodHub && foodHub.name}</div>
+          <div className="hub-name">{foodHub && foodHub.name}</div>
           <p>
             Ordering From Your Nearest Hub will cause the lower delivery charge
           </p>
@@ -76,10 +76,10 @@ const SingleFoodHub = ({
         unique &&
         restroByHubs && (
           <Fragment>
-            <div className='all-hubs'>
+            <div className="all-hubs">
               {unique.map((tag, idx) => (
                 <Fragment key={idx}>
-                  <div id={tag} className='header'>
+                  <div id={tag} className="header">
                     {tag}
                   </div>
                   {restroByHubs
@@ -88,32 +88,48 @@ const SingleFoodHub = ({
                       (item) =>
                         item.image &&
                         item.image.src && (
-                          <Link key={item.id} to={`/restro/${item.id}`}>
-                            <img
-                              className='content'
-                              alt=''
-                              src={item.image && item.image.src}
-                            />
-                          </Link>
+                          <div key={item.id}>
+                            {item.display === "both" ? (
+                              <Link to="#" className="restro-closed">
+                                <img
+                                  className="content"
+                                  alt=""
+                                  src={item.image && item.image.src}
+                                />
+                                <div className="closed-txt">
+                                  {" "}
+                                  -- Restro Closed --{" "}
+                                </div>
+                              </Link>
+                            ) : (
+                              <Link to={`/restro/${item.id}`}>
+                                <img
+                                  className="content"
+                                  alt=""
+                                  src={item.image && item.image.src}
+                                />
+                              </Link>
+                            )}
+                          </div>
                         )
                     )}
                 </Fragment>
               ))}
             </div>
-            <div className='sort-rests'>
-              <div className='hover-menu'>
+            <div className="sort-rests">
+              <div className="hover-menu">
                 <button
-                  className='hoverbtn'
-                  onClick={() => showHide('hover-content')}
+                  className="hoverbtn"
+                  onClick={() => showHide("hover-content")}
                 >
                   Sort By Type
                 </button>
                 <div
-                  id='overlay'
-                  onClick={() => showHide('hover-content')}
-                  className='overlay'
+                  id="overlay"
+                  onClick={() => showHide("hover-content")}
+                  className="overlay"
                 ></div>
-                <div id='hover-content' className='hover-menu-content'>
+                <div id="hover-content" className="hover-menu-content">
                   {unique.map((tag, idx) => (
                     <p key={`${tag}${idx}`} onClick={() => scrollToId(tag)}>
                       {tag}

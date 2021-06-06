@@ -2515,8 +2515,7 @@ img.drivr-img {
     bottom: 13%;
     width: 50%;
     top: auto;
-  border-radius: 6px;
-
+    border-radius: 6px;
   }
 
   img.product-img {
@@ -3852,6 +3851,28 @@ img.drivr-img {
 
   .delivery-home .table table {
     text-align: center;
+  }
+
+  .restro-closed {
+    width: 100% !important;
+    display: flex;
+    color: #fff;
+    font-weight: bolder;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .restro-closed .closed-txt {
+    position: absolute;
+    margin: 15%;
+    text-shadow: 0 0 5px white;
+    font-size: 20px;
+    color: #212121;
+  }
+
+  .restro-closed img.content {
+    opacity: 0.3;
   }
 }
 

@@ -16,7 +16,7 @@ const ServiceUnavailable = ({
   useEffect(() => {
     getServiceAvailablity();
     getServiceAvailablityNotice();
-  }, [getServiceAvailablity, getServiceAvailablityNotice]);
+  }, []);
 
   return (
     serviceAvailablity === "yes" && (
