@@ -9,6 +9,7 @@ export const AREAS = [
       { label: "Manohorpur / Ratneswarbati", value: "5" },
       { label: "Barda / Shimulia", value: "5" },
       { label: "Pratappur", value: "15" },
+      { label: "Radhanagar", value: "20" },
     ],
   },
 
