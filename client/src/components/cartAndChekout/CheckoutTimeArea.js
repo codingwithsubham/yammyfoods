@@ -1,13 +1,13 @@
-import React, { Fragment, useState } from 'react';
-import Select from 'react-select';
-import { AREAS, DELIVERY_TIME } from './checkout_areas';
+import React, { Fragment, useState } from "react";
+import Select from "react-select";
+import { AREAS, AREAS_HALDIA, DELIVERY_TIME } from "./checkout_areas";
 
-const CheckoutTimeArea = ({ timeArea, pin }) => {
+const CheckoutTimeArea = ({ timeArea, pin, user }) => {
   const [orderDetails, setOrderDetails] = useState({
-    location: '',
+    location: "",
     time: startTime(DELIVERY_TIME.filter((x) => x.pin == pin)[0].time + 20),
     customTime: false,
-    customerNotes: '',
+    customerNotes: "",
   });
 
   const [error, setError] = useState(false);
@@ -18,10 +18,10 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
   };
 
   const onRadioChange = (e) => {
-    if (e.target.value === 'standard') {
+    if (e.target.value === "standard") {
       setOrderDetails({ ...orderDetails, customTime: false });
     } else {
-      setOrderDetails({ ...orderDetails, time: '', customTime: true });
+      setOrderDetails({ ...orderDetails, time: "", customTime: true });
     }
   };
 
@@ -39,11 +39,24 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
   };
 
   let options = [];
-  AREAS.forEach((item) => {
-    return item.pin == pin
-      ? (options = [...item.areas])
-      : (options = [...options]);
-  });
+
+  //Assigning Areas for Ghatal
+  if (user.location === "Ghatal") {
+    AREAS.forEach((item) => {
+      return item.pin == pin
+        ? (options = [...item.areas])
+        : (options = [...options]);
+    });
+  }
+
+  //Assigning Areas for Haldia
+  if (user.location === "Haldia") {
+    AREAS_HALDIA.forEach((item) => {
+      return item.pin == pin
+        ? (options = [...item.areas])
+        : (options = [...options]);
+    });
+  }
 
   function startTime(addingTime) {
     let today = new Date();
@@ -59,16 +72,16 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
       pm = true;
     }
     if (h == 0) h = 12;
-    if (m.length == 1) m = '0' + m;
-    return h + ':' + m + '' + (pm ? 'pm' : 'am');
+    if (m.length == 1) m = "0" + m;
+    return h + ":" + m + "" + (pm ? "pm" : "am");
   }
 
   return (
     <Fragment>
-      <div className='multi-step-container'>
-        <div className='header'>Additional Details</div>
-        <form onSubmit={(e) => onSubmit(e)} className='address-box'>
-          <div className='checkout-inputs'>
+      <div className="multi-step-container">
+        <div className="header">Additional Details</div>
+        <form onSubmit={(e) => onSubmit(e)} className="address-box">
+          <div className="checkout-inputs">
             <h5>Select Your Area</h5>
 
             <Select
@@ -79,45 +92,45 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                 setOrderDetails({ ...orderDetails, location: e });
                 setError(false);
               }}
-              placeholder={'Select Your Area'}
-              className={error ? 'required' : 'select'}
+              placeholder={"Select Your Area"}
+              className={error ? "required" : "select"}
             />
-            {error && <div className='err'>Please Select an Area</div>}
+            {error && <div className="err">Please Select an Area</div>}
             <Fragment>
               <span>Order Notes</span>
               <input
-                type='text'
-                name='customerNotes'
+                type="text"
+                name="customerNotes"
                 value={orderDetails.customerNotes}
                 onChange={(e) => onChange(e)}
                 maxLength={50}
                 minLength={2}
-                style={{ height: '60px' }}
+                style={{ height: "60px" }}
               />
             </Fragment>
 
             <h5>Select Time Span</h5>
-            <div className='time-block'>
-              <label className='radio-container'>
+            <div className="time-block">
+              <label className="radio-container">
                 Standard Delivery Time
                 <input
-                  type='radio'
-                  name='radio'
-                  value='standard'
+                  type="radio"
+                  name="radio"
+                  value="standard"
                   onChange={(e) => onRadioChange(e)}
                   defaultChecked
                 />
-                <span className='checkmark'></span>
+                <span className="checkmark"></span>
               </label>
-              <label className='radio-container'>
+              <label className="radio-container">
                 Choose Custom Time
                 <input
-                  type='radio'
-                  name='radio'
-                  value='custom'
+                  type="radio"
+                  name="radio"
+                  value="custom"
                   onChange={(e) => onRadioChange(e)}
                 />
-                <span className='checkmark'></span>
+                <span className="checkmark"></span>
               </label>
             </div>
 
@@ -125,8 +138,8 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
               <Fragment>
                 <span>Please Mention The Time</span>
                 <input
-                  type='text'
-                  name='time'
+                  type="text"
+                  name="time"
                   value={orderDetails.time}
                   onChange={(e) => onChange(e)}
                   required
@@ -135,21 +148,21 @@ const CheckoutTimeArea = ({ timeArea, pin }) => {
                 />
               </Fragment>
             ) : (
-              <div className='delivery-time'>
+              <div className="delivery-time">
                 <b>Delivery Time:</b>
                 {startTime(DELIVERY_TIME.filter((x) => x.pin == pin)[0].time)}
-                {' - '}
+                {" - "}
                 {startTime(
                   DELIVERY_TIME.filter((x) => x.pin == pin)[0].time + 30
                 )}
               </div>
             )}
           </div>
-          <div className='cart-final'>
-            <button onClick={() => onPrevAction()} className='btn prev'>
+          <div className="cart-final">
+            <button onClick={() => onPrevAction()} className="btn prev">
               Prev
             </button>
-            <button type='submit' className='btn next'>
+            <button type="submit" className="btn next">
               Next
             </button>
           </div>

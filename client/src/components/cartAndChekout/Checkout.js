@@ -258,10 +258,11 @@ const Checkout = ({
         <AddressDetails
           user={address ? address : user && user.billing}
           addedAddr={addedAddr}
+          location={user && user.location}
         />
       )}
       {locationAndTimeFlag && (
-        <TimeArea timeArea={timeArea} pin={address.postcode} />
+        <TimeArea timeArea={timeArea} pin={address.postcode} user={user} />
       )}
       {paymentFlag && (
         <Fragment>

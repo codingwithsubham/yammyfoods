@@ -50,6 +50,64 @@ export const AREAS = [
   // { pin: 721232, areas: [{ label: "Khirpai Municipality Area", value: "0" }] },
 ];
 
+//Areas For Haldia
+export const AREAS_HALDIA = [
+  {
+    pin: 721607,
+    areas: [
+      { label: "Kollol Collony", value: "10" },
+      { label: "Brajanathchak", value: "10" },
+      { label: "Coast Guard complex", value: "10" },
+      { label: "Jwahar tower", value: "10" },
+    ],
+  },
+  {
+    pin: 721602,
+    areas: [
+      { label: "Durgachak", value: "0" },
+      { label: "Hpl Link Road Housing", value: "0" },
+      { label: "Priyangbada Housing", value: "5" },
+      { label: "Basudevpur", value: "0" },
+      { label: "Anusua Housing", value: "0" },
+    ],
+  },
+  {
+    pin: 721635,
+    areas: [
+      { label: "Sutahata", value: "5" },
+      { label: "Girishmore", value: "0" },
+      { label: "Sree krishnapur Housing", value: "5" },
+      { label: "Bdo Office More", value: "10" },
+    ],
+  },
+  {
+    pin: 721645,
+    areas: [
+      { label: "Chaitanyapur", value: "0" },
+      { label: "Nabatara Club", value: "0" },
+      { label: "Rampur College", value: "5" },
+    ],
+  },
+  {
+    pin: 721606,
+    areas: [
+      { label: "Hit Campus", value: "5" },
+      { label: "BC Roy College  More", value: "10" },
+      { label: "Hrel Housing Complex", value: "15" },
+      { label: "Mcpi Housing Complex", value: "10" },
+    ],
+  },
+  {
+    pin: 721657,
+    areas: [
+      { label: "Hit Campus", value: "5" },
+      { label: "BC Roy College  More", value: "10" },
+      { label: "Hrel Housing Complex", value: "15" },
+      { label: "Mcpi Housing Complex", value: "10" },
+    ],
+  },
+];
+
 export const DELIVERY_TIME = [
   {
     pin: 721212,
@@ -70,5 +128,30 @@ export const DELIVERY_TIME = [
   {
     pin: 721232,
     time: 100,
+  },
+  //haldia
+  {
+    pin: 721607,
+    time: 60,
+  },
+  {
+    pin: 721602,
+    time: 60,
+  },
+  {
+    pin: 721635,
+    time: 60,
+  },
+  {
+    pin: 721645,
+    time: 60,
+  },
+  {
+    pin: 721606,
+    time: 60,
+  },
+  {
+    pin: 721606,
+    time: 60,
   },
 ];
