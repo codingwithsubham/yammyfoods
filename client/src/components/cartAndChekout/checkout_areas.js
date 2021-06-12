@@ -151,7 +151,7 @@ export const DELIVERY_TIME = [
     time: 60,
   },
   {
-    pin: 721606,
+    pin: 721657,
     time: 60,
   },
 ];
