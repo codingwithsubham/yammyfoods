@@ -39,7 +39,7 @@ const Checkout = ({
     address: null,
     locationAndTime: null,
     shipping: 0,
-    payment: null,
+    payment: "Cash on delivery",
   });
 
   const [formFlagdata, setFormFlagdata] = useState({
@@ -333,6 +333,7 @@ const Checkout = ({
                 type="radio"
                 name="radio"
                 value="Cash on delivery"
+                defaultChecked
                 onChange={(e) => onRadioChange(e)}
               />
               <span className="checkmark"></span>

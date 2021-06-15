@@ -30,24 +30,34 @@ router.get("/", auth, async (req, res) => {
 // @route   to get Assigned orders for a driver
 router.post("/assigned-for-delivery", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
-  WooCommerce.get(`orders/drivers/assigned?id=${req.user.id}`)
+  WooCommerce.get(`orders?status=driver-assigned&per_page=100`)
     .then((response) => {
-      res.json(response.data);
+      res.json(
+        response.data &&
+          response.data.filter(
+            (x) => x && x.driver && x.driver.driver_id == req.user.id
+          )
+      );
     })
     .catch((error) => {
-      res.json(error.response);
+      res.json(error.response.data);
     });
 });
 
 // @route   to get Assigned orders for a driver
 router.post("/marked-orders-for-delivery", auth, async (req, res) => {
   const WooCommerce = getWooInstance(req.user.location);
-  WooCommerce.get(`orders/drivers/out-for-delivery?id=${req.user.id}`)
+  WooCommerce.get(`orders?status=out-for-delivery&per_page=100`)
     .then((response) => {
-      res.json(response.data);
+      res.json(
+        response.data &&
+          response.data.filter(
+            (x) => x && x.driver && x.driver.driver_id == req.user.id
+          )
+      );
     })
     .catch((error) => {
-      res.json(error.response);
+      res.json(error.response.data);
     });
 });
 

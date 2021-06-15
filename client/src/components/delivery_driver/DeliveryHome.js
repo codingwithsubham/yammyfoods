@@ -46,9 +46,7 @@ const DeliveryHome = ({
       </div>
       <div className="table">
         <h1>Assigned Orders</h1>
-        {assigned_orders &&
-        assigned_orders.orders &&
-        assigned_orders.orders.length > 0 ? (
+        {assigned_orders && assigned_orders.length > 0 ? (
           <table>
             <thead>
               <tr>
@@ -59,8 +57,7 @@ const DeliveryHome = ({
             </thead>
             <tbody>
               {assigned_orders &&
-                assigned_orders.orders &&
-                assigned_orders.orders.map((item, idx) => (
+                assigned_orders.map((item, idx) => (
                   <tr key={idx}>
                     <td>{item.id}</td>
                     <td>{item.status}</td>
@@ -80,9 +77,7 @@ const DeliveryHome = ({
       {/* for marked orders */}
       <div className="table">
         <h1>Marked Orders</h1>
-        {marked_orders &&
-        marked_orders.orders &&
-        marked_orders.orders.length > 0 ? (
+        {marked_orders && marked_orders.length > 0 ? (
           <table>
             <thead>
               <tr>
@@ -93,8 +88,7 @@ const DeliveryHome = ({
             </thead>
             <tbody>
               {marked_orders &&
-                marked_orders.orders &&
-                marked_orders.orders.map((item, idx) => (
+                marked_orders.map((item, idx) => (
                   <tr key={idx}>
                     <td>{item.id}</td>
                     <td>{item.status}</td>
