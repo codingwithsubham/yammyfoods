@@ -6,6 +6,7 @@ import HubsSlider from "../dashboard/HubsSlider";
 import GlobalMessage from "../layout/GlobalMessage";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import PullToRefresh from "react-simple-pull-to-refresh";
 import {
   getServiceAvailablity,
   getServiceAvailablityNotice,
@@ -16,9 +17,17 @@ const Dashboard = ({ getServiceAvailablity, getServiceAvailablityNotice }) => {
     getServiceAvailablity();
     getServiceAvailablityNotice();
   }, []);
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="dashboard">
-      <LatestProductSlider />
+      <PullToRefresh onRefresh={handleRefresh}>
+        <LatestProductSlider />
+      </PullToRefresh>
+
       <GlobalMessage />
       <div className="header">
         Find By Category <span>View All</span>

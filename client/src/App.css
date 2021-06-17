@@ -2060,17 +2060,6 @@ img.drivr-img {
 
 /************************MOBILE LOOK***********************/
 
-/*PULL TO REFRESH*/
-.ptr__children {
-  height: 100vh !important;
-}
-.ptr--pull-down-treshold-breached .ptr__pull-down {
-  opacity: 1 !important;
-  position: absolute !important;
-  margin-top: 80px !important;
-}
-/*PULL TO REFRESH*/
-
 /*Mobile Screen*/
 @media screen and (max-width: 450px) {
   body {
@@ -2102,6 +2091,7 @@ img.drivr-img {
     z-index: 100;
     border-radius: 0px;
   }
+
   .menu-button {
     position: fixed;
     display: block;

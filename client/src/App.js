@@ -11,7 +11,6 @@ import Navbar from "./components/layout/Navbar";
 import Sidebar from "./components/layout/Sidebar";
 import BottomBar from "./components/layout/BottomBar";
 import ServiceUnavailable from "./components/layout/ServiceUnavailable";
-import PullToRefresh from "react-simple-pull-to-refresh";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -36,10 +35,6 @@ const App = () => {
   }, []);
   const [width] = useWindowSize();
 
-  const handleRefresh = () => {
-    window.location.reload();
-  };
-
   return (
     <Provider store={store}>
       <Router>
@@ -50,9 +45,7 @@ const App = () => {
               <Navbar />
               <Sidebar />
               <Switch>
-                <PullToRefresh onRefresh={handleRefresh}>
-                  <Route component={Routes} />
-                </PullToRefresh>
+                <Route component={Routes} />
               </Switch>
               <BottomBar />
             </Fragment>
