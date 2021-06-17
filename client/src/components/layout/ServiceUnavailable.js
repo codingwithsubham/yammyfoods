@@ -11,7 +11,7 @@ const ServiceUnavailable = ({
   getServiceAvailablity,
   getServiceAvailablityNotice,
   logout,
-  auth: { serviceAvailablity, serviceAvailablityNotice },
+  auth: { serviceAvailablity, serviceAvailablityNotice, user },
 }) => {
   useEffect(() => {
     getServiceAvailablity();
@@ -19,7 +19,9 @@ const ServiceUnavailable = ({
   }, []);
 
   return (
-    serviceAvailablity === "yes" && (
+    serviceAvailablity === "yes" &&
+    user &&
+    user.role !== "driver" && (
       <Fragment>
         <div className="service-unavailable">
           <img

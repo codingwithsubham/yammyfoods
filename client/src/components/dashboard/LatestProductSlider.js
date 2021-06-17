@@ -1,13 +1,13 @@
-import React, { useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { getLatestproducts } from '../../actions/products';
-import { connect } from 'react-redux';
+import React, { useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
+import { getLatestproducts } from "../../actions/products";
+import { connect } from "react-redux";
 // import AliceCarousel from 'react-alice-carousel';
 // import 'react-alice-carousel/lib/alice-carousel.css';
 
 const LatestProductSlider = ({
   getLatestproducts,
-  products: { products, loading }
+  products: { products, loading },
 }) => {
   useEffect(() => {
     getLatestproducts();
@@ -18,15 +18,15 @@ const LatestProductSlider = ({
   return (
     products &&
     (loading ? (
-      <div className='dmy-slider'></div>
+      <div className="dmy-slider"></div>
     ) : (
       <Fragment>
-        <div className='slideshow-container'>
+        <div className="slideshow-container">
           <img
-            alt='Yammy Foods Latest News'
+            alt="Yammy Foods Latest News"
             src={require(`../../sliders/abb.gif`)}
-            style={{ width: '100%' }}
-            className='sliderimg'
+            style={{ width: "100%" }}
+            className="sliderimg"
           />
         </div>
       </Fragment>
@@ -36,10 +36,10 @@ const LatestProductSlider = ({
 
 LatestProductSlider.propTypes = {
   products: PropTypes.object.isRequired,
-  getLatestproducts: PropTypes.func.isRequired
+  getLatestproducts: PropTypes.func.isRequired,
 };
-const mapStateToProps = state => ({
-  products: state.products
+const mapStateToProps = (state) => ({
+  products: state.products,
 });
 
 export default connect(mapStateToProps, { getLatestproducts })(

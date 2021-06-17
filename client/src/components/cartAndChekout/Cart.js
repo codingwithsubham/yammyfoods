@@ -18,7 +18,7 @@ const Cart = ({
   getServiceAvailablityNotice,
 }) => {
   useEffect(() => {
-    getCart("001");
+    getCart();
   }, [getCart]);
 
   useEffect(() => {

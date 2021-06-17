@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LatestProductSlider from "./LatestProductSlider";
 import CategorySlider from "./CategorySlider";
 import LatestProducts from "../all_products/LatestProducts";
 import HubsSlider from "../dashboard/HubsSlider";
 import GlobalMessage from "../layout/GlobalMessage";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import {
+  getServiceAvailablity,
+  getServiceAvailablityNotice,
+} from "../../actions/auth";
 
-const Dashboard = () => {
+const Dashboard = ({ getServiceAvailablity, getServiceAvailablityNotice }) => {
+  useEffect(() => {
+    getServiceAvailablity();
+    getServiceAvailablityNotice();
+  }, []);
   return (
     <div className="dashboard">
       <LatestProductSlider />
@@ -26,6 +36,14 @@ const Dashboard = () => {
   );
 };
 
-Dashboard.propTypes = {};
+Dashboard.propTypes = {
+  getServiceAvailablity: PropTypes.func.isRequired,
+  getServiceAvailablityNotice: PropTypes.func.isRequired,
+};
 
-export default Dashboard;
+const mapStateToProps = () => ({});
+
+export default connect(mapStateToProps, {
+  getServiceAvailablity,
+  getServiceAvailablityNotice,
+})(Dashboard);
