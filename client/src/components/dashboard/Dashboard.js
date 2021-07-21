@@ -7,6 +7,7 @@ import GlobalMessage from "../layout/GlobalMessage";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import PullToRefresh from "react-simple-pull-to-refresh";
+import GoogleAds from "../layout/GoogleAds";
 import {
   getServiceAvailablity,
   getServiceAvailablityNotice,
@@ -41,6 +42,10 @@ const Dashboard = ({ getServiceAvailablity, getServiceAvailablityNotice }) => {
         New Arrivals <span>View All</span>
       </div>
       <LatestProducts />
+      <div className="header">
+        Sponsored <span></span>
+      </div>
+      <GoogleAds />
     </div>
   );
 };

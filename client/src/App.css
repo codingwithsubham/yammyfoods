@@ -2061,7 +2061,7 @@ img.drivr-img {
 /************************MOBILE LOOK***********************/
 
 /*Mobile Screen*/
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 768px) {
   body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -3878,8 +3878,8 @@ img.drivr-img {
     opacity: 0.3;
   }
 }
-
-/*Tablet Screen*/
+/* 
+//Tablet Screen
 @media screen and (max-width: 768px) {
   .logo img {
     max-width: 20%;
@@ -3958,7 +3958,7 @@ img.drivr-img {
   .delivery-home .table table {
     text-align: center;
   }
-}
+} */
 
 /* width */
 ::-webkit-scrollbar {
