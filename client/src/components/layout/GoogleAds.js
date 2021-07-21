@@ -7,7 +7,7 @@ class GoogleAds extends Component {
 
   render() {
     return (
-      <div>
+      <div className="google-ads">
         <ins
           className="adsbygoogle"
           style={{ display: "block" }}

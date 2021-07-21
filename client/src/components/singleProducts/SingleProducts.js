@@ -5,6 +5,7 @@ import { getProductById } from "../../actions/products";
 import StarRatings from "react-star-ratings";
 import SingleProductDummy from "./SingleProductDummy";
 import { addToCart, removeFromCart } from "../../actions/cart";
+import GoogleAds from "../layout/GoogleAds";
 
 const SingleProducts = ({
   match,
@@ -103,6 +104,10 @@ const SingleProducts = ({
             </div>
           </div>
         </div>
+        <div className="header">
+          Sponsored <span></span>
+        </div>
+        <GoogleAds />
       </div>
     </Fragment>
   );

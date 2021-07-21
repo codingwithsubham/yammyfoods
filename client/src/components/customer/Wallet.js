@@ -8,6 +8,7 @@ import {
 import { Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { loadRazorpayToggle } from "../../actions/RazorpayOptions";
+import GoogleAds from "../layout/GoogleAds";
 
 const Wallet = ({
   getWalletBalance,
@@ -137,7 +138,7 @@ const Wallet = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions &&
+                  {transactions && transactions.length > 0 ? (
                     transactions.map((itm, indx) => (
                       <tr
                         style={{
@@ -149,12 +150,19 @@ const Wallet = ({
                         <td>{itm.amount}</td>
                         <td>{itm.type}</td>
                       </tr>
-                    ))}
+                    ))
+                  ) : (
+                    <p>No Data Found</p>
+                  )}
                 </tbody>
               </table>
             </div>
           </Fragment>
         )}
+        <div className="header">
+          Sponsored <span></span>
+        </div>
+        <GoogleAds />
       </div>
     </Fragment>
   );

@@ -667,6 +667,8 @@ img.cart-item.img {
   z-index: 999999;
   height: 100vh;
   width: 100%;
+  top: 0px;
+  left: 0px;
 }
 
 .nav-icon {
@@ -683,6 +685,8 @@ img.cart-item.img {
   animation-duration: 0.2s;
   overflow-y: scroll;
   overflow-x: hidden;
+  top: 0px;
+  left: 0px;
 }
 
 .sidebar {
@@ -2729,6 +2733,8 @@ img.drivr-img {
     z-index: 999999;
     height: 100vh;
     width: 100%;
+    top: 0px;
+    left: 0px;
   }
 
   .sidebar-content {
@@ -2741,6 +2747,8 @@ img.drivr-img {
     animation-duration: 0.2s;
     overflow-y: scroll;
     overflow-x: hidden;
+    top: 0px;
+    left: 0px;
   }
 
   .sidebar {
@@ -3055,9 +3063,10 @@ img.drivr-img {
     margin-left: 9% !important;
     background: #fff;
     border-radius: 4px;
-    width: 80% !important;
+    width: 70% !important;
     text-align: center;
     min-height: 80px;
+    height: 125px;
     box-shadow: 0px 0px 5px 0px #777;
     display: flex;
     flex-wrap: wrap;
@@ -4009,4 +4018,9 @@ svg.widget-svg {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.google-ads {
+  overflow: hidden;
+  padding-bottom: 30px;
 }

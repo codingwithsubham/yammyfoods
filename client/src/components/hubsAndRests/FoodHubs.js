@@ -1,9 +1,10 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { getFoodHubs } from '../../actions/category';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import DummyHub from './DummyHub';
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import { getFoodHubs } from "../../actions/category";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import DummyHub from "./DummyHub";
+import GoogleAds from "../layout/GoogleAds";
 
 const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
   useEffect(() => {
@@ -18,17 +19,21 @@ const FoodHubs = ({ getFoodHubs, category: { categories, loading } }) => {
   ) : (
     categories && (
       <Fragment>
-        <div className='all-hubs'>
+        <div className="all-hubs">
           {categories.map(
             (item) =>
               item.image &&
               item.image.src && (
                 <Link key={item.id} to={`/food-hub/${item.id}`}>
-                  <img alt='' src={item.image && item.image.src} />
+                  <img alt="" src={item.image && item.image.src} />
                 </Link>
               )
           )}
         </div>
+        <div className="header">
+          Sponsored <span></span>
+        </div>
+        <GoogleAds />
       </Fragment>
     )
   );
