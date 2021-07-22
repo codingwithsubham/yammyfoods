@@ -7,9 +7,9 @@ export const AREAS = [
       { label: "Harispur / Kamalpur / Khanjapur", value: "20" },
       { label: "Nimtala / Rasikganj", value: "5" },
       { label: "Manohorpur / Ratneswarbati", value: "5" },
-      { label: "Barda / Shimulia", value: "5" },
+      // { label: "Barda / Shimulia", value: "5" },
       { label: "Pratappur", value: "15" },
-      { label: "Radhanagar", value: "20" },
+      // { label: "Radhanagar", value: "20" },
     ],
   },
 
@@ -29,15 +29,15 @@ export const AREAS = [
     ],
   },
 
-  {
-    pin: 721222,
-    areas: [
-      { label: "Kharar Municipality Area", value: "0" },
-      { label: "Dirghagram", value: "10" },
-      { label: "Beurgram", value: "40" },
-      { label: "Birsingha", value: "10" },
-    ],
-  },
+  // {
+  //   pin: 721222,
+  //   areas: [
+  //     { label: "Kharar Municipality Area", value: "0" },
+  //     { label: "Dirghagram", value: "10" },
+  //     { label: "Beurgram", value: "40" },
+  //     { label: "Birsingha", value: "10" },
+  //   ],
+  // },
 
   // {
   //   pin: 721146,
