@@ -7,7 +7,7 @@ export const AREAS = [
       //{ label: "Harispur / Kamalpur / Khanjapur", value: "20" },
       { label: "Nimtala / Rasikganj", value: "5" },
       //{ label: "Manohorpur / Ratneswarbati", value: "5" },
-      //{ label: "Barda / Shimulia", value: "5" },
+      { label: "Barda / Shimulia", value: "5" },
       //{ label: "Pratappur", value: "15" },
       // { label: "Radhanagar", value: "20" },
     ],
@@ -18,7 +18,7 @@ export const AREAS = [
     areas: [
       { label: "Daspur Town Area", value: "0" },
       { label: "Gandhi Mission", value: "15" },
-      { label: "Sagarpur", value: "30" },
+      //{ label: "Sagarpur", value: "30" },
       //{ label: "Baikuntapur", value: "15" },
       //{ label: "Beltala", value: "25" },
       // { label: 'Sultalnagar', value: '20' },
